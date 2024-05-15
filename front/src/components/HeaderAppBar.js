@@ -9,6 +9,7 @@ const HeaderAppBar = () => {
         <Typography variant="h6" style={{ flexGrow: 1 }}>
           No Dae Chul
         </Typography>
+        {/*메인화면 이동용 테스트 버튼*/}
         <Button variant='contained' color="secondary" component={Link} to="/">Main</Button>
         <Button variant='contained' color="primary" component={Link} to="/Login">Sign in</Button>
         <Button variant='contained' color="secondary" component={Link} to="/Signup">Sign up</Button>
