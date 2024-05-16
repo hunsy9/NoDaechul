@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 @Slf4j
 @Configuration
-@MapperScan(value = "com.example.zero", sqlSessionFactoryRef = "SqlSessionFactory")
+@MapperScan(value = "com.cloudcomputing.nodaechul", sqlSessionFactoryRef = "SqlSessionFactory")
 public class DatabaseConfig {
     @Value("${spring.datasource.mapper-locations}")
     String mPath;
