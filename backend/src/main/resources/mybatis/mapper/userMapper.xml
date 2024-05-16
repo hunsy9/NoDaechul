@@ -2,20 +2,5 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.zero.user.domain.repository.mapper.UserMapper">
-    <insert id="createUser" parameterType="com.example.zero.user.domain.model.SignUpRequestDto" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user VALUES (0, #{email}, #{student_id}, #{name}, #{password}, #{user_state}, #{user_role}, now(), now())
-    </insert>
-
-    <delete id="deleteUser" parameterType="Long">
-        DELETE FROM user WHERE id = #{userId}
-    </delete>
-
-    <update id="activateUser" parameterType="hashMap">
-        UPDATE user SET user_state = '${state}' WHERE id = '${userId}'
-    </update>
-
-    <select id="findByEmail" parameterType="String" resultType="com.example.zero.user.domain.model.SignUpRequestDto">
-        SELECT id, email, student_id, name, password, user_state, user_role FROM user WHERE email = '${email}'
-    </select>
+<mapper namespace="com.cloudcomputing.nodaechul.user.domain.repository.mapper.UserMapper">
 </mapper>
