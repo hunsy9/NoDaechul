@@ -113,18 +113,6 @@ CREATE TABLE `user` (
   UNIQUE KEY `email` (`email`(255))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-
-INSERT INTO `user` (`id`, `email`, `student_id`, `name`, `password`, `user_state`, `user_role`, `created_at`, `updated_at`)
-VALUES
-	(16,'yungs0917@naver.com','201924515','교수','{bcrypt}$2a$10$hkGvGEJn4CXVus5VqIWHbuDUqDesPpyY/2nuq3/uQwOvSsgsfAM6.','Active','Admin','2024-05-11 14:56:07','2024-05-12 10:04:15'),
-	(30,'juniper0917@gmail.com','201924516','유승훈','{bcrypt}$2a$10$P6R9ytJVvAqKe6MLKk6OeOgJxChar21e7z/GJxeA58W.ZowUFPvBW','Active','RegularUser','2024-05-12 07:43:44','2024-05-12 07:43:55');
-
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
