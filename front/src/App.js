@@ -1,12 +1,14 @@
 import './App.css';
 import React from 'react';
-import Login from './Pages/Login';
+import SignIn from './Pages/Signin';
 import Signup from './Pages/Signup';
-import MainContent from './components/MainContent'
+import Landing from './Pages/Landing';
+import MainContent from './Pages/MainContent';
 import HeaderAppBar from './components/HeaderAppBar';
 import {Routes, Route, Link, BrowserRouter} from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
+import { AuthProvider, useAuth } from './auth/AuthContext';
 
 const theme = createTheme({
   palette: {
@@ -20,14 +22,17 @@ const theme = createTheme({
 });
 
 function App() {
+  const { isAuthenticated } = useAuth();
+
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline/>
       <BrowserRouter>
         <div className='App'>
-          <HeaderAppBar />
+          {!isAuthenticated && <HeaderAppBar />}
           <Routes>
-            <Route path="/" element={<MainContent />} />
-            <Route path="/Login" element={<Login />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/Login" element={<SignIn />} />
             <Route path="/Signup" element={<Signup />} />
           </Routes>
         </div>

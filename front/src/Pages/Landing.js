@@ -1,10 +1,10 @@
 import React from 'react';
 import { Container, Typography, Button } from '@mui/material';
-import ImageSection from './ImageSection';
+import ImageSection from '../components/ImageSection';
 import sampleImage from '../assets/sample.png'
 import { Link } from 'react-router-dom';
 
-const MainContent = () => {
+const Landing = () => {
   return (
     <Container maxWidth="md" style={{ textAlign: 'center', marginTop: '50px' }}>
       <Typography variant="h4" gutterBottom>
@@ -18,4 +18,4 @@ const MainContent = () => {
   );
 };
 
-export default MainContent;
+export default Landing;
