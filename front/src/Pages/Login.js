@@ -26,18 +26,29 @@ function Copyright(props) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const loginData = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+
+    const raw = JSON.stringify(loginData);
+
+    const requestOptions = {
+      method: 'POST',
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch("http://ndc.koreacentral.cloudapp.azure.com:5555/api/user/login", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
   };
 
   return (
@@ -98,7 +109,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
