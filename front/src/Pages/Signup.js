@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import Link from '@mui/material/Link';
 import {
   Avatar,
   Button,
@@ -34,17 +34,12 @@ const Boxs = styled(Box)`
 
 const Register = () => {
   const theme = createTheme();
-  const [checked, setChecked] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordState, setPasswordState] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [nameError, setNameError] = useState('');
   const [registerError, setRegisterError] = useState('');
-
-  const handleAgree = (event) => {
-    setChecked(event.target.checked);
-  };
 
   const handleStudentChange = (event) => {
     setIsStudent(event.target.value === 'yes');
@@ -107,15 +102,11 @@ const Register = () => {
     if (!nameRegex.test(name) || name.length < 1) setNameError('올바른 이름을 입력해주세요.');
     else setNameError('');
 
-    // 회원가입 동의 체크
-    if (!checked) alert('회원가입 약관에 동의해주세요.');
-
     if (
       emailRegex.test(email) &&
       passwordRegex.test(password) &&
       password === rePassword &&
-      nameRegex.test(name) &&
-      checked
+      nameRegex.test(name)
     ) {
       onhandlePost(joinData);
     }
@@ -213,12 +204,6 @@ const Register = () => {
                     />
                   </Grid>
                 )}
-                <Grid item xs={12}>
-                  <FormControlLabel
-                    control={<Checkbox onChange={handleAgree} color="primary" />}
-                    label="회원가입 약관에 동의합니다."
-                  />
-                </Grid>
               </Grid>
               <Button
                 type="submit"
@@ -229,6 +214,11 @@ const Register = () => {
               >
                 회원가입
               </Button>
+              <Grid item xs>
+                <Link href="/" variant="body2">
+                  Back to Home
+                </Link>
+              </Grid>
             </FormControl>
             <FormHelperTexts>{registerError}</FormHelperTexts>
           </Boxs>
