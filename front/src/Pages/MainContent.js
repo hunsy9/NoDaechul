@@ -70,7 +70,7 @@ const MainContent = () => {
               Create Your Classroom
               <SvgIcon component={AddIcon} sx={{marginLeft: 2}}/>
             </Button>
-            {showForm && <ClassroomForm addClassroom={addClassroom}/>}
+            {showForm && <ClassroomForm addClassroom={addClassroom} onCancel={handleCreateClassroomClick}/>}
           </Box>
         </Grid>
       </Grid>

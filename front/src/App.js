@@ -26,7 +26,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline/>
+      {/* <CssBaseline/>
       <BrowserRouter>
         <div className='App'>
           {!isAuthenticated && <HeaderAppBar />}
@@ -36,9 +36,9 @@ function App() {
             <Route path="/Signup" element={<Signup />} />
           </Routes>
         </div>
-      </BrowserRouter>
+      </BrowserRouter> */}
       {/* 테스트용, ThemeProvider를 제외한 나머지 주석 처리 후, 밑의 내용 주석 해제 */}
-      {/* <MainContent/> */}
+      <MainContent/>
     </ThemeProvider>
     
   );

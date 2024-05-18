@@ -1,14 +1,14 @@
 // ClassroomForm.js
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-const ClassroomForm = (props) => {
+const ClassroomForm = ({addClassroom, onCancel}) => {
   const [className, setClassName] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.addClassroom({
+    addClassroom({
       id: Math.floor(Math.random() * 10000),
       text: className,
       password: password,
@@ -26,12 +26,16 @@ const ClassroomForm = (props) => {
         flexDirection: 'column',
         alignItems: 'center',
         '& .MuiTextField-root': { m: 1, width: '25ch' },
-        '& .MuiButton-root': { m: 1 }
+        '& .MuiButton-root': { m: 1 },
+        marginTop: 5
       }}
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit}
     >
+      <Typography variant="h6" sx={{marginLeft:1, marginRight:1}}>
+        Your New Classroom
+      </Typography>
       <TextField
         required
         id="class-name"
@@ -46,7 +50,11 @@ const ClassroomForm = (props) => {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <Button type="submit" variant="contained" color="primary">Create</Button>
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 2 }}>
+        <Button type="submit" variant="contained" color="primary">Create</Button>
+        <Button onClick={onCancel} variant="contained" color="primary">Cancel</Button>
+      </Box>
+      
     </Box>
   );
 };
