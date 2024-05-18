@@ -1,16 +1,18 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import { Collapse, ListItemButton, ListItemIcon, ListItemText, SvgIcon, Typography, List } from '@mui/material';
-import ClassroomList from './ClassroomList';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-
-import faceIdImage from './faceid.png';
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 
-export default function Side() {
+import faceIdImage from '../assets/faceid.png';
+import ClassroomList from './ClassroomList';
 
-  const [open, setOpen] = React.useState(true);
+export default function Side(props) {
+  
+  // const [showForm, setShowForm] = useState(false);
+  
+  const [open, setOpen] = useState(true);
 
   const handleClick = () => {
     setOpen(!open);
@@ -45,8 +47,7 @@ export default function Side() {
           <ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
               {/* Classroom이 위치할 곳 */}
-              <ClassroomList>
-              </ClassroomList>
+              <ClassroomList classrooms={props.classrooms} />
             </ListItemIcon>
           </ListItemButton>
         </List>
