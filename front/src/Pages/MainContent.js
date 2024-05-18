@@ -39,6 +39,7 @@ const MainContent = () => {
             <Typography variant="subtitle1" sx={{marginRight: 2}}>
               Kim Tae Un
             </Typography>
+            {/* TODO: 설정버튼 기능 추가 */}
             <IconButton>
               <SettingsIcon />
             </IconButton>
