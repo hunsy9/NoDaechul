@@ -44,6 +44,7 @@ export default function Side(props) {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
+          {/* TODO: 디자인 수정 필요 */}
           <ListItemButton sx={{ pl: 4 }}>
             <ListItemIcon>
               {/* Classroom이 위치할 곳 */}
