@@ -46,13 +46,20 @@ const Register = () => {
   };
 
   const onhandlePost = async (data) => {
+    var role = '';
+    if(isStudent){
+      role = 'User'
+    }
+    else {
+      role = 'Admin'
+    }
     const { email, name, password, studentId } = data;
     const postData = {
       email,
       name,
       student_id: studentId,
       password,
-      user_role: 'User',
+      user_role: role,
     };
 
     const raw = JSON.stringify(postData);
