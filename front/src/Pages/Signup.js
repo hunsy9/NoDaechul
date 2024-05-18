@@ -124,13 +124,41 @@ const Register = () => {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }} />
-          <Typography component="h1" variant="h5">
-            회원가입
+          
+          <Typography component="h1" variant="h5"
+            sx={{
+              color: "#0a0a0a", 
+              fontFamily: 'Inter',
+              fontWeight: 'bold',
+              fontSize: '35px', 
+              marginBottom: '30px',
+              marginTop: '30px',
+              }}>
+            Sign up
           </Typography>
           <Boxs component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <FormControl component="fieldset" variant="standard">
               <Grid container spacing={2}>
+                {/* 폰트 적용 확인 필요 */}
+              <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    id="name"
+                    name="name"
+                    label="Your Name"
+                    // error={nameError !== '' || false}
+                    error={nameError}
+                    // InputProps={{
+                    //   style: {
+                    //     color: "#0a0a0a",
+                    //     fontFamily: 'Inter',
+                    //     fontWeight: 'bold'
+                    //   }
+                    // }}
+                  />
+                </Grid>
+                <FormHelperTexts>{nameError}</FormHelperTexts>
                 <Grid item xs={12}>
                   <TextField
                     required
@@ -139,7 +167,7 @@ const Register = () => {
                     type="email"
                     id="email"
                     name="email"
-                    label="이메일 주소"
+                    label="Your Email"
                     error={emailError !== '' || false}
                   />
                 </Grid>
@@ -151,7 +179,7 @@ const Register = () => {
                     type="password"
                     id="password"
                     name="password"
-                    label="비밀번호 (숫자+영문자+특수문자 8자리 이상)"
+                    label="Your Password"
                     error={passwordState !== '' || false}
                   />
                 </Grid>
@@ -163,22 +191,12 @@ const Register = () => {
                     type="password"
                     id="rePassword"
                     name="rePassword"
-                    label="비밀번호 재입력"
+                    label="Your Password Again"
                     error={passwordError !== '' || false}
                   />
                 </Grid>
                 <FormHelperTexts>{passwordError}</FormHelperTexts>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    id="name"
-                    name="name"
-                    label="이름"
-                    error={nameError !== '' || false}
-                  />
-                </Grid>
-                <FormHelperTexts>{nameError}</FormHelperTexts>
+                
                 <Grid item xs={12}>
                   <FormControl component="fieldset">
                     <FormLabel component="legend">Are you Student?</FormLabel>
@@ -193,29 +211,43 @@ const Register = () => {
                       <FormControlLabel value="no" control={<Radio />} label="No" />
                     </RadioGroup>
                   </FormControl>
+                
+                  {isStudent && (
+                    <Grid item xs={12}>
+                      <TextField
+                        fullWidth
+                        id="studentId"
+                        name="studentId"
+                        label="학번"
+                      />
+                    </Grid>
+                  )}
                 </Grid>
-                {isStudent && (
-                  <Grid item xs={12}>
-                    <TextField
-                      fullWidth
-                      id="studentId"
-                      name="studentId"
-                      label="학번"
-                    />
-                  </Grid>
-                )}
               </Grid>
+                
+                  
+
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
-                sx={{ mt: 3, mb: 2 }}
+                sx={{ mt: 3, mb: 2,  
+                  fontFamily: 'sans-serif',
+                  fontWeight: 'bold',
+                  fontSize: '16px', 
+                  textTransform: 'none',
+                  backgroundColor: '#3d3d3d'
+                  }}
                 size="large"
               >
-                회원가입
+                Sign up
               </Button>
               <Grid item xs>
-                <Link href="/" variant="body2">
+                <Link href="/" variant="body2"
+                  sx={{
+                    color: "#0a0a0a", 
+                    fontFamily: 'Inter',
+                    }}>
                   Back to Home
                 </Link>
               </Grid>
