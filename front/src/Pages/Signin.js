@@ -50,10 +50,16 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
+            
+          <Typography component="h1" variant="h5" sx={{
+              color: "#0a0a0a", 
+              fontFamily: 'Inter',
+              fontWeight: 'bold',
+              fontSize: '35px', 
+              marginBottom: '30px',
+              marginTop: '30px',
+              }}>
+            {/* fontFamily: Inter */}
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -66,6 +72,9 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              sx = {{
+                marginBottom: '15px',
+              }}
             />
             <TextField
               margin="normal"
@@ -76,30 +85,37 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              sx = {{
+                marginBottom: '20px',
+              }}
             />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
+
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              
+              sx={{ mt: 3, mb: 2,  
+                fontFamily: 'sans-serif',
+                fontWeight: 'bold',
+                fontSize: '16px', 
+                textTransform: 'none',
+                backgroundColor: '#3d3d3d'
+                }}
             >
-              Sign In
+              Login
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="/" variant="body2">
+                <Link href="/" variant="body2" 
+                sx={{
+                  color: "#0a0a0a", 
+                  fontFamily: 'Inter',
+                  }}>
                   Back to Home
                 </Link>
               </Grid>
-              <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
-              </Grid>
+
             </Grid>
           </Box>
         </Box>

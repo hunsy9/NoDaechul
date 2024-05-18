@@ -3,7 +3,7 @@ import React from 'react';
 import SignIn from './Pages/Signin';
 import Signup from './Pages/Signup';
 import Landing from './Pages/Landing';
-import MainContent from './Pages/MainContent';
+// import MainContent from './Pages/MainContent';
 import HeaderAppBar from './components/HeaderAppBar';
 import {Routes, Route, Link, BrowserRouter} from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -26,6 +26,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
+      
       <CssBaseline/>
       <BrowserRouter>
         <div className='App'>
