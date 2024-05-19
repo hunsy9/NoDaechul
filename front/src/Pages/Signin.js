@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useState, useContext} from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,10 +12,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AuthContext from '../auth/AuthContext';
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const {setIsLoggedIn} = useContext(AuthContext);
+  let navigate = useNavigate();
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -33,9 +38,15 @@ export default function SignIn() {
     };
 
     fetch("http://ndc.koreacentral.cloudapp.azure.com:5555/api/user/login", requestOptions)
-      .then(response => response.text())
+      .then(response => {
+        if(response.ok){
+          setIsLoggedIn(true);
+          navigate("/MainContent");
+        }
+      })
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
+      
   };
 
   return (

@@ -1,15 +1,11 @@
 import './App.css';
 import React from 'react';
-import SignIn from './Pages/Signin';
-import Signup from './Pages/Signup';
-import Landing from './Pages/Landing';
-import MainContent from './Pages/MainContent';
+import AppRoutes from './AppRoutes';
 import CreateAttendance from './Pages/CreateAttendance';
-import HeaderAppBar from './components/HeaderAppBar';
-import {Routes, Route, Link, BrowserRouter} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
-import { AuthProvider, useAuth } from './auth/AuthContext';
+import AuthProvider from './auth/AuthProvider';
 
 const theme = createTheme({
   palette: {
@@ -23,27 +19,17 @@ const theme = createTheme({
 });
 
 function App() {
-  const { isAuthenticated } = useAuth();
 
   return (
     <ThemeProvider theme={theme}>
-      {/* <CssBaseline/>
+      <CssBaseline/>
       <BrowserRouter>
-        <div className='App'>
-          {!isAuthenticated && <HeaderAppBar />}
-          <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/Login" element={<SignIn />} />
-            <Route path="/Signup" element={<Signup />} />
-          </Routes>
-        </div>
-      </BrowserRouter> */}
+        <AuthProvider>
+          <AppRoutes/>
+        </AuthProvider>
+      </BrowserRouter>
       {/* 테스트용, ThemeProvider를 제외한 나머지 주석 처리 후, 밑의 내용 주석 해제 */}
-      
-        <CreateAttendance/>
-
-      
-      {/* <MainContent/> */}
+      {/* <CreateAttendance/> */}
     </ThemeProvider>
     
   );
