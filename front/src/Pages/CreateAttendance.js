@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { CssBaseline, Grid, Box, Typography, IconButton, Button, SvgIcon } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import {DropzoneArea} from 'material-ui-dropzone'
+// import DropzoneAreaComponent from '../components/dropzone';
+import useFileDrop from '@zih0/use-file-drop';
 
 import ClassroomForm from '../components/ClassroomForm';
 import Side from '../components/Side';
@@ -34,7 +35,8 @@ const CreateAttendance = () => {
     window.history.back(); // 이전 페이지로 이동
   };
   // drop file zone 
-  
+  // const { inputRef, labelRef, files, isDragActive } = useFileDrop();
+
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <CssBaseline />
@@ -78,6 +80,14 @@ const CreateAttendance = () => {
                 Back
               </Button>
             </Box>
+
+            {/* <div>
+              <input ref={inputRef} id="upload" />
+              <label ref={labelRef} htmlFor="upload">
+                {isDragActive ? <span>Drop the file!</span> : <span>Drag and drop the file.</span>}
+              </label>
+            </div> */}
+            {/* <DropzoneAreaComponent /> */}
            
             
             <Typography variant="h5">

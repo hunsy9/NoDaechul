@@ -1,25 +1,34 @@
-import React, {Component} from 'react'
-import {DropzoneArea} from 'material-ui-dropzone'
+import React, { useEffect } from 'react';
+import useFileDrop from '@zih0/use-file-drop';
 
-class DropzoneAreaComponent extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      files: []
-    };
-  }
-  handleChange(files){
-    this.setState({
-      files: files
-    });
-  }
-  render(){
-    return (
-      <DropzoneArea
-        onChange={this.handleChange.bind(this)}
-        />
-    )
-  }
-}
+const DropzoneAreaComponent = () => {
+  const { inputRef, labelRef, files, isDragActive } = useFileDrop();
 
-export default DropzoneAreaComponent;
+  return (
+    <div>
+      <input ref={inputRef} id="upload" />
+      <label ref={labelRef} htmlFor="upload">
+        {isDragActive ? <span>Drop the file!</span> : <span>Drag and drop the file.</span>}
+      </label>
+    </div>
+  );
+};
+export default DropzoneAreaComponent; 
+
+// import React from 'react';
+// import useFileDrop from '@zih0/use-file-drop';
+
+// const DropzoneAreaComponent = () => {
+//   const { inputRef, labelRef, files, isDragActive } = useFileDrop();
+
+//   return (
+//     <div>
+//       <input ref={inputRef} id="upload" />
+//       <label ref={labelRef} htmlFor="upload">
+//         {isDragActive ? <span>Drop the file!</span> : <span>Drag and drop the file.</span>}
+//       </label>
+//     </div>
+//   );
+// };
+
+// export default DropzoneAreaComponent;
