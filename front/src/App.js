@@ -4,6 +4,7 @@ import SignIn from './Pages/Signin';
 import Signup from './Pages/Signup';
 import Landing from './Pages/Landing';
 import MainContent from './Pages/MainContent';
+import CreateAttendance from './Pages/CreateAttendance';
 import HeaderAppBar from './components/HeaderAppBar';
 import {Routes, Route, Link, BrowserRouter} from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -38,7 +39,11 @@ function App() {
         </div>
       </BrowserRouter> */}
       {/* 테스트용, ThemeProvider를 제외한 나머지 주석 처리 후, 밑의 내용 주석 해제 */}
-      <MainContent/>
+      
+        <CreateAttendance/>
+
+      
+      {/* <MainContent/> */}
     </ThemeProvider>
     
   );
