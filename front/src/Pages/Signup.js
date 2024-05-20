@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Link from '@mui/material/Link';
+import { useNavigate } from "react-router-dom";
 import {
   Avatar,
   Button,
@@ -34,6 +35,7 @@ const Boxs = styled(Box)`
 
 const Register = () => {
   const theme = createTheme();
+  const navigate = useNavigate();
   const [isStudent, setIsStudent] = useState(false);
   const [emailError, setEmailError] = useState('');
   const [passwordState, setPasswordState] = useState('');
@@ -71,7 +73,15 @@ const Register = () => {
     };
 
     fetch("http://ndc.koreacentral.cloudapp.azure.com:5555/api/user/signup", requestOptions)
-      .then(response => response.text())
+      .then(response => {
+        if(response.ok){
+          alert('회원가입이 완료되었습니다.');
+          navigate('/Login');
+        }
+        else{
+          console.log('response error');
+        }
+      })
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
   };
@@ -117,6 +127,7 @@ const Register = () => {
     ) {
       onhandlePost(joinData);
     }
+    
   };
 
   return (
