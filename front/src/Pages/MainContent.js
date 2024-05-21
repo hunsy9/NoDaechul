@@ -6,7 +6,7 @@ import ClassroomForm from '../components/ClassroomForm';
 import Side from '../components/Side';
 import MainAdmin from '../components/MainAdmin';
 import MainStudent from '../components/MainStudent';
-import MainHeader from '../components/\bMainHeader';
+import MainHeader from '../components/MainHeader';
 
 const MainContent = () => {
   const [classrooms, setClassrooms] = useState([]);
