@@ -59,7 +59,7 @@ const MainContentStudent = () => {
                 fontSize: 64 // Adjust emoji size
               }}
             >
-              😢
+              🤔
             </Box>
             <Typography variant="h5">
               There is no classroom in your Account
@@ -68,7 +68,7 @@ const MainContentStudent = () => {
               Please make your classroom!
             </Typography>
             <Button variant="contained" onClick={handleCreateClassroomClick} sx={{ width: 300, backgroundColor: '#F6F6F6', color: '#000000', marginTop: 5, padding: 2}}>
-              Create Your Classroom
+              Join Your Classroom
               <SvgIcon component={AddIcon} sx={{marginLeft: 2}}/>
             </Button>
             {showForm && <ClassroomForm addClassroom={addClassroom} onCancel={handleCreateClassroomClick}/>}

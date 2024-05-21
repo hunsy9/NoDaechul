@@ -19,7 +19,7 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const {setIsLoggedIn} = useContext(AuthContext);
-  const LoginAPI = "localhost:5555/api/user/login";
+  const LoginAPI = "http://localhost:5555/api/user/login";
   let navigate = useNavigate();
   
   const handleSubmit = (event) => {
@@ -38,7 +38,10 @@ export default function SignIn() {
     const requestOptions = {
       method: 'POST',
       body: raw,
-      redirect: 'follow'
+      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/json'
+      },
     };
 
     fetch(LoginAPI, requestOptions)

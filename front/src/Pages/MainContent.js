@@ -4,7 +4,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 
 import ClassroomForm from '../components/ClassroomForm';
 import Side from '../components/Side';
-import AddIcon from '@mui/icons-material/Add';
+import MainAdmin from '../components/MainAdmin';
+import MainStudent from '../components/MainStudent';
 
 const MainContent = () => {
   const [classrooms, setClassrooms] = useState([]);
@@ -67,36 +68,20 @@ const MainContent = () => {
               <SettingsIcon />
             </IconButton>
           </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '100vh',
-              marginTop: -8 // Adjust this value based on your actual AppBar height
-            }}
-          >
-            <Box
-              sx={{
-                fontSize: 64 // Adjust emoji size
-              }}
-
-            >
-              😢
-            </Box>
-            <Typography variant="h5">
-              There is no classroom in your Account
-            </Typography>
-            <Typography variant="subtitle1" sx={{ marginBottom: 2 }}>
-              Please make your classroom!
-            </Typography>
-            <Button variant="contained" onClick={handleCreateClassroomClick} sx={{ width: 300, backgroundColor: '#F6F6F6', color: '#000000', marginTop: 5, padding: 2}}>
-              Create Your Classroom
-              <SvgIcon component={AddIcon} sx={{marginLeft: 2}}/>
-            </Button>
-            {showForm && <ClassroomForm addClassroom={addClassroom} onCancel={handleCreateClassroomClick}/>}
-          </Box>
+          { userRole == 'Admin' ? 
+          <MainAdmin 
+            classrooms={classrooms}
+            showForm={showForm}
+            handleClick={handleCreateClassroomClick}
+            addClassroom={addClassroom}
+          /> :
+          <MainStudent
+            classrooms={classrooms}
+            showForm={showForm}
+            handleClick={handleCreateClassroomClick}
+            addClassroom={addClassroom}
+          />
+          }
         </Grid>
       </Grid>
     </Box>
