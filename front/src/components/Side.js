@@ -19,7 +19,7 @@ export default function Side(props) {
   };
 
   const DrawerList = (
-    <Box sx={{ width: 300, height: 1000, borderRadius: 3}} className="sideBar" role="presentation" align="center">
+    <Box sx={{ width: 300, height: 1000, borderRadius: 3}} className="SideBar" role="presentation" align="center">
       <Box display="flex" alignItems="center" style={{ flexGrow: 1, marginBottom: 30 }}>
         <img src={faceIdImage} alt="Face ID" style={{ marginRight: 20, width: 40, height: 40 }} />
         <Box>
@@ -45,12 +45,8 @@ export default function Side(props) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {/* TODO: 디자인 수정 필요 */}
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemIcon>
-              {/* Classroom이 위치할 곳 */}
-              <ClassroomList classrooms={props.classrooms} />
-            </ListItemIcon>
-          </ListItemButton>
+          {/* Classroom이 위치할 곳 */}
+          <ClassroomList classrooms={props.classrooms} />
         </List>
       </Collapse>
     </Box>
