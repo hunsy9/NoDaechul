@@ -6,13 +6,14 @@ import ClassroomForm from '../components/ClassroomForm';
 import Side from '../components/Side';
 import MainAdmin from '../components/MainAdmin';
 import MainStudent from '../components/MainStudent';
+import MainHeader from '../components/\bMainHeader';
 
 const MainContent = () => {
   const [classrooms, setClassrooms] = useState([]);
   const [showForm, setShowForm] = useState(false); 
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
-  const UserAPI = "http://localhost:5555/api/user"
+
   const addClassroom = (classroom) => {
     if (!classroom.text || /^\s*$/.test(classroom.text)) {
       return;
@@ -25,20 +26,6 @@ const MainContent = () => {
   };
 
   useEffect(() => {
-    // const requestOptions = {
-    //   method: 'GET',
-    //   redirect: 'follow'
-    // };
-
-    
-    // fetch(UserAPI, requestOptions)
-    //   .then(response => console.log(response.json()))
-    //   .then(result => {
-    //     // setUserName(result.name);
-    //     // setUserRole(result.user_role);
-    //     console.log(result);
-    //   })
-    //   .catch(error => console.log('error', error));
     setUserName(localStorage.getItem('name'));
     setUserRole(localStorage.getItem('role'));
   }, []);
@@ -51,23 +38,10 @@ const MainContent = () => {
           <Side classrooms={classrooms}/> {/* 사이드바 컴포넌트 */}
         </Grid>
         <Grid item xs={9} sx={{ padding: 3 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: 2 }}>
-            { userRole == 'Admin' ? 
-            <Box style={{border: '1px solid'}} sx={{borderRadius: 7, textAlign: 'center', marginRight: 2}}>
-              <Typography variant="subtitle2" sx={{marginLeft:1, marginRight:1}}>
-                {userRole}
-              </Typography>
-            </Box> : 
-            <></>
-            }
-            <Typography variant="subtitle1" sx={{marginRight: 2}}>
-              {userName}
-            </Typography>
-            {/* TODO: 설정버튼 기능 추가 */}
-            <IconButton>
-              <SettingsIcon />
-            </IconButton>
-          </Box>
+          <MainHeader 
+          userName={userName}
+          userRole={userRole}
+          />
           { userRole == 'Admin' ? 
           <MainAdmin 
             classrooms={classrooms}
