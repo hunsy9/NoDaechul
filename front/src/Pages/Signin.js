@@ -19,6 +19,7 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
   const {setIsLoggedIn} = useContext(AuthContext);
+  const LoginAPI = "localhost:5555/api/user/login";
   let navigate = useNavigate();
   
   const handleSubmit = (event) => {
@@ -31,20 +32,31 @@ export default function SignIn() {
 
     const raw = JSON.stringify(loginData);
 
+    var name = '';
+    var role = '';
+
     const requestOptions = {
       method: 'POST',
       body: raw,
       redirect: 'follow'
     };
 
-    fetch("http://ndc.koreacentral.cloudapp.azure.com:5555/api/user/login", requestOptions)
+    fetch(LoginAPI, requestOptions)
       .then(response => {
         if(response.ok){
-          setIsLoggedIn(true);
-          navigate("/MainContent");
+          return response.json();
+        } else {
+          throw new Error('Network response was not ok.');
         }
       })
-      .then(result => console.log(result))
+      .then(result => {
+        name = result.name;
+        role = result.role;
+        localStorage.setItem('name', name);
+        localStorage.setItem('role', role);
+        setIsLoggedIn(true);
+        navigate("/MainContent");
+      })
       .catch(error => console.log('error', error));
       
   };

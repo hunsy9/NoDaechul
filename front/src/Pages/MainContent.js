@@ -11,7 +11,7 @@ const MainContent = () => {
   const [showForm, setShowForm] = useState(false); 
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
-  
+  const UserAPI = "http://localhost:5555/api/user"
   const addClassroom = (classroom) => {
     if (!classroom.text || /^\s*$/.test(classroom.text)) {
       return;
@@ -24,18 +24,22 @@ const MainContent = () => {
   };
 
   useEffect(() => {
-    const requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
+    // const requestOptions = {
+    //   method: 'GET',
+    //   redirect: 'follow'
+    // };
 
-    fetch("http://localhost:5555/api/user", requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        setUserName(result.name);
-        setUserRole(result.user_role);
-      })
-      .catch(error => console.log('error', error));
+    
+    // fetch(UserAPI, requestOptions)
+    //   .then(response => console.log(response.json()))
+    //   .then(result => {
+    //     // setUserName(result.name);
+    //     // setUserRole(result.user_role);
+    //     console.log(result);
+    //   })
+    //   .catch(error => console.log('error', error));
+    setUserName(localStorage.getItem('name'));
+    setUserRole(localStorage.getItem('role'));
   }, []);
 
   return (
@@ -47,12 +51,14 @@ const MainContent = () => {
         </Grid>
         <Grid item xs={9} sx={{ padding: 3 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: 2 }}>
+            { userRole == 'Admin' ? 
             <Box style={{border: '1px solid'}} sx={{borderRadius: 7, textAlign: 'center', marginRight: 2}}>
-              {/* TODO: 유저 role에 따라 표시유무 변경*/}
               <Typography variant="subtitle2" sx={{marginLeft:1, marginRight:1}}>
                 {userRole}
               </Typography>
-            </Box>
+            </Box> : 
+            <></>
+            }
             <Typography variant="subtitle1" sx={{marginRight: 2}}>
               {userName}
             </Typography>
@@ -75,6 +81,7 @@ const MainContent = () => {
               sx={{
                 fontSize: 64 // Adjust emoji size
               }}
+
             >
               😢
             </Box>

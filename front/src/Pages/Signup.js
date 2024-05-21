@@ -54,6 +54,7 @@ const Register = () => {
     }
     else {
       role = 'Admin'
+      studentId = null;
     }
     const { email, name, password, studentId } = data;
     const postData = {
@@ -83,7 +84,7 @@ const Register = () => {
         }
       })
       .then(result => console.log(result))
-      .catch(error => console.log('error', error));
+      .catch(error => alert(error));
   };
 
   const handleSubmit = (e) => {
@@ -242,9 +243,6 @@ const Register = () => {
                   )}
                 </Grid>
               </Grid>
-                
-                  
-
               <Button
                 type="submit"
                 fullWidth
