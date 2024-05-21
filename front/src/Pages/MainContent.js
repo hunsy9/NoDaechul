@@ -33,7 +33,7 @@ const MainContent = () => {
       .then(response => response.json())
       .then(result => {
         setUserName(result.name);
-        setUserRole(result.role);
+        setUserRole(result.user_role);
       })
       .catch(error => console.log('error', error));
   }, []);
@@ -53,7 +53,6 @@ const MainContent = () => {
                 {userRole}
               </Typography>
             </Box>
-            {/* TODO: 유저 이름 가져와야됨*/}
             <Typography variant="subtitle1" sx={{marginRight: 2}}>
               {userName}
             </Typography>
