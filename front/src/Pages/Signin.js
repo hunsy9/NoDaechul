@@ -50,7 +50,8 @@ export default function SignIn() {
       })
       .then(result => {
         name = result.name;
-        role = result.role;
+        role = result.user_role;
+        console.log(`${name}, ${role}`);
         localStorage.setItem('name', name);
         localStorage.setItem('role', role);
         login(true);

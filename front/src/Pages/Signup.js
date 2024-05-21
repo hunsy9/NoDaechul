@@ -49,6 +49,8 @@ const Register = () => {
 
   const onhandlePost = async (data) => {
     var role = '';
+    var studentId = null
+    const localhost = "http://localhost:5555/api/user/signup"
     if(isStudent){
       role = 'User'
     }
@@ -56,7 +58,7 @@ const Register = () => {
       role = 'Admin'
       studentId = null;
     }
-    const { email, name, password, studentId } = data;
+    const { email, name, password } = data;
     const postData = {
       email,
       name,
@@ -64,6 +66,7 @@ const Register = () => {
       password,
       user_role: role,
     };
+    console.log(postData);
 
     const raw = JSON.stringify(postData);
 
@@ -71,9 +74,12 @@ const Register = () => {
       method: 'POST',
       body: raw,
       redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/json'
+      },
     };
 
-    fetch("http://ndc.koreacentral.cloudapp.azure.com:5555/api/user/signup", requestOptions)
+    fetch(localhost, requestOptions)
       .then(response => {
         if(response.ok){
           alert('회원가입이 완료되었습니다.');
