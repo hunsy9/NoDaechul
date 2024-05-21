@@ -23,11 +23,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-      <BrowserRouter>
-        <AuthProvider>
+      <AuthProvider>
+        <BrowserRouter>
           <AppRoutes/>
-        </AuthProvider>
-      </BrowserRouter>
+        </BrowserRouter>
+      </AuthProvider>
       {/* 테스트용, ThemeProvider를 제외한 나머지 주석 처리 후, 밑의 내용 주석 해제 */}
       {/* <CreateAttendance/> */}
     </ThemeProvider>
