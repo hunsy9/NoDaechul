@@ -161,6 +161,7 @@ const Register = () => {
               <Grid item xs={12}>
                   <TextField
                     required
+                    autoFocus
                     fullWidth
                     id="name"
                     name="name"
@@ -180,7 +181,6 @@ const Register = () => {
                 <Grid item xs={12}>
                   <TextField
                     required
-                    autoFocus
                     fullWidth
                     type="email"
                     id="email"
