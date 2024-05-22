@@ -8,6 +8,7 @@ import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 import faceIdImage from '../assets/faceid.png';
 import ClassroomList from './ClassroomList';
 
+//TODO: 스크롤바 구현 필요
 export default function Side(props) {
   
   // const [showForm, setShowForm] = useState(false);
@@ -17,9 +18,9 @@ export default function Side(props) {
   const handleClick = () => {
     setOpen(!open);
   };
-
+  
   const DrawerList = (
-    <Box sx={{ width: 300, height: 1000, borderRadius: 3}} className="SideBar" role="presentation" align="center">
+    <Box sx={{ width: 300, height: 700, borderRadius: 3}} className="SideBar" role="presentation" align="center">
       <Box display="flex" alignItems="center" style={{ flexGrow: 1, marginBottom: 30 }}>
         <img src={faceIdImage} alt="Face ID" style={{ marginRight: 20, width: 40, height: 40 }} />
         <Box>
