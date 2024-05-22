@@ -50,7 +50,7 @@ const MainHeader = ({ userRole, userName }) => {
   }
 
   return(
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: 2 }}>
+    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: 4 }}>
       {userRole === 'Admin' && 
         <Box style={{border: '1px solid'}} sx={{borderRadius: 7, textAlign: 'center', marginRight: 2}}>
           <Typography variant="subtitle2" sx={{marginLeft:1, marginRight:1}}>

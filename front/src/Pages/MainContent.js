@@ -9,10 +9,13 @@ import MainStudent from '../components/MainStudent';
 import MainHeader from '../components/MainHeader';
 
 const MainContent = () => {
+  
   const [classrooms, setClassrooms] = useState([]);
+  const [className, setClassName] = useState('');
   const [showForm, setShowForm] = useState(false); 
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
+  const [showClassroom, setShowClassroom] = useState(false);
 
   const addClassroom = (classroom) => {
     if (!classroom.text || /^\s*$/.test(classroom.text)) {
@@ -35,7 +38,11 @@ const MainContent = () => {
       <CssBaseline />
       <Grid container>
         <Grid item xs={3}>
-          <Side classrooms={classrooms}/> {/* 사이드바 컴포넌트 */}
+          <Side 
+            classrooms={classrooms} 
+            setClassName={setClassName} 
+            setShowClassroom={setShowClassroom} 
+          /> {/* 사이드바 컴포넌트 */}
         </Grid>
         <Grid item xs={9} sx={{ padding: 3 }}>
           <MainHeader 
@@ -48,6 +55,8 @@ const MainContent = () => {
             showForm={showForm}
             handleClick={handleCreateClassroomClick}
             addClassroom={addClassroom}
+            showClassroom={showClassroom}
+            className={className}
           /> :
           <MainStudent
             classrooms={classrooms}

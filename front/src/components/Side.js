@@ -44,9 +44,8 @@ export default function Side(props) {
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-          {/* TODO: 디자인 수정 필요 */}
           {/* Classroom이 위치할 곳 */}
-          <ClassroomList classrooms={props.classrooms} />
+          <ClassroomList classrooms={props.classrooms} setClassName={props.setClassName} setShowClassroom={props.setShowClassroom}/>
         </List>
       </Collapse>
     </Box>
