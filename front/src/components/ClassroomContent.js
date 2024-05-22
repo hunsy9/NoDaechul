@@ -6,7 +6,7 @@ const ClassroomContent = (props) => {
   //TODO: 수업 날짜 목록, 날짜당 출석부를 API호출을 통해 가져와서 리스트로 표시
   return(
     <>
-      <Grid container direction={"row"} sx={{marginBottom:3}}>
+      <Grid container direction={"row"} sx={{marginBottom:1.5}}>
         <Grid item xs={7}>
           <Box
             sx={{
