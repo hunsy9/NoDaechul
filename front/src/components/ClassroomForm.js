@@ -8,12 +8,30 @@ const ClassroomForm = ({addClassroom, onCancel}) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    const createAPI = "http://localhost:5555/api/lecture/createlecture";
     addClassroom({
       id: Math.floor(Math.random() * 10000),
       text: className,
       password: password,
     });
   
+    const loginData = {
+      name: className,
+    }
+    
+    const raw = JSON.stringify(loginData);
+
+    var requestOptions = {
+      method: 'POST',
+      body: raw,
+      redirect: 'follow'
+    };
+
+    fetch(createAPI, requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
+
     setClassName('');
     setPassword('');
   };
