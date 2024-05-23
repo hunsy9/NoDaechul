@@ -1,7 +1,7 @@
 import React from "react";
 import {  Box, Typography, Button, SvgIcon } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import ClassroomForm from './ClassroomForm';
+import ClassroomFormStudent from "./ClassroomFormStudent";
 const MainStudent = (props) => {
   return(
     <Box
@@ -35,7 +35,7 @@ const MainStudent = (props) => {
         </Button>
       </>
       }
-      {props.showForm && <ClassroomForm addClassroom={props.addClassroom} onCancel={props.handleClick}/>}
+      {props.showForm && <ClassroomFormStudent onCancel={props.handleClick}/>}
     </Box>
   );
 }
