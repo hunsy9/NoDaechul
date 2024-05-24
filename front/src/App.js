@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
 import AppRoutes from './AppRoutes';
-// import CreateAttendance from './Pages/CreateAttendance';
+import CreateAttendance from './Pages/CreateAttendance';
 import {BrowserRouter} from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
@@ -24,14 +24,14 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-         <CssBaseline/>
+         {/* <CssBaseline/>
          <AuthProvider>
            <BrowserRouter>
              <AppRoutes/>
            </BrowserRouter> 
-         </AuthProvider> 
+         </AuthProvider>  */}
       {/* 테스트용, ThemeProvider를 제외한 나머지 주석 처리 후, 밑의 내용 주석 해제*/}
-      {/* <CreateAttendance/> */}
+      <CreateAttendance/>
 
     </ThemeProvider>
     
