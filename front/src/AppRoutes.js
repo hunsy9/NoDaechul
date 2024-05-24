@@ -4,7 +4,6 @@ import SignIn from './Pages/Signin';
 import Signup from './Pages/Signup';
 import Landing from './Pages/Landing';
 import MainContent from './Pages/MainContent';
-import CreateAttendance from './Pages/CreateAttendance';
 import {Routes, Route, Navigate} from "react-router-dom";
 import AuthContext from './auth/AuthContext';
 import ClassAttendance from './Pages/ClassAttendance';
