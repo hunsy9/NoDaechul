@@ -22,17 +22,15 @@ const theme = createTheme({
 function App() {
 
   return (
+    
     <ThemeProvider theme={theme}>
-         {/* <CssBaseline/>
+         <CssBaseline/>
          <AuthProvider>
            <BrowserRouter>
              <AppRoutes/>
            </BrowserRouter> 
-         </AuthProvider>  */}
-      {/* 테스트용, ThemeProvider를 제외한 나머지 주석 처리 후, 밑의 내용 주석 해제*/}
-      {/* <CreateAttendance/> */}
-      <ClassAttendance/>
-
+         </AuthProvider> 
+      {/* ClassAttendance 테스트 시 http://localhost:3000/ClassAttendance 입력*/}
     </ThemeProvider>
     
   );
