@@ -3,16 +3,22 @@ import React, {useState} from 'react';
 import { CssBaseline, Grid, Box, Typography, IconButton, Button, SvgIcon } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import DropzoneAreaComponent from '../components/dropzone';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+// import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider, AdapterDateFns } from '@mui/lab';
 
 import ClassroomForm from '../components/ClassroomForm';
 import Side from '../components/Side';
 import AddIcon from '@mui/icons-material/Add';
-import PackageIcon from '../../src/assets/package-01.png'
+import PackageIcon from '../../src/assets/package-01.png';
+import { DatePicker } from '@mui/x-date-pickers-pro';
 
 
 const CreateAttendance = () => {
   const [classrooms, setClassrooms] = useState([]);
   const [showForm, setShowForm] = useState(false); 
+  const [date, setDate] = useState('');
   
   const addClassroom = (classroom) => {
     if (!classroom.text || /^\s*$/.test(classroom.text)) {
@@ -33,6 +39,19 @@ const CreateAttendance = () => {
   const handleBackClick = () => {
     window.history.back(); // 이전 페이지로 이동
   };
+
+  
+
+  const handleDateChange = (e) => {
+    setDate(e.target.value);
+  };
+
+  const handleDateSubmit = (e) => {
+    e.preventDefault();
+
+    console.log('Entered Date:', date);
+  };
+
 
 
   return (
@@ -79,21 +98,43 @@ const CreateAttendance = () => {
               </Button>
             </Box>
 
-            
-            <DropzoneAreaComponent />
+            <Box sx={{marginTop: '10vh'}}></Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh'}}>
+              <Box sx={{ alignItems: 'center', justifyContent: 'center'}}>
+                <DropzoneAreaComponent  />
+                <div style={{ textAlign: 'center' }}>
+                  <Typography variant="subtitle1" sx ={{fontFamily:'Inter', color:'#000000', fontWeight:'bold', marginTop: '30px'}}>
+                    Choose your Class Date.
+                  </Typography>
+                  <Box sx = {{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+                  
+                  <LocalizationProvider dateAdapter={AdapterDayjs} >
+
+                    <DatePicker label="Choose Class Date"  sx = {{ width : '200px', marginTop : '20px'}}/>
+                  </LocalizationProvider>
+
+                  {/** Save 버튼 기능 추가 필요 */}
+
+                  <Button variant="contained" 
+                    sx={{ width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none', marginTop : '30px' }}>
+                    Save
+                  </Button>
+                  </Box>
+                </div> 
+              </Box>
+              
+              
+            </Box>
+
            
             
-            <Typography variant="h5">
-              There is no classroom in your Account
-            </Typography>
-            <Typography variant="subtitle1" sx={{ marginBottom: 2 }}>
-              Please make your classroom!
-            </Typography>
-            <Button variant="contained" onClick={handleCreateClassroomClick} sx={{ width: 300, backgroundColor: '#F6F6F6', color: '#000000', marginTop: 5, padding: 2}}>
-              Create Your Classroom
-              <SvgIcon component={AddIcon} sx={{marginLeft: 2}}/>
-            </Button>
-            {showForm && <ClassroomForm addClassroom={addClassroom} onCancel={handleCreateClassroomClick}/>}
+            
+           
+            
+            
+           
+            
+
           </Box>
         </Grid>
       </Grid>
