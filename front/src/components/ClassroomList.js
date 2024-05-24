@@ -1,5 +1,5 @@
 import React from 'react'
-import Classroom from './Classroom'
+import Classroom from './classroom'
 import { Box } from '@mui/material'
 
 export const ClassroomList = (props) => {
