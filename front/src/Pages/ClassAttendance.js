@@ -1,30 +1,24 @@
 import React, {useState} from 'react';
-// import { useNavigate } from 'react-router-dom';
 import { CssBaseline, Grid, Box, Typography, IconButton, Button, SvgIcon } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import DropzoneAreaComponent from '../components/dropzone';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-// import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { LocalizationProvider, AdapterDateFns } from '@mui/lab';
 
 import ClassroomForm from '../components/ClassroomForm';
 import Side from '../components/Side';
-import AddIcon from '@mui/icons-material/Add';
 import PackageIcon from '../../src/assets/package-01.png';
-import { DatePicker } from '@mui/x-date-pickers-pro';
+import classImg from '../assets/class_example.png';
+import DataTable from '../components/ClassAttendanceTable';
+
 
 
 const ClassAttendance = () => {
   const [classrooms, setClassrooms] = useState([]);
-  const [showForm, setShowForm] = useState(false); 
-  const [date, setDate] = useState('');
+  
   
 
   const handleBackClick = () => {
     window.history.back(); // 이전 페이지로 이동
   };
-
+  
   
 
 
@@ -73,9 +67,11 @@ const ClassAttendance = () => {
             </Box>
 
             <Box sx={{marginTop: '10vh'}}></Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh'}}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
 
-              
+                <img src={classImg} alt="Face ID" style={{maxWidth: '30vw', height: 'auto', marginBottom : 30}} />
+                <DataTable/>
+
               
             </Box>
           </Box>

@@ -126,15 +126,6 @@ const CreateAttendance = () => {
               
             </Box>
 
-           
-            
-            
-           
-            
-            
-           
-            
-
           </Box>
         </Grid>
       </Grid>
