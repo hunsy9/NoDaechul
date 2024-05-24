@@ -1,13 +1,12 @@
 import './App.css';
 import React from 'react';
 import AppRoutes from './AppRoutes';
-import CreateAttendance from './Pages/CreateAttendance';
+// import CreateAttendance from './Pages/CreateAttendance';
 import {BrowserRouter} from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import AuthProvider from './auth/AuthProvider';
-// import React, { useCallback } from 'react';
-// import {useDropzone} from 'react-dropzone';
+import ClassAttendance from './Pages/ClassAttendance';
 
 const theme = createTheme({
   palette: {
@@ -31,7 +30,8 @@ function App() {
            </BrowserRouter> 
          </AuthProvider>  */}
       {/* 테스트용, ThemeProvider를 제외한 나머지 주석 처리 후, 밑의 내용 주석 해제*/}
-      <CreateAttendance/>
+      {/* <CreateAttendance/> */}
+      <ClassAttendance/>
 
     </ThemeProvider>
     
