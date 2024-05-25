@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cloudcomputing.nodaechul.lecture.domain.repository.mapper.LectureMapper">
+  <insert id="createLecture" parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO lecture VALUES (0, #{name}, #{invitation_code}, #{created_by}, now(), now());
+  </insert>
+
+  <select id="inviteLecture" parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto">
+    SELECT invitation_code FROM lecture WHERE id = #{id};
+  </select>
+
+  <select id="isLectureNameExists" resultType="boolean" parameterType="string">
+    SELECT EXISTS (SELECT 1 FROM lecture WHERE name = #{name});
+  </select>
+
+  <select id="isLectureIdExists" resultType="boolean" parameterType="long">
+    SELECT EXISTS (SELECT 1 FROM lecture WHERE id = #{id});
+  </select>
+
+  <insert id="joinLecture" parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto">
+    INSERT INTO lecture_user VALUES (#{user_id}, #{lecture_id}, #{avatar}, now(), now());
+  </insert>
+
+  <select id="alreadyJoined" resultType="boolean" parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto">
+    SELECT EXISTS (SELECT 1 FROM lecture_user WHERE user_id = #{user_id} AND lecture_id = #{lecture_id});
+  </select>
+
+  <select id="checkInvitationCode" resultType="string" parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto">
+    SELECT invitation_code FROM lecture WHERE id = #{lecture_id};
+  </select>
+
+  <select id="getLecturesByUserID" resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto" parameterType="long">
+    SELECT id, name, created_by
+    FROM lecture
+    WHERE id IN (SELECT lecture_id FROM lecture_user WHERE user_id=#{userId});
+  </select>
+
+</mapper>
