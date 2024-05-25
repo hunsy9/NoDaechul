@@ -42,6 +42,7 @@ const MainContent = () => {
             classrooms={classrooms} 
             setClassName={setClassName} 
             setShowClassroom={setShowClassroom} 
+            classroomClick={handleCreateClassroomClick}
           /> {/* 사이드바 컴포넌트 */}
         </Grid>
         <Grid item xs={9} sx={{ padding: 3 }}>

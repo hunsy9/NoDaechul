@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import { Collapse, ListItemButton, ListItemIcon, ListItemText, SvgIcon, Typography, List } from '@mui/material';
+import { Collapse, ListItemButton, ListItemIcon, ListItemText, SvgIcon, Typography, List, Button } from '@mui/material';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
+import AddIcon from '@mui/icons-material/Add';
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 
 import faceIdImage from '../assets/faceid.png';
@@ -36,6 +37,17 @@ export default function Side(props) {
         <SvgIcon component={BookmarkIcon} fontSize='medium' align="left"/>
         Dashboard
       </Typography>
+      <Button 
+        variant="contained" 
+        onClick={() => {
+          props.classroomClick();
+          props.setShowClassroom(false);
+          }} 
+          sx={{ width: 250, borderRadius: 3, backgroundColor: '#F3F7FF', color: '#000000', boxShadow: 'none', padding:1.5, marginBottom:2}}>
+        Create Classroom
+      <SvgIcon component={AddIcon} sx={{marginLeft: 2}}/>
+      </Button>
+      
       <ListItemButton onClick={handleClick} sx={{ width: 250, borderRadius: 3, backgroundColor: '#F3F7FF'}}>
         <ListItemIcon>
           <ArticleOutlinedIcon />
@@ -46,7 +58,12 @@ export default function Side(props) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {/* Classroom이 위치할 곳 */}
-          <ClassroomList classrooms={props.classrooms} setClassName={props.setClassName} setShowClassroom={props.setShowClassroom}/>
+          <ClassroomList 
+          classrooms={props.classrooms} 
+          setClassName={props.setClassName} 
+          setShowClassroom={props.setShowClassroom}
+          classroomClick={props.classroomClick}
+        />
         </List>
       </Collapse>
     </Box>

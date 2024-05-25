@@ -7,7 +7,7 @@ const MainAdmin = (props) => {
 
 
   return(
-    props.showClassroom ?
+    (props.showClassroom && !props.showForm) ?
     <ClassroomContent className={props.className}/> : 
     
     <Box

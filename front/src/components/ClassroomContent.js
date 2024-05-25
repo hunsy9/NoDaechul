@@ -11,6 +11,11 @@ const ClassroomContent = (props) => {
     {date:'2024/05/15'},
     {date:'2024/05/22'},
     {date:'2024/05/29'},
+    {date:'2024/05/29'},
+    {date:'2024/05/29'},
+    {date:'2024/05/29'},
+    {date:'2024/05/29'},
+    {date:'2024/05/29'},
   ]
 
   const [showCreate, setShowCreate] = useState(false);
@@ -20,6 +25,12 @@ const ClassroomContent = (props) => {
     {name: 'SangJun Lee', studentId: '201924515'},
     {name: 'Seyoung Chae', studentId: '201924515'},
     {name: 'JongHoon Kim', studentId: '201924515'},
+    {name: 'JongHoon Kim', studentId: '201924515'},
+    {name: 'JongHoon Kim', studentId: '201924515'},
+    {name: 'JongHoon Kim', studentId: '201924515'},
+    {name: 'JongHoon Kim', studentId: '201924515'},
+    {name: 'JongHoon Kim', studentId: '201924515'},
+    
   ]);
   const handleCreate = () => {
     setShowCreate(!showCreate);
@@ -73,7 +84,7 @@ const ClassroomContent = (props) => {
         <Grid item xs={3}>
           {/* TODO: 스크롤바 추가 */}
           {/* 테스트용 데이터 추가, attendance.map의 attendance에 API호출로 받아온 JSON값이 들어가야함 */}
-          <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center'}} className="Shadow">
+          <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
             <Typography variant="h6" fontWeight={'bold'} sx={{marginTop:2, marginBottom:2, marginRight:9}}>
               Attendance
             </Typography>
@@ -94,7 +105,7 @@ const ClassroomContent = (props) => {
           </Box>
         </Grid>
         <Grid item xs={8.5}>
-          <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center'}} className="Shadow">
+          <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
             {/* TODO: 여기에 출석부가 들어가야 함 */}
             {showStudents ? <StudentsByDate students={students}></StudentsByDate> : <></>}
           </Box>
