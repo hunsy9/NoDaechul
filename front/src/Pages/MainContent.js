@@ -24,7 +24,7 @@ const MainContent = () => {
     const newClassrooms = [classroom, ...classrooms];
     setClassrooms(newClassrooms);
   };
-  const handleClassroomClick = () => {
+  const handleCreateClassroomClick = () => {
     setShowForm(!showForm); // 현재 상태의 반대값으로 토글
   };
 
@@ -53,7 +53,7 @@ const MainContent = () => {
           <MainAdmin 
             classrooms={classrooms}
             showForm={showForm}
-            handleClick={handleClassroomClick}
+            handleClick={handleCreateClassroomClick}
             addClassroom={addClassroom}
             showClassroom={showClassroom}
             className={className}
@@ -61,7 +61,8 @@ const MainContent = () => {
           <MainStudent
             classrooms={classrooms}
             showForm={showForm}
-            handleClick={handleClassroomClick}
+            handleClick={handleCreateClassroomClick}
+            addClassroom={addClassroom}
           />
           }
         </Grid>
