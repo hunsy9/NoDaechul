@@ -2,7 +2,7 @@ import React from 'react'
 import { Typography, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material';
 import TabIcon from '@mui/icons-material/Tab';
 
-const Classroom = ({ classrooms, setClassName, setShowClassroom, classroomClick }) => { // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
+const Classroom = ({ classrooms, setClassName, setShowClassroom, setShowForm }) => { // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
   //TODO: 수업목록 가져오는 API 호출로 바꿔야함
   return (
     <div>
@@ -14,7 +14,7 @@ const Classroom = ({ classrooms, setClassName, setShowClassroom, classroomClick 
             onClick={() => {
               setClassName(classroom.text);
               setShowClassroom(true);
-              classroomClick();
+              setShowForm(false);
             }}
           >
             <ListItemIcon>

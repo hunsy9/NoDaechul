@@ -40,7 +40,7 @@ export default function Side(props) {
       <Button 
         variant="contained" 
         onClick={() => {
-          props.classroomClick();
+          props.setShowForm(true);
           props.setShowClassroom(false);
           }} 
           sx={{ width: 250, borderRadius: 3, backgroundColor: '#F3F7FF', color: '#000000', boxShadow: 'none', padding:1.5, marginBottom:2}}>
@@ -62,7 +62,7 @@ export default function Side(props) {
           classrooms={props.classrooms} 
           setClassName={props.setClassName} 
           setShowClassroom={props.setShowClassroom}
-          classroomClick={props.classroomClick}
+          setShowForm={props.setShowForm}
         />
         </List>
       </Collapse>

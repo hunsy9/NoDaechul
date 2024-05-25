@@ -1,5 +1,5 @@
 import React from 'react'
-import Classroom from './Classroom'
+import Classroom from './classroom'
 import { Box } from '@mui/material'
 
 export const ClassroomList = (props) => {
@@ -9,7 +9,7 @@ export const ClassroomList = (props) => {
         classrooms={props.classrooms} 
         setClassName={props.setClassName} 
         setShowClassroom={props.setShowClassroom} 
-        classroomClick={props.classroomClick}
+        setShowForm={props.setShowForm}
       ></Classroom>
     </Box>
   )
