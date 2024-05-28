@@ -1,5 +1,9 @@
 package com.cloudcomputing.nodaechul.base;
 
+import com.cloudcomputing.nodaechul.lecture.exception.AlreadyJoinedException;
+import com.cloudcomputing.nodaechul.lecture.exception.InvalidInvitationCodeException;
+import com.cloudcomputing.nodaechul.lecture.exception.InvalidLectureIdException;
+import com.cloudcomputing.nodaechul.lecture.exception.InvalidLectureNameException;
 import com.cloudcomputing.nodaechul.user.exception.ActivationFailedException;
 import com.cloudcomputing.nodaechul.user.exception.InvalidRegisterException;
 import com.cloudcomputing.nodaechul.user.exception.LoginException;
@@ -23,6 +27,30 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionResponse> validException(HttpStatusCodeException ex) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, ex.getStatusCode());
+    }
+
+    @ExceptionHandler({InvalidLectureIdException.class})
+    public ResponseEntity<ExceptionResponse> validException(InvalidLectureIdException ex) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse,  HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({AlreadyJoinedException.class})
+    public ResponseEntity<ExceptionResponse> validException(AlreadyJoinedException ex) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse,  HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({InvalidInvitationCodeException.class})
+    public ResponseEntity<ExceptionResponse> validException(InvalidInvitationCodeException ex) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse,  HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler({InvalidLectureNameException.class})
+    public ResponseEntity<ExceptionResponse> validException(InvalidLectureNameException ex) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse,  HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidRegisterException.class)
