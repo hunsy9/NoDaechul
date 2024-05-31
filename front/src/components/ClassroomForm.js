@@ -9,31 +9,41 @@ const ClassroomForm = ({addClassroom, onCancel}) => {
   const handleSubmit = e => {
     e.preventDefault();
     const createAPI = "http://localhost:5555/api/lecture/createlecture";
-    addClassroom({
-      id: Math.floor(Math.random() * 10000),
-      text: className,
-      password: password,
-    });
-  
+
     const loginData = {
       name: className,
     }
     
     const raw = JSON.stringify(loginData);
 
-    var requestOptions = {
+    const requestOptions = {
       method: 'POST',
       body: raw,
-      redirect: 'follow'
+      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: "include"
     };
-
+ 
     fetch(createAPI, requestOptions)
-      .then(response => response.text())
+      .then(response => {
+        if(response.ok){
+          addClassroom({
+            id: Math.floor(Math.random() * 10000),
+            text: className,
+            password: password,
+          });
+          setClassName('');
+          setPassword('');
+          return response.json();
+        }
+        else{
+          throw new Error('Network response was not ok.');
+        }
+      })
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
-
-    setClassName('');
-    setPassword('');
   };
 
   return (
