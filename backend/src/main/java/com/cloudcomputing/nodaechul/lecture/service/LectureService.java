@@ -32,8 +32,15 @@ public class LectureService {
             throw new InvalidLectureNameException("중복된 강의명입니다.");
         }
 
-        // todo 수업 생성 시 교수도 수업에 참여
-        return lectureRepository.createLecture(createLectureRequestDto);
+        // 수업 생성시 수업에 참여
+        Long professorId = createLectureRequestDto.getCreated_by();
+        Long lectureId = lectureRepository.createLecture(createLectureRequestDto);
+        JoinLectureRequestDto joinLectureRequestDto = new JoinLectureRequestDto(professorId,
+            lectureId);
+        joinLectureRequestDto.setAvatar("test_IMG_URL");
+        lectureRepository.joinLecture(joinLectureRequestDto);
+
+        return lectureId;
     }
 
     public String inviteLecture(InviteLectureRequestDto inviteLectureRequestDto) {
@@ -56,7 +63,8 @@ public class LectureService {
             throw new AlreadyJoinedException("이미 참여한 강의입니다.");
         }
         // 초대 코드 유효성 검사
-        if(!joinLectureRequestDto.getInvitation_code().equals(lectureRepository.checkInvitationCode(joinLectureRequestDto))){
+        if (!joinLectureRequestDto.getInvitation_code()
+            .equals(lectureRepository.checkInvitationCode(joinLectureRequestDto))) {
             throw new InvalidInvitationCodeException("초대 코드가 맞지 않습니다.");
         }
         return lectureRepository.joinLecture(joinLectureRequestDto);
