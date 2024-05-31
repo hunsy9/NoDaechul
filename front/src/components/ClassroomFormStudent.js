@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
+import DropzoneAreaComponent from '../components/dropzone';
 
 const ClassroomFormStudent = ({ onCancel }) => {
   const [classCode, setClassCode] = useState('');
@@ -74,8 +75,10 @@ const ClassroomFormStudent = ({ onCancel }) => {
       <Typography variant="h6" sx={{marginRight:16, marginTop: 2, marginBottom: 2}}>
         Upload Your Selfie Image
       </Typography>
-      {/* TODO: dropzone으로 구현해야됨 */}
-      <Box sx={{
+      
+      <DropzoneAreaComponent/>
+      
+      {/* <Box sx={{
         width: 300,
         height: 300,
         display: 'flex',
@@ -87,9 +90,9 @@ const ClassroomFormStudent = ({ onCancel }) => {
         }} 
         className="Shadow"
         >
-        <Box sx={{height: 50}}></Box>
+        <Box sx={{height: 50}}></Box> */}
         {/* TODO: 이미지 업로드 기능 구현 */}
-        <Button sx={{ marginTop:5 }} onClick={onImage} variant="contained" color="secondary">
+        {/* <Button sx={{ marginTop:5 }} onClick={onImage} variant="contained" color="secondary">
           Upload Image
         </Button>
         <Typography variant="subtitle1" sx={{marginTop:5}}>
@@ -98,7 +101,10 @@ const ClassroomFormStudent = ({ onCancel }) => {
         <Typography variant="subtitle1" sx={{marginTop:2, color:'gray'}}>
           paste image or URL
         </Typography>
-      </Box>
+      </Box> */}
+
+      
+
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 2 }}>
         <Button type="submit" variant="contained" color="primary">Create</Button>
         <Button onClick={onCancel} variant="contained" color="secondary">Cancel</Button>

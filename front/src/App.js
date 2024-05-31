@@ -7,6 +7,11 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import AuthProvider from './auth/AuthProvider';
 import ClassAttendance from './Pages/ClassAttendance';
+import MainContent from './Pages/MainContent';
+
+// import DropzoneAreaComponent from './components/dropzone';
+
+import ClassroomFormStudent from './components/ClassroomFormStudent';
 
 const theme = createTheme({
   palette: {
@@ -24,13 +29,17 @@ function App() {
   return (
     
     <ThemeProvider theme={theme}>
-         <CssBaseline/>
+         {/* <CssBaseline/>
          <AuthProvider>
            <BrowserRouter>
              <AppRoutes/>
            </BrowserRouter> 
-         </AuthProvider> 
+         </AuthProvider>  */}
       {/* ClassAttendance 테스트 시 http://localhost:3000/ClassAttendance 입력*/}
+      {/* <ClassAttendance/> */}
+      {/* <MainContent/> */}
+      <ClassroomFormStudent/>
+      {/* <DropzoneAreaComponent/> */}
     </ThemeProvider>
     
   );
