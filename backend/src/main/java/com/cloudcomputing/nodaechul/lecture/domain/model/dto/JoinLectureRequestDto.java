@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 public class JoinLectureRequestDto {
+
     public JoinLectureRequestDto(Long user_id, Long lecture_id) {
         this.user_id = user_id;
         this.lecture_id = lecture_id;
