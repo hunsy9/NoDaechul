@@ -22,6 +22,10 @@ public class AdminRoleAspect {
         HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest().getSession();
         User user = (User) session.getAttribute("USER");
 
+        if (user == null) {
+            throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "NOT_LOGIN") {};
+        }
+
         if (user.getUser_role() != UserRole.Admin) {
             throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "NOT_ADMIN") {};
         }

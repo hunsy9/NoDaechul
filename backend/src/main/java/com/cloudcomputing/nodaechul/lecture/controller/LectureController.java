@@ -29,7 +29,6 @@ public class LectureController {
     private final LectureService lectureService;
 
     @PostMapping("/createlecture")
-    @LoginRequired
     @AdminRoleRequired
     public ResponseEntity<Long> createLecture(HttpSession session, @RequestBody @Valid CreateLectureRequestDto createLectureRequestDto) throws Exception {
         User user = (User) session.getAttribute("USER");
@@ -40,7 +39,6 @@ public class LectureController {
     }
 
     @GetMapping("/invitelecture")
-    @LoginRequired
     @AdminRoleRequired
     public ResponseEntity<String> inviteLecture(@RequestBody @Valid InviteLectureRequestDto inviteLectureRequestDto) throws Exception {
         String invitation_code = lectureService.inviteLecture(inviteLectureRequestDto);
