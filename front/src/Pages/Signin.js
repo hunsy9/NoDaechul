@@ -32,12 +32,13 @@ export default function SignIn() {
     var role = '';
 
     const requestOptions = {
+        credentials: 'include',
       method: 'POST',
       body: raw,
       redirect: 'follow',
       headers: {
         'Content-Type': 'application/json'
-      },
+      }
     };
 
     fetch(LoginAPI, requestOptions)

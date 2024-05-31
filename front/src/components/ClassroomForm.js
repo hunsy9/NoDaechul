@@ -17,13 +17,13 @@ const ClassroomForm = ({addClassroom, onCancel}) => {
     const raw = JSON.stringify(loginData);
 
     const requestOptions = {
+      credentials: 'include',
       method: 'POST',
       body: raw,
       redirect: 'follow',
       headers: {
         'Content-Type': 'application/json'
-      },
-      credentials: "include"
+      }
     };
  
     fetch(createAPI, requestOptions)
