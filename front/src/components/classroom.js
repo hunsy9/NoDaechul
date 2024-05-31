@@ -27,7 +27,7 @@ const Classroom = ({ classrooms, setClassName, setShowClassroom, setShowForm }) 
         .then(result => {
           console.log(result);
           let newClassroomList = [...classroomList];
-          newClassroomList = JSON.parse(result);
+          newClassroomList = result;
           setClassroomList(newClassroomList);
         })
         .catch(error => console.log('error', error));
