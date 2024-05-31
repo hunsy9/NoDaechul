@@ -22,9 +22,6 @@ public class JoinLectureRequestDto {
     @NotNull(message = "강의 id는 null일 수 없습니다.")
     private Long lecture_id;
 
-    @Setter
-    private String avatar;
-
     @NotBlank(message = "초대 코드를 입력해 주세요.")
     private String invitation_code;
 }

@@ -20,7 +20,7 @@
   </select>
 
   <insert id="joinLecture" parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto">
-    INSERT INTO lecture_user VALUES (#{user_id}, #{lecture_id}, #{avatar}, now(), now());
+    INSERT INTO lecture_user VALUES (#{user_id}, #{lecture_id}, now(), now());
   </insert>
 
   <select id="alreadyJoined" resultType="boolean" parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto">
@@ -35,6 +35,12 @@
     SELECT id, name, created_by
     FROM lecture
     WHERE id IN (SELECT lecture_id FROM lecture_user WHERE user_id=#{userId});
+  </select>
+
+  <select id="getAttendanceByLectureID" resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttenanceDto" parameterType="long">
+    SELECT student_id, name, avatar
+    FROM user
+    WHERE user_role = "User" AND id IN (SELECT user_id FROM lecture_user WHERE lecture_id=#{lectureId});
   </select>
 
 </mapper>

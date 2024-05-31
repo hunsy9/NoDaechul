@@ -1,6 +1,7 @@
 package com.cloudcomputing.nodaechul.lecture.service;
 
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
+import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
@@ -37,7 +38,6 @@ public class LectureService {
         Long lectureId = lectureRepository.createLecture(createLectureRequestDto);
         JoinLectureRequestDto joinLectureRequestDto = new JoinLectureRequestDto(professorId,
             lectureId);
-        joinLectureRequestDto.setAvatar("test_IMG_URL");
         lectureRepository.joinLecture(joinLectureRequestDto);
 
         return lectureId;
@@ -53,7 +53,6 @@ public class LectureService {
 
     @Transactional
     public Long joinLecture(JoinLectureRequestDto joinLectureRequestDto) {
-        joinLectureRequestDto.setAvatar("test_IMG_URL");
         // 강의 ID 존재 유효성 검사
         if (!isLectureIDExists(joinLectureRequestDto.getLecture_id())) {
             throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
@@ -76,5 +75,13 @@ public class LectureService {
 
     public List<GetLectureRequestDto> getLecturesByUserID(Long userId) {
         return lectureRepository.getLecturesByUserID(userId);
+    }
+
+    public List<GetAttendanceResponseDto> getAttendanceByLectureID(Long lectureId) {
+        // 강의 ID 존재 유효성 검사
+        if (!isLectureIDExists(lectureId)) {
+            throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
+        }
+        return lectureRepository.getAttendanceByLectureID(lectureId);
     }
 }
