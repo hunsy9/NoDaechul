@@ -9,9 +9,11 @@ import AuthProvider from './auth/AuthProvider';
 import ClassAttendance from './Pages/ClassAttendance';
 import MainContent from './Pages/MainContent';
 
-// import DropzoneAreaComponent from './components/dropzone';
 
+// import DropzoneAreaComponent from './components/dropzone';
+import MainAdmin from './components/MainAdmin';
 import ClassroomFormStudent from './components/ClassroomFormStudent';
+// import Signup from './Pages/Signup';
 
 const theme = createTheme({
   palette: {
@@ -29,16 +31,16 @@ function App() {
   return (
     
     <ThemeProvider theme={theme}>
-         {/* <CssBaseline/>
+         <CssBaseline/>
          <AuthProvider>
            <BrowserRouter>
              <AppRoutes/>
            </BrowserRouter> 
-         </AuthProvider>  */}
-      {/* ClassAttendance 테스트 시 http://localhost:3000/ClassAttendance 입력*/}
+         </AuthProvider> 
+      {/* ClassAttendance 테스트 시 1 입력*/}
       {/* <ClassAttendance/> */}
       {/* <MainContent/> */}
-      <ClassroomFormStudent/>
+      {/* <ClassroomFormStudent/> */}
       {/* <DropzoneAreaComponent/> */}
     </ThemeProvider>
     

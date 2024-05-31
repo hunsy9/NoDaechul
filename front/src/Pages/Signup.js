@@ -20,6 +20,7 @@ import {
 } from '@mui/material/';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import styled from 'styled-components';
+import DropzoneAreaComponent from '../components/dropzone';
 
 // MUI의 CSS 우선순위가 높기 때문에 important를 설정 - 실무에서 종종 발생하는 우선순위 문제 해결
 const FormHelperTexts = styled(FormHelperText)`
@@ -75,7 +76,9 @@ const Register = () => {
       body: raw,
       redirect: 'follow',
       headers: {
-        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/json',
+        'Content-Type': 'multipart/form-data'
+
       },
     };
 
@@ -245,7 +248,12 @@ const Register = () => {
                         name="studentId"
                         label="학번"
                       />
+                      <Typography variant="h6" sx={{marginRight:16, marginTop: 2, marginBottom: 2}}>
+                        Upload Your Selfie Image
+                      </Typography>
+                      <DropzoneAreaComponent/>
                     </Grid>
+                    
                   )}
                 </Grid>
               </Grid>
