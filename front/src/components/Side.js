@@ -63,6 +63,7 @@ export default function Side(props) {
           setClassName={props.setClassName} 
           setShowClassroom={props.setShowClassroom}
           setShowForm={props.setShowForm}
+          setClassrooms={props.setClassrooms}
         />
         </List>
       </Collapse>

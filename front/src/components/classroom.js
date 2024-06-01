@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Typography, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material';
 import TabIcon from '@mui/icons-material/Tab';
 
-const Classroom = ({ classrooms, setClassName, setShowClassroom, setShowForm }) => { // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
-  //TODO: 수업목록 가져오는 API 호출로 바꿔야함
-  const[classroomList, setClassroomList] = useState([]);
-  
+const Classroom = ({ classrooms, setClassrooms, setClassName, setShowClassroom, setShowForm }) => { // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
   useEffect(() => {
     getLecture();
   }, []);
@@ -26,9 +23,9 @@ const Classroom = ({ classrooms, setClassName, setShowClassroom, setShowForm }) 
         })
         .then(result => {
           console.log(result);
-          let newClassroomList = [...classroomList];
-          newClassroomList = result;
-          setClassroomList(newClassroomList);
+          let newClassrooms = [...classrooms];
+          newClassrooms = result;
+          setClassrooms(newClassrooms);
         })
         .catch(error => console.log('error', error));
     } catch (e) {
@@ -38,7 +35,7 @@ const Classroom = ({ classrooms, setClassName, setShowClassroom, setShowForm }) 
 
   return (
     <div>
-      {classroomList && classroomList.map((classroom, index) => (
+      {classrooms && classrooms.map((classroom, index) => (
         <div key={index}>
           <div key={classroom.id}>
           <ListItemButton 

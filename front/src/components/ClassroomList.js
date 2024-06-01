@@ -10,6 +10,7 @@ export const ClassroomList = (props) => {
         setClassName={props.setClassName} 
         setShowClassroom={props.setShowClassroom} 
         setShowForm={props.setShowForm}
+        setClassrooms={props.setClassrooms}
       ></Classroom>
     </Box>
   )
