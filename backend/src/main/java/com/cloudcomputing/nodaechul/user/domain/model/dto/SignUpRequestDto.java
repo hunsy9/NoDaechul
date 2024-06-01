@@ -24,6 +24,8 @@ public class SignUpRequestDto {
     @NotBlank(message = "이름 입력은 필수입니다.")
     private final String name;
 
+    private final String avatar = "TESTS3URL";
+
     @Setter
     @Size(min = 8, max = 20, message = "비밀번호는 최소 8자 이상, 최대 20자 이하여야 합니다.")
     private String password;
