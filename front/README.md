@@ -2,7 +2,7 @@
 
 - 회원가입시 사진포함 전달 구현  
 
-- Create Attendance 구현
+- Invite Member 구현
 
 - 수업 날짜 목록, 날짜당 출석부를 API호출을 통해 가져와서 리스트로 표시  
 
