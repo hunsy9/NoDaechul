@@ -7,7 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 
 import faceIdImage from '../assets/faceid.png';
-import ClassroomList from './ClassroomList';
+import Classroom from './classroom';
 
 export default function Side(props) {
   
@@ -57,7 +57,7 @@ export default function Side(props) {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           {/* Classroom이 위치할 곳 */}
-          <ClassroomList 
+          <Classroom
           classrooms={props.classrooms} 
           setClassName={props.setClassName} 
           setShowClassroom={props.setShowClassroom}
