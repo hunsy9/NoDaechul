@@ -1,6 +1,7 @@
 package com.cloudcomputing.nodaechul.lecture.domain.repository.mapper;
 
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
+import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
@@ -24,4 +25,6 @@ public interface LectureMapper {
     String checkInvitationCode(JoinLectureRequestDto joinLectureRequestDto);
 
     List<GetLectureRequestDto> getLecturesByUserID(Long userId);
+
+    List<GetAttendanceResponseDto> getAttendanceByLectureID(Long lectureId);
 }

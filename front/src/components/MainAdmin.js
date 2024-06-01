@@ -46,7 +46,15 @@ const MainAdmin = (props) => {
           </Button>
         </>
       }
-      {(props.showForm && !props.showClassroom) && <ClassroomForm addClassroom={props.addClassroom} onCancel={props.handleClick}/>}
+      {(props.showForm && !props.showClassroom) && 
+        <ClassroomForm 
+          addClassroom={props.addClassroom} 
+          onCancel={props.handleClick}
+          setClassNames={props.setClassNames}
+          classrooms={props.classrooms}
+          setClassrooms={props.setClassrooms}
+        />
+      }
     </Box>
   )
 }

@@ -9,7 +9,6 @@ import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 import faceIdImage from '../assets/faceid.png';
 import ClassroomList from './ClassroomList';
 
-//TODO: 스크롤바 구현 필요
 export default function Side(props) {
   
   // const [showForm, setShowForm] = useState(false);
@@ -21,7 +20,7 @@ export default function Side(props) {
   };
   
   const DrawerList = (
-    <Box sx={{ width: 300, height: "100vh", borderRadius: 3}} className="SideBar" role="presentation" align="center">
+    <Box sx={{ width: 300, height: "100vh", borderRadius: 3, overflow:'scroll'}} className="SideBar" role="presentation" align="center">
       <Box display="flex" alignItems="center" style={{ flexGrow: 1, marginBottom: 30 }}>
         <img src={faceIdImage} alt="Face ID" style={{ marginRight: 20, width: 40, height: 40 }} />
         <Box>
@@ -63,6 +62,7 @@ export default function Side(props) {
           setClassName={props.setClassName} 
           setShowClassroom={props.setShowClassroom}
           setShowForm={props.setShowForm}
+          setClassrooms={props.setClassrooms}
         />
         </List>
       </Collapse>

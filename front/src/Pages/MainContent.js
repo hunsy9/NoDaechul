@@ -40,6 +40,7 @@ const MainContent = () => {
         <Grid item xs={3}>
           <Side 
             classrooms={classrooms} 
+            setClassrooms={setClassrooms}
             setClassName={setClassName} 
             setShowClassroom={setShowClassroom} 
             setShowForm={setShowForm}
@@ -58,12 +59,15 @@ const MainContent = () => {
             addClassroom={addClassroom}
             showClassroom={showClassroom}
             className={className}
+            setClassrooms={setClassrooms}
           /> :
           <MainStudent
             classrooms={classrooms}
             showForm={showForm}
             handleClick={handleCreateClassroomClick}
             addClassroom={addClassroom}
+            showClassroom={showClassroom}
+            className={className}
           />
           }
         </Grid>

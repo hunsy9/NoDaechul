@@ -1,9 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Typography, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material';
 import TabIcon from '@mui/icons-material/Tab';
 
-const Classroom = ({ classrooms, setClassName, setShowClassroom, setShowForm }) => { // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
-  //TODO: 수업목록 가져오는 API 호출로 바꿔야함
+const Classroom = ({ classrooms, setClassrooms, setClassName, setShowClassroom, setShowForm }) => {
+  // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
+
+  useEffect(() => {
+    getLecture();
+  }, []);
+
+  const getLecture = () => {
+    try{
+      var requestOptions = {
+        credentials: 'include',
+        method: 'GET',
+        redirect: 'follow'
+      };
+      
+      fetch("http://localhost:5555/api/lecture/getlecture", requestOptions)
+        .then(response => {
+          if(response.ok){
+            return response.json();
+          }
+        })
+        .then(result => {
+          console.log(result);
+          let newClassrooms = [...classrooms];
+          newClassrooms = result;
+          setClassrooms(newClassrooms);
+        })
+        .catch(error => console.log('error', error));
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   return (
     <div>
       {classrooms.map((classroom, index) => (
@@ -12,7 +43,7 @@ const Classroom = ({ classrooms, setClassName, setShowClassroom, setShowForm }) 
           <ListItemButton 
             sx={{ pl: 4, margin: 1, padding: 2 }}
             onClick={() => {
-              setClassName(classroom.text);
+              setClassName(classroom.name);
               setShowClassroom(true);
               setShowForm(false);
             }}
@@ -20,7 +51,7 @@ const Classroom = ({ classrooms, setClassName, setShowClassroom, setShowForm }) 
             <ListItemIcon>
               <SvgIcon component={TabIcon} sx={{ marginRight: 2 }} />
             <Typography>
-              {classroom.text}
+              {classroom.name}
             </Typography>
             </ListItemIcon>
           </ListItemButton>
