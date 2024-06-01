@@ -83,12 +83,13 @@ const ClassroomContent = (props) => {
       <Grid container direction={"row"} spacing={3}>
         <Grid item xs={3}>
           {/* 테스트용 데이터 추가, attendance.map의 attendance에 API호출로 받아온 JSON값이 들어가야함 */}
-          <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
+          <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center'}} className="Shadow">
             <Typography variant="h6" fontWeight={'bold'} sx={{marginTop:2, marginBottom:2, marginRight:9}}>
               Attendance
             </Typography>
-            {attendance.map((attendance) => (
+            {attendance.map((attendance, index) => (
               <Button 
+                key={index}
                 variant="contained" 
                 className="Shadow" 
                 onClick={() => {

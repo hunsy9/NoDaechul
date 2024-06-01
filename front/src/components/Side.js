@@ -20,7 +20,7 @@ export default function Side(props) {
   };
   
   const DrawerList = (
-    <Box sx={{ width: 300, height: "100vh", borderRadius: 3}} className="SideBar" role="presentation" align="center">
+    <Box sx={{ width: 300, height: "100vh", borderRadius: 3, overflow:'scroll'}} className="SideBar" role="presentation" align="center">
       <Box display="flex" alignItems="center" style={{ flexGrow: 1, marginBottom: 30 }}>
         <img src={faceIdImage} alt="Face ID" style={{ marginRight: 20, width: 40, height: 40 }} />
         <Box>

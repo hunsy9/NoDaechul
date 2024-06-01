@@ -2,11 +2,11 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-const ClassroomForm = ({addClassroom, onCancel}) => {
+const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
   const [className, setClassName] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const createAPI = "http://localhost:5555/api/lecture/createlecture";
 
@@ -34,6 +34,7 @@ const ClassroomForm = ({addClassroom, onCancel}) => {
             text: className,
             password: password,
           });
+          setLecture();
           setClassName('');
           setPassword('');
           return response.json();
@@ -45,6 +46,32 @@ const ClassroomForm = ({addClassroom, onCancel}) => {
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
   };
+
+  const setLecture = () => {
+    try{
+      var requestOptions = {
+        credentials: 'include',
+        method: 'GET',
+        redirect: 'follow'
+      };
+      
+      fetch("http://localhost:5555/api/lecture/getlecture", requestOptions)
+        .then(response => {
+          if(response.ok){
+            return response.json();
+          }
+        })
+        .then(result => {
+          console.log(result);
+          let newClassrooms = [...classrooms];
+          newClassrooms = result;
+          setClassrooms(newClassrooms);
+        })
+        .catch(error => console.log('error', error));
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   return (
     <Box

@@ -59,6 +59,7 @@ const MainContent = () => {
             addClassroom={addClassroom}
             showClassroom={showClassroom}
             className={className}
+            setClassrooms={setClassrooms}
           /> :
           <MainStudent
             classrooms={classrooms}

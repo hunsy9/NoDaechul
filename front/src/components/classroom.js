@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Typography, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material';
 import TabIcon from '@mui/icons-material/Tab';
 
-const Classroom = ({ classrooms, setClassrooms, setClassName, setShowClassroom, setShowForm }) => { // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
+const Classroom = ({ classrooms, setClassrooms, setClassName, setShowClassroom, setShowForm }) => {
+  // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
+
   useEffect(() => {
     getLecture();
   }, []);
 
-  const getLecture = async () => {
+  const getLecture = () => {
     try{
       var requestOptions = {
         credentials: 'include',
@@ -35,7 +37,7 @@ const Classroom = ({ classrooms, setClassrooms, setClassName, setShowClassroom, 
 
   return (
     <div>
-      {classrooms && classrooms.map((classroom, index) => (
+      {classrooms.map((classroom, index) => (
         <div key={index}>
           <div key={classroom.id}>
           <ListItemButton 
