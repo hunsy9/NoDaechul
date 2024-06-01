@@ -3,6 +3,8 @@ package com.cloudcomputing.nodaechul.lecture.controller;
 import com.cloudcomputing.nodaechul.annotation.AdminRoleRequired;
 import com.cloudcomputing.nodaechul.annotation.LoginRequired;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
+import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceRequestDto;
+import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
@@ -26,11 +28,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/lecture")
 @Slf4j
 public class LectureController {
+
     private final LectureService lectureService;
 
     @PostMapping("/createlecture")
     @AdminRoleRequired
-    public ResponseEntity<Long> createLecture(HttpSession session, @RequestBody @Valid CreateLectureRequestDto createLectureRequestDto) throws Exception {
+    public ResponseEntity<Long> createLecture(HttpSession session,
+        @RequestBody @Valid CreateLectureRequestDto createLectureRequestDto) throws Exception {
         User user = (User) session.getAttribute("USER");
         log.info(String.valueOf(user.getId()));
         createLectureRequestDto.setCreated_by(user.getId());
@@ -40,14 +44,16 @@ public class LectureController {
 
     @GetMapping("/invitelecture")
     @AdminRoleRequired
-    public ResponseEntity<String> inviteLecture(@RequestBody @Valid InviteLectureRequestDto inviteLectureRequestDto) throws Exception {
+    public ResponseEntity<String> inviteLecture(
+        @RequestBody @Valid InviteLectureRequestDto inviteLectureRequestDto) throws Exception {
         String invitation_code = lectureService.inviteLecture(inviteLectureRequestDto);
         return ResponseEntity.status(HttpStatus.OK).body(invitation_code);
     }
 
     @PostMapping("/joinlecture")
     @LoginRequired
-    public ResponseEntity<Long> joinLecture(HttpSession session, @RequestBody @Valid JoinLectureRequestDto joinLectureRequestDto) throws Exception {
+    public ResponseEntity<Long> joinLecture(HttpSession session,
+        @RequestBody @Valid JoinLectureRequestDto joinLectureRequestDto) throws Exception {
         User user = (User) session.getAttribute("USER");
         joinLectureRequestDto.setUser_id(user.getId());
         Long lecture_id = lectureService.joinLecture(joinLectureRequestDto);
@@ -56,11 +62,20 @@ public class LectureController {
 
     @GetMapping("/getlecture")
     @LoginRequired
-    public ResponseEntity<List<GetLectureRequestDto>> getLecture(HttpSession session) throws Exception {
+    public ResponseEntity<List<GetLectureRequestDto>> getLecture(HttpSession session)
+        throws Exception {
         User user = (User) session.getAttribute("USER");
-        List<GetLectureRequestDto> getLectureRequestDtoList = lectureService.getLecturesByUserID(user.getId());
+        List<GetLectureRequestDto> getLectureRequestDtoList = lectureService.getLecturesByUserID(
+            user.getId());
         return ResponseEntity.status(HttpStatus.OK).body(getLectureRequestDtoList);
     }
 
-
+    @GetMapping("/getattendance")
+    @LoginRequired
+    public ResponseEntity<List<GetAttendanceResponseDto>> getAttendance(
+        @RequestBody @Valid GetAttendanceRequestDto getAttendanceRequestDto) throws Exception {
+        List<GetAttendanceResponseDto> getAttendanceResponseDto = lectureService.getAttendanceByLectureID(
+            getAttendanceRequestDto.getLectureId());
+        return ResponseEntity.status(HttpStatus.OK).body(getAttendanceResponseDto);
+    }
 }

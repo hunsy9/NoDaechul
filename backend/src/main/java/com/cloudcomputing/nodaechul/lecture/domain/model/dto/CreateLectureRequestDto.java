@@ -8,6 +8,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 public class CreateLectureRequestDto {
+
     private final Long id;
 
     @NotBlank(message = "강의 이름 입력은 필수입니다.")

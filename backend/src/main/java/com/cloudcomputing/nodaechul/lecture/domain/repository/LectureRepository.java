@@ -1,6 +1,7 @@
 package com.cloudcomputing.nodaechul.lecture.domain.repository;
 
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
+import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
@@ -47,5 +48,9 @@ public class LectureRepository {
 
     public List<GetLectureRequestDto> getLecturesByUserID(Long userId) {
         return lectureMapper.getLecturesByUserID(userId);
+    }
+
+    public List<GetAttendanceResponseDto> getAttendanceByLectureID(Long lectureId) {
+        return lectureMapper.getAttendanceByLectureID(lectureId);
     }
 }
