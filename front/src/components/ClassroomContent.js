@@ -82,7 +82,6 @@ const ClassroomContent = (props) => {
       {!showCreate ? 
       <Grid container direction={"row"} spacing={3}>
         <Grid item xs={3}>
-          {/* TODO: 스크롤바 추가 */}
           {/* 테스트용 데이터 추가, attendance.map의 attendance에 API호출로 받아온 JSON값이 들어가야함 */}
           <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
             <Typography variant="h6" fontWeight={'bold'} sx={{marginTop:2, marginBottom:2, marginRight:9}}>
@@ -106,7 +105,6 @@ const ClassroomContent = (props) => {
         </Grid>
         <Grid item xs={8.5}>
           <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
-            {/* TODO: 여기에 출석부가 들어가야 함 */}
             {showStudents ? <StudentsByDate students={students}></StudentsByDate> : <></>}
           </Box>
         </Grid>

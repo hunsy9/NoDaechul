@@ -9,7 +9,6 @@ import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
 import faceIdImage from '../assets/faceid.png';
 import ClassroomList from './ClassroomList';
 
-//TODO: 스크롤바 구현 필요
 export default function Side(props) {
   
   // const [showForm, setShowForm] = useState(false);
