@@ -13,6 +13,7 @@ import MainContent from './Pages/MainContent';
 import MainAdmin from './components/MainAdmin';
 import ClassroomFormStudent from './components/ClassroomFormStudent';
 import CreateAttendance from './components/CreateAttendance';
+import MainStudent from './components/MainStudent';
 // import Signup from './Pages/Signup';
 
 const theme = createTheme({
@@ -42,7 +43,6 @@ function App() {
       {/* <ClassAttendance/> */}
       {/* <MainContent/> */}
       {/* <ClassroomFormStudent/> */}
-      {/* <DropzoneAreaComponent/> */}
     </ThemeProvider>
     
   );

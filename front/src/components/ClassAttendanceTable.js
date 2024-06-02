@@ -5,7 +5,7 @@ import { DataGrid } from '@mui/x-data-grid';
 
 const DataTable = () => {
   const columns = [
-    { field: 'studentID', headerName: 'Student ID', width: 200 },
+    { field: 'studentID', headerName: 'Student ID', width: 250 },
     { field: 'name', headerName: 'Name', width: 200 },
     { field: 'status', headerName: 'Status', width: 200 },
   
@@ -30,8 +30,11 @@ const DataTable = () => {
     { id: 9, studentID: 201944529, name: 'Roxie', status: 'X', accuracy: 65 },
   ];
   return (
-    <div style={{ height: 300, width: '80%' }}>
+    <div style={{ height: 300, width: '80%'}}>
       <DataGrid
+        sx ={{
+          marginLeft:'30',
+        }}
         rows={rows}
         columns={columns}
         initialState={{
@@ -40,7 +43,8 @@ const DataTable = () => {
           },
         }}
         pageSizeOptions={[5, 10]}
-        checkboxSelection
+        // checkboxSelection
+        
       ></DataGrid>
     </div>
   );
