@@ -1,6 +1,7 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import DropzoneAreaComponent from '../components/dropzone';
+// import DropzoneAreaComponent from '../components/dropzone';
+import FileUpload from './FileUpload';
 
 const ClassroomFormStudent = ({ onCancel }) => {
   const [classCode, setClassCode] = useState('');
@@ -76,7 +77,8 @@ const ClassroomFormStudent = ({ onCancel }) => {
         Upload Your Selfie Image
       </Typography>
       
-      <DropzoneAreaComponent/>
+      {/* <DropzoneAreaComponent/> */}
+      <FileUpload/>
       
       {/* <Box sx={{
         width: 300,

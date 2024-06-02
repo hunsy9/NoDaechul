@@ -76,8 +76,8 @@ const Register = () => {
       body: raw,
       redirect: 'follow',
       headers: {
-        // 'Content-Type': 'application/json',
-        'Content-Type': 'multipart/form-data'
+        'Content-Type': 'application/json',
+        // 'Content-Type': 'multipart/form-data'
 
       },
     };

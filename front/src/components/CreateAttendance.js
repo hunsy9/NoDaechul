@@ -1,16 +1,18 @@
 import React from 'react';
 import { Box, Typography, Button } from '@mui/material';
-import DropzoneAreaComponent from '../components/dropzone';
+// import DropzoneAreaComponent from '../components/dropzone';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import FileUpload from '../components/FileUpload';
 
 const CreateAttendance = () => {
   return(
     <Box sx={{marginTop: '10vh'}}>
     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh'}}>
       <Box sx={{ alignItems: 'center', justifyContent: 'center'}}>
-        <DropzoneAreaComponent>
-        </DropzoneAreaComponent>
+        {/* <DropzoneAreaComponent>
+        </DropzoneAreaComponent> */}
+        <FileUpload/>
         <div style={{ textAlign: 'center' }}>
           <Typography variant="subtitle1" sx ={{fontFamily:'Inter', color:'#000000', fontWeight:'bold', marginTop: '30px'}}>
             Choose your Class Date.
