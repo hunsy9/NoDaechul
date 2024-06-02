@@ -37,7 +37,7 @@ const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, s
 
   return (
     <div>
-      {classrooms.map((classroom, index) => (
+      {classrooms && classrooms.map((classroom, index) => (
         <div key={index}>
           <div key={classroom.id}>
           <ListItemButton 

@@ -38,6 +38,40 @@ const ClassroomContent = (props) => {
   const handleShowStudents = () => {
     setShowStudents('true');
   }
+  const handleInvite = async () => {
+    try{
+      var text = '';
+
+      const inviteData = {
+        id: props.classObj.id
+      };
+
+      const raw = JSON.stringify(inviteData);
+
+      console.log(raw);
+
+      var requestOptions = {
+        credentials: 'include',
+        method: 'POST',
+        body: raw,
+        redirect: 'follow',
+      };
+      
+      fetch("http://localhost:5555/api/lecture/invitelecture", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          text = result;
+          console.log(result);
+        })
+        .catch(error => console.log('error', error));
+        await navigator.clipboard.writeText(text);
+        alert('초대 코드가 클립보드에 복사되었습니다.');
+    } 
+    catch (e) {
+      console.log(e);
+    }
+  }
+
   const handleAttendance = ({date, className}) => {
     let newStudents = [...students];
     //TODO: API를 통한 학생 변경
@@ -61,7 +95,7 @@ const ClassroomContent = (props) => {
           {/* 버튼 스타일 변경 */}
           {!showCreate ? 
             <>
-              <Button variant="contained" sx={{ 
+              <Button variant="contained" onClick={handleInvite} sx={{ 
                  width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', marginRight: 2, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' 
               }}>
               Invite Member
