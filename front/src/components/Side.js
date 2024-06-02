@@ -59,7 +59,7 @@ export default function Side(props) {
           {/* Classroom이 위치할 곳 */}
           <Classroom
           classrooms={props.classrooms} 
-          setClassName={props.setClassName} 
+          setClassObj={props.setClassObj} 
           setShowClassroom={props.setShowClassroom}
           setShowForm={props.setShowForm}
           setClassrooms={props.setClassrooms}
@@ -67,6 +67,7 @@ export default function Side(props) {
         </List>
       </Collapse>
     </Box>
+    
   );
 
   return (

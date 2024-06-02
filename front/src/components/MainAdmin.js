@@ -8,7 +8,7 @@ const MainAdmin = (props) => {
 
   return(
     (props.showClassroom) ?
-    <ClassroomContent className={props.className}/> : 
+    <ClassroomContent classObj={props.classObj}/> : 
     
     <Box
       sx={{
@@ -50,7 +50,6 @@ const MainAdmin = (props) => {
         <ClassroomForm 
           addClassroom={props.addClassroom} 
           onCancel={props.handleClick}
-          setClassNames={props.setClassNames}
           classrooms={props.classrooms}
           setClassrooms={props.setClassrooms}
         />

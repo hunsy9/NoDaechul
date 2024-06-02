@@ -33,15 +33,15 @@ function App() {
   return (
     
     <ThemeProvider theme={theme}>
-         {/* <CssBaseline/>
+         <CssBaseline/>
          <AuthProvider>
            <BrowserRouter>
              <AppRoutes/>
            </BrowserRouter> 
-         </AuthProvider>  */}
+         </AuthProvider> 
 
       {/* ClassAttendance 테스트 시 1 입력*/}
-      <ClassAttendance/>
+      {/* <ClassAttendance/> */}
       {/* <MainContent/> */}
       {/* <ClassroomFormStudent/> */}
       

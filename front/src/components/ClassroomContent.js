@@ -54,7 +54,7 @@ const ClassroomContent = (props) => {
             }}
           >
             <SvgIcon component={TabIcon} sx={{marginRight: 2}}/>
-            {props.className}
+            {props.classObj.name}
           </Box>
         </Grid>
         <Grid item xs={5}>
