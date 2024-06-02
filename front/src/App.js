@@ -14,6 +14,7 @@ import MainAdmin from './components/MainAdmin';
 import ClassroomFormStudent from './components/ClassroomFormStudent';
 import CreateAttendance from './components/CreateAttendance';
 import MainStudent from './components/MainStudent';
+import Classroom from './components/classroom';
 // import Signup from './Pages/Signup';
 
 const theme = createTheme({
@@ -32,17 +33,18 @@ function App() {
   return (
     
     <ThemeProvider theme={theme}>
-         <CssBaseline/>
+         {/* <CssBaseline/>
          <AuthProvider>
            <BrowserRouter>
              <AppRoutes/>
            </BrowserRouter> 
-         </AuthProvider> 
+         </AuthProvider>  */}
 
       {/* ClassAttendance 테스트 시 1 입력*/}
-      {/* <ClassAttendance/> */}
+      <ClassAttendance/>
       {/* <MainContent/> */}
       {/* <ClassroomFormStudent/> */}
+      
     </ThemeProvider>
     
   );
