@@ -1,10 +1,6 @@
 package com.cloudcomputing.nodaechul.lecture.service;
 
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
+import com.cloudcomputing.nodaechul.lecture.domain.model.dto.*;
 import com.cloudcomputing.nodaechul.lecture.domain.repository.LectureRepository;
 import com.cloudcomputing.nodaechul.lecture.exception.AlreadyJoinedException;
 import com.cloudcomputing.nodaechul.lecture.exception.InvalidInvitationCodeException;
@@ -12,6 +8,9 @@ import com.cloudcomputing.nodaechul.lecture.exception.InvalidLectureIdException;
 import com.cloudcomputing.nodaechul.lecture.exception.InvalidLectureNameException;
 import java.util.List;
 import java.util.UUID;
+
+import com.cloudcomputing.nodaechul.rekognition.service.RekognitionService;
+import com.cloudcomputing.nodaechul.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class LectureService {
 
     private final LectureRepository lectureRepository;
+    private final RekognitionService rekognitionService;
+    private final UserService userService;
 
     @Transactional
     public Long createLecture(CreateLectureRequestDto createLectureRequestDto) {
@@ -36,6 +37,10 @@ public class LectureService {
         // 수업 생성시 수업에 참여
         Long professorId = createLectureRequestDto.getCreated_by();
         Long lectureId = lectureRepository.createLecture(createLectureRequestDto);
+
+        //AWS Rekognition Collection 추가
+        rekognitionService.createCollection(invitation_code);
+
         JoinLectureRequestDto joinLectureRequestDto = new JoinLectureRequestDto(professorId,
             lectureId);
         lectureRepository.joinLecture(joinLectureRequestDto);
