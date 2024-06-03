@@ -56,7 +56,7 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
 const DataTable = () => {
-  // todo : GetAttendanceAPI port와 lectureId 추가
+  // todo : GetAttendanceAPI port와 lectureId 추가 (잘 안됨)
   const GetAttendanceAPI = 'http://localhost:5555/api/lecture/getattendance';
 
   const url = new URL(GetAttendanceAPI);
