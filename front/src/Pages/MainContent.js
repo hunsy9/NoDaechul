@@ -11,7 +11,7 @@ import MainHeader from '../components/MainHeader';
 const MainContent = () => {
   
   const [classrooms, setClassrooms] = useState([]);
-  const [className, setClassName] = useState('');
+  const [classObj, setClassObj] = useState({name: '', id: -1});
   const [showForm, setShowForm] = useState(false); 
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
@@ -33,6 +33,7 @@ const MainContent = () => {
     setUserRole(localStorage.getItem('role'));
   }, []);
 
+
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <CssBaseline />
@@ -41,7 +42,7 @@ const MainContent = () => {
           <Side 
             classrooms={classrooms} 
             setClassrooms={setClassrooms}
-            setClassName={setClassName} 
+            setClassObj={setClassObj} 
             setShowClassroom={setShowClassroom} 
             setShowForm={setShowForm}
           /> {/* 사이드바 컴포넌트 */}
@@ -58,7 +59,7 @@ const MainContent = () => {
             handleClick={handleCreateClassroomClick}
             addClassroom={addClassroom}
             showClassroom={showClassroom}
-            className={className}
+            classObj={classObj}
             setClassrooms={setClassrooms}
           /> :
           <MainStudent
@@ -67,7 +68,7 @@ const MainContent = () => {
             handleClick={handleCreateClassroomClick}
             addClassroom={addClassroom}
             showClassroom={showClassroom}
-            className={className}
+            classObj={classObj}
           />
           }
         </Grid>

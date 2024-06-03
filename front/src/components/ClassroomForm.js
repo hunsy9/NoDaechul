@@ -25,6 +25,8 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
         'Content-Type': 'application/json'
       }
     };
+
+    setLecture();
  
     fetch(createAPI, requestOptions)
       .then(response => {
@@ -34,7 +36,11 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
             text: className,
             password: password,
           });
-          setLecture();
+          
+          const lectures = setLecture();
+          if (lectures.includes(className)) {
+            throw new Error('Class name already exists.');
+          }
           setClassName('');
           setPassword('');
           return response.json();
@@ -63,9 +69,12 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
         })
         .then(result => {
           console.log(result);
+          const lectureNames = result.map(lecture => lecture.name);
           let newClassrooms = [...classrooms];
           newClassrooms = result;
           setClassrooms(newClassrooms);
+
+          return lectureNames;
         })
         .catch(error => console.log('error', error));
     } catch (e) {

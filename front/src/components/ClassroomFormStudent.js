@@ -1,14 +1,21 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
-import DropzoneAreaComponent from '../components/dropzone';
+import React, { useState, useContext } from 'react';
+import HostContext from '../Context/HostContext';
+// import DropzoneAreaComponent from '../components/dropzone';
+import FileUpload from './FileUpload';
+// import Classroom from './classroom';
 
 const ClassroomFormStudent = ({ onCancel }) => {
   const [classCode, setClassCode] = useState('');
   const [password, setPassword] = useState('');
 
+  const { host } = useContext(HostContext);
+
   const handleSubmit = e => {
     e.preventDefault();
-    const createAPI = "http://localhost:5555/api/lecture/joinlecture";
+
+    const createAPI = host + "lecture/joinlecture";
+
   
     const loginData = {
       code: classCode,
@@ -51,7 +58,7 @@ const ClassroomFormStudent = ({ onCancel }) => {
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      {/*TODO: 과목이름 중복 방지기능이 필요할거 같아요 */}
+      {/*TODO: 과목이름 중복 방지기능이 필요할거 같아요  -> 학생이면 중복 확인 필요 없을 것 같아요*/}
       <Typography variant="h6" sx={{marginLeft:1, marginRight:1, marginBottom:3}}>
         Join New Classroom
       </Typography>
@@ -76,7 +83,8 @@ const ClassroomFormStudent = ({ onCancel }) => {
         Upload Your Selfie Image
       </Typography>
       
-      <DropzoneAreaComponent/>
+      {/* <DropzoneAreaComponent/> */}
+      <FileUpload/>
       
       {/* <Box sx={{
         width: 300,

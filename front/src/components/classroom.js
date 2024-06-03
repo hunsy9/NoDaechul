@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Typography, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material';
 import TabIcon from '@mui/icons-material/Tab';
 
-const Classroom = ({ classrooms, setClassrooms, setClassName, setShowClassroom, setShowForm }) => {
+const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, setShowForm }) => {
   // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
 
   useEffect(() => {
@@ -37,17 +37,19 @@ const Classroom = ({ classrooms, setClassrooms, setClassName, setShowClassroom, 
 
   return (
     <div>
-      {classrooms.map((classroom, index) => (
+      {classrooms && classrooms.map((classroom, index) => (
         <div key={index}>
           <div key={classroom.id}>
           <ListItemButton 
             sx={{ pl: 4, margin: 1, padding: 2 }}
             onClick={() => {
-              setClassName(classroom.name);
+              setClassObj({name: classroom.name, id: classroom.id});
               setShowClassroom(true);
               setShowForm(false);
+              console.log({name: classroom.name, id: classroom.id});
             }}
           >
+
             <ListItemIcon>
               <SvgIcon component={TabIcon} sx={{ marginRight: 2 }} />
             <Typography>

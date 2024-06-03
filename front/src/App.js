@@ -1,18 +1,21 @@
 import './App.css';
 import React from 'react';
 import AppRoutes from './AppRoutes';
-// import CreateAttendance from './Pages/CreateAttendance';
 import {BrowserRouter} from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import AuthProvider from './auth/AuthProvider';
+import HostProvider from './Context/HostProvider';
 import ClassAttendance from './Pages/ClassAttendance';
 import MainContent from './Pages/MainContent';
 
-
+// test
 // import DropzoneAreaComponent from './components/dropzone';
 import MainAdmin from './components/MainAdmin';
 import ClassroomFormStudent from './components/ClassroomFormStudent';
+import CreateAttendance from './components/CreateAttendance';
+import MainStudent from './components/MainStudent';
+import Classroom from './components/classroom';
 // import Signup from './Pages/Signup';
 
 const theme = createTheme({
@@ -31,17 +34,19 @@ function App() {
   return (
     
     <ThemeProvider theme={theme}>
-         <CssBaseline/>
-         <AuthProvider>
-           <BrowserRouter>
-             <AppRoutes/>
-           </BrowserRouter> 
-         </AuthProvider> 
+      <CssBaseline/>
+      <HostProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <AppRoutes/>
+          </BrowserRouter> 
+        </AuthProvider> 
+      </HostProvider>
       {/* ClassAttendance 테스트 시 1 입력*/}
       {/* <ClassAttendance/> */}
       {/* <MainContent/> */}
       {/* <ClassroomFormStudent/> */}
-      {/* <DropzoneAreaComponent/> */}
+      
     </ThemeProvider>
     
   );

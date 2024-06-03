@@ -5,10 +5,9 @@ import ClassroomForm from './ClassroomForm';
 import ClassroomContent from "./ClassroomContent";
 const MainAdmin = (props) => {
 
-
   return(
     (props.showClassroom) ?
-    <ClassroomContent className={props.className}/> : 
+    <ClassroomContent classObj={props.classObj}/> : 
     
     <Box
       sx={{
@@ -28,14 +27,14 @@ const MainAdmin = (props) => {
               fontSize: 64 // Adjust emoji size
             }}
           >
-            {props.classrooms.length <= 0 ? "😢" : "🙂"}
+            {props.classrooms && props.classrooms.length <= 0 ? "😢" : "🙂"}
           </Box>
           <Typography variant="h5">
-          {props.classrooms.length <= 0 ? 
+          {props.classrooms && props.classrooms.length <= 0 ? 
           "There is no classroom in your Account" : 
           "Select classroom"}
           </Typography>
-            {props.classrooms.length <= 0 ? 
+            {props.classrooms && props.classrooms.length <= 0 ? 
             <Typography variant="subtitle1" sx={{ marginBottom: 2 }}>
             Please make your classroom!
             </Typography> : 
@@ -50,7 +49,6 @@ const MainAdmin = (props) => {
         <ClassroomForm 
           addClassroom={props.addClassroom} 
           onCancel={props.handleClick}
-          setClassNames={props.setClassNames}
           classrooms={props.classrooms}
           setClassrooms={props.setClassrooms}
         />

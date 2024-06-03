@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState, useContext } from "react";
+import HostContext from '../Context/HostContext';
 import { Box, Typography, SvgIcon, Grid, IconButton, Button } from '@mui/material'
 import TabIcon from '@mui/icons-material/Tab';
 import CreateAttendance from "./CreateAttendance";
@@ -32,12 +33,49 @@ const ClassroomContent = (props) => {
     {name: 'JongHoon Kim', studentId: '201924515'},
     
   ]);
+
+  const { host } = useContext(HostContext);
+
   const handleCreate = () => {
     setShowCreate(!showCreate);
   }
   const handleShowStudents = () => {
     setShowStudents('true');
   }
+  const handleInvite = async () => {
+    try{
+      var text = '';
+
+      const inviteData = {
+        id: props.classObj.id
+      };
+
+      const raw = JSON.stringify(inviteData);
+
+      var requestOptions = {
+        credentials: 'include',
+        method: 'GET',
+        body: raw,
+        redirect: 'follow',
+      };
+
+      const inviteAPI = host + "lecture/invitelecture";
+      
+      fetch(inviteAPI, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+          text = result;
+          console.log(result);
+        })
+        .catch(error => console.log('error', error));
+        await navigator.clipboard.writeText(text);
+        alert('초대 코드가 클립보드에 복사되었습니다.');
+    } 
+    catch (e) {
+      console.log(e);
+    }
+  }
+
   const handleAttendance = ({date, className}) => {
     let newStudents = [...students];
     //TODO: API를 통한 학생 변경
@@ -54,14 +92,14 @@ const ClassroomContent = (props) => {
             }}
           >
             <SvgIcon component={TabIcon} sx={{marginRight: 2}}/>
-            {props.className}
+            {props.classObj.name}
           </Box>
         </Grid>
         <Grid item xs={5}>
           {/* 버튼 스타일 변경 */}
           {!showCreate ? 
             <>
-              <Button variant="contained" sx={{ 
+              <Button variant="contained" onClick={handleInvite} sx={{ 
                  width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', marginRight: 2, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' 
               }}>
               Invite Member
@@ -83,7 +121,7 @@ const ClassroomContent = (props) => {
       <Grid container direction={"row"} spacing={3}>
         <Grid item xs={3}>
           {/* 테스트용 데이터 추가, attendance.map의 attendance에 API호출로 받아온 JSON값이 들어가야함 */}
-          <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center'}} className="Shadow">
+          <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
             <Typography variant="h6" fontWeight={'bold'} sx={{marginTop:2, marginBottom:2, marginRight:9}}>
               Attendance
             </Typography>
