@@ -9,5 +9,5 @@ public class GetAttendanceResponseDto {
 
     //todo    private List<AttendanceDto> attendance;
     @Setter
-    private List<StudentAttenanceDto> members;
+    private List<StudentAttendanceDto> members;
 }
