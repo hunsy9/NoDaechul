@@ -33,6 +33,32 @@ public class RekognitionService {
         log.trace("Status code : {}", createCollectionResult.statusCode().toString());
     }
 
+    public int addFaceToCollection(String avatar, String collectionId){
+        Image image = Image.builder()
+                .s3Object(S3Object
+                        .builder()
+                        .bucket(BucketNameEnum.AVATAR.getBucketName())
+                        .name(avatar)
+                        .build())
+                .build();
+
+        IndexFacesRequest indexFacesRequest = IndexFacesRequest.builder()
+                .image(image)
+                .qualityFilter(QualityFilter.AUTO)
+                .collectionId(collectionId)
+                .externalImageId(avatar)
+                .detectionAttributesWithStrings("DEFAULT")
+                .build();
+
+        IndexFacesResponse indexFacesResult = rekognitionClient.indexFaces(indexFacesRequest);
+
+        for (FaceRecord faceRecord : indexFacesResult.faceRecords()) {
+            log.info("  Face external S3 key: {}", faceRecord.face().externalImageId());
+            log.info("  Location:{}", faceRecord.faceDetail().boundingBox().toString());
+        }
+
+        return indexFacesResult.faceRecords().size();
+    }
 
     public Boolean checkValidFace(String key){
         Image image = Image.builder()
