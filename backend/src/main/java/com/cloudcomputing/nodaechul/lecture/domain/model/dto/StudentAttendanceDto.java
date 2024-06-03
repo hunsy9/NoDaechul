@@ -5,9 +5,9 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class StudentAttenanceDto {
-
-    private String name;
+public class StudentAttendanceDto {
+    private Long id;
     private String student_id;
+    private String name;
     private String avatar;
 }

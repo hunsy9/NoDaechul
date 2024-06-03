@@ -18,6 +18,8 @@ public interface LectureMapper {
 
     boolean isLectureIdExists(Long id);
 
+    List<StudentAttendanceDto> getStudentInLectureById(Long lectureId);
+
     void joinLecture(JoinLectureRequestDto joinLectureRequestDto);
 
     boolean alreadyJoined(JoinLectureRequestDto joinLectureRequestDto);
@@ -25,6 +27,8 @@ public interface LectureMapper {
     String checkInvitationCode(JoinLectureRequestDto joinLectureRequestDto);
 
     List<GetLectureRequestDto> getLecturesByUserID(Long userId);
+
+    String getLectureCollectionId(Long id);
 
     List<GetAttendanceResponseDto> getAttendanceByLectureID(Long lectureId);
 }

@@ -1,10 +1,6 @@
 package com.cloudcomputing.nodaechul.lecture.domain.repository;
 
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
+import com.cloudcomputing.nodaechul.lecture.domain.model.dto.*;
 import com.cloudcomputing.nodaechul.lecture.domain.repository.mapper.LectureMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +25,10 @@ public class LectureRepository {
         return lectureMapper.inviteLecture(inviteLectureRequestDto);
     }
 
+    public List<StudentAttendanceDto> getStudentInLectureById(Long lectureId){
+        return lectureMapper.getStudentInLectureById(lectureId);
+    }
+
     public Boolean isLectureIdExists(Long lecture_id) {
         return lectureMapper.isLectureIdExists(lecture_id);
     }
@@ -48,6 +48,10 @@ public class LectureRepository {
 
     public List<GetLectureRequestDto> getLecturesByUserID(Long userId) {
         return lectureMapper.getLecturesByUserID(userId);
+    }
+
+    public String getLectureCollectionId(Long id){
+        return lectureMapper.getLectureCollectionId(id);
     }
 
     public List<GetAttendanceResponseDto> getAttendanceByLectureID(Long lectureId) {
