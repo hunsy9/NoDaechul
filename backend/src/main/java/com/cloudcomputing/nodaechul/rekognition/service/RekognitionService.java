@@ -20,6 +20,19 @@ public class RekognitionService {
 
     public static final String defaultCollectionId = "MyCollection";
 
+    public void createCollection(String collectionId){
+        log.info("Creating collection: {}", collectionId);
+
+        CreateCollectionRequest request = CreateCollectionRequest.builder()
+                .collectionId(collectionId)
+                .build();
+
+        CreateCollectionResponse createCollectionResult = rekognitionClient.createCollection(request);
+
+        log.trace("CollectionArn : {}", createCollectionResult.collectionArn());
+        log.trace("Status code : {}", createCollectionResult.statusCode().toString());
+    }
+
 
     public Boolean checkValidFace(String key){
         Image image = Image.builder()
