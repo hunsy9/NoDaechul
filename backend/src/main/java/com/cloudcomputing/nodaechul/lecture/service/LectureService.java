@@ -71,15 +71,35 @@ public class LectureService {
             .equals(lectureRepository.checkInvitationCode(joinLectureRequestDto))) {
             throw new InvalidInvitationCodeException("초대 코드가 맞지 않습니다.");
         }
-        return lectureRepository.joinLecture(joinLectureRequestDto);
+
+        Long lectureId = lectureRepository.joinLecture(joinLectureRequestDto);
+
+        // 수업 컬렉션에 유저 아바타 추가
+        if(lectureId != null) {
+            String userAvatar = userService.getUserAvatarById(joinLectureRequestDto.getUser_id());
+            int result = rekognitionService.addFaceToCollection(userAvatar, joinLectureRequestDto.getInvitation_code());
+            if(result > 0) {
+                log.info("User Avatar {} is added to collection: {}", userAvatar, joinLectureRequestDto.getInvitation_code());
+            }
+        }
+
+        return lectureId;
     }
 
-    private Boolean isLectureIDExists(Long lecture_id) {
-        return lectureRepository.isLectureIdExists(lecture_id);
+    public List<StudentAttendanceDto> getStudentInLectureById(Long lectureId){
+        return lectureRepository.getStudentInLectureById(lectureId);
+    }
+
+    private Boolean isLectureIDExists(Long lectureId) {
+        return lectureRepository.isLectureIdExists(lectureId);
     }
 
     public List<GetLectureRequestDto> getLecturesByUserID(Long userId) {
         return lectureRepository.getLecturesByUserID(userId);
+    }
+
+    public String getLectureCollectionId(Long id){
+        return lectureRepository.getLectureCollectionId(id);
     }
 
     public List<GetAttendanceResponseDto> getAttendanceByLectureID(Long lectureId) {
