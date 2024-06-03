@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,8 +31,8 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<Long> signUp(@RequestBody @Valid SignUpRequestDto signUpRequestDto) throws Exception {
-        Long id = userService.createUser(signUpRequestDto);
+    public ResponseEntity<Long> signUp(@RequestPart(value = "signUpDto") @Valid SignUpRequestDto signUpRequestDto, @RequestPart(value = "faceImage", required = false) MultipartFile mFile) throws Exception {
+        Long id = userService.createUser(signUpRequestDto, mFile);
         return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
 
