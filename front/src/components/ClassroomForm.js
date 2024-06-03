@@ -1,14 +1,17 @@
 // ClassroomForm.js
 import { Box, Button, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import HostContext from '../Context/HostContext';
 
 const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
   const [className, setClassName] = useState('');
   const [password, setPassword] = useState('');
 
+  const { host } = useContext(HostContext);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const createAPI = "http://localhost:5555/api/lecture/createlecture";
+    const createAPI = host + "lecture/createlecture";
 
     const loginData = {
       name: className,
@@ -55,7 +58,9 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
         redirect: 'follow'
       };
       
-      fetch("http://localhost:5555/api/lecture/getlecture", requestOptions)
+      const getLectureAPI = host + "lecture/getlecture";
+
+      fetch(getLectureAPI, requestOptions)
         .then(response => {
           if(response.ok){
             return response.json();

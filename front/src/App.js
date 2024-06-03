@@ -5,6 +5,7 @@ import {BrowserRouter} from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import AuthProvider from './auth/AuthProvider';
+import HostProvider from './Context/HostProvider';
 import ClassAttendance from './Pages/ClassAttendance';
 import MainContent from './Pages/MainContent';
 
@@ -33,13 +34,14 @@ function App() {
   return (
     
     <ThemeProvider theme={theme}>
-         <CssBaseline/>
-         <AuthProvider>
-           <BrowserRouter>
-             <AppRoutes/>
-           </BrowserRouter> 
-         </AuthProvider> 
-
+      <CssBaseline/>
+      <HostProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <AppRoutes/>
+          </BrowserRouter> 
+        </AuthProvider> 
+      </HostProvider>
       {/* ClassAttendance 테스트 시 1 입력*/}
       {/* <ClassAttendance/> */}
       {/* <MainContent/> */}

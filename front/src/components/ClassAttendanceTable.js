@@ -52,17 +52,19 @@
 // }
 // export default DataTable; 
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
 const DataTable = () => {
+  const { host } = useContext(HostContext);
   // todo : GetAttendanceAPI port와 lectureId 추가 (잘 안됨)
-  const GetAttendanceAPI = 'http://localhost:5555/api/lecture/getattendance';
+  const GetAttendanceAPI = host + 'lecture/getattendance';
 
   const url = new URL(GetAttendanceAPI);
   const lectureId = 12;
   url.searchParams.append('lectureId', lectureId);
   const [rows, setRows] = useState([]);
+  
   const columns = [
     { field: 'studentID', headerName: 'Student ID', width: 250 },
     { field: 'name', headerName: 'Name', width: 200 },

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Link from '@mui/material/Link';
 import { useNavigate } from "react-router-dom";
+import HostContext from '../Context/HostContext';
 import {
   Avatar,
   Button,
@@ -44,6 +45,8 @@ const Register = () => {
   const [nameError, setNameError] = useState('');
   const [registerError, setRegisterError] = useState('');
 
+  const { host } = useContext(HostContext);
+
   const handleStudentChange = (event) => {
     setIsStudent(event.target.value === 'yes');
   };
@@ -51,7 +54,7 @@ const Register = () => {
   const onhandlePost = async (data) => {
     var role = '';
     var studentId = null
-    const localhost = "http://localhost:5555/api/user/signup"
+    const localhost = host + "user/signup";
     if(isStudent){
       role = 'User'
     }
