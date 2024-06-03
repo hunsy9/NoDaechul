@@ -32,4 +32,8 @@ public class UserRepository {
     public UserVO findByEmail(String email) {
         return userMapper.findByEmail(email);
     }
+
+    public String getUserS3KeyById(Long userId) {
+        return userMapper.getUserS3Key(userId);
+    }
 }

@@ -18,4 +18,8 @@
     <delete id="deleteUser" parameterType="Long">
         DELETE FROM user WHERE id = #{userId}
     </delete>
+
+    <select id="getUserS3Key" parameterType="Long">
+        SELECT avatar FROM user WHERE id = #{id}
+    </select>
 </mapper>

@@ -102,5 +102,9 @@ public class UserService {
 
         throw new LoginException("패스워드가 일치하지 않습니다.");
     }
+
+    public String getUserAvatarById(Long userId) {
+        return userRepository.getUserS3KeyById(userId);
+    }
 }
 
