@@ -1,10 +1,7 @@
 package com.cloudcomputing.nodaechul.lecture.domain.repository.mapper;
 
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
+import com.cloudcomputing.nodaechul.lecture.domain.model.dto.*;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
