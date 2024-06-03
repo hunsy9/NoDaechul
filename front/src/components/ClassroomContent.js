@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, { useState, useContext } from "react";
+import HostContext from '../Context/HostContext';
 import { Box, Typography, SvgIcon, Grid, IconButton, Button } from '@mui/material'
 import TabIcon from '@mui/icons-material/Tab';
 import CreateAttendance from "./CreateAttendance";
@@ -32,6 +33,9 @@ const ClassroomContent = (props) => {
     {name: 'JongHoon Kim', studentId: '201924515'},
     
   ]);
+
+  const { host } = useContext(HostContext);
+
   const handleCreate = () => {
     setShowCreate(!showCreate);
   }
@@ -48,16 +52,16 @@ const ClassroomContent = (props) => {
 
       const raw = JSON.stringify(inviteData);
 
-      console.log(raw);
-
       var requestOptions = {
         credentials: 'include',
-        method: 'POST',
+        method: 'GET',
         body: raw,
         redirect: 'follow',
       };
+
+      const inviteAPI = host + "lecture/invitelecture";
       
-      fetch("http://localhost:5555/api/lecture/invitelecture", requestOptions)
+      fetch(inviteAPI, requestOptions)
         .then(response => response.text())
         .then(result => {
           text = result;

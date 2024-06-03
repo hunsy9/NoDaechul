@@ -1,5 +1,6 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import HostContext from '../Context/HostContext';
 // import DropzoneAreaComponent from '../components/dropzone';
 import FileUpload from './FileUpload';
 // import Classroom from './classroom';
@@ -8,10 +9,16 @@ const ClassroomFormStudent = ({ onCancel }) => {
   const [classCode, setClassCode] = useState('');
   const [password, setPassword] = useState('');
 
+  const { host } = useContext(HostContext);
+
   const handleSubmit = e => {
     e.preventDefault();
+<<<<<<< HEAD
     const createAPI = "http://localhost:5555/api/lecture/joinlecture";
     // const getLectureAPI = "http://localhost:5555/api/lecture/getlecture";
+=======
+    const createAPI = host + "lecture/joinlecture";
+>>>>>>> 2fc09ac87adbb3819fd5cf7243f2941ac977aaed
   
     const loginData = {
       code: classCode,

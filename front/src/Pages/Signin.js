@@ -1,21 +1,16 @@
 import React, { useContext } from 'react';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import { Box, Button, TextField, Typography, CssBaseline, Container, Grid, Link } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AuthContext from '../auth/AuthContext';
+import HostContext from '../Context/HostContext';
 import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const { login } = useContext(AuthContext);
-  const LoginAPI = "http://localhost:5555/api/user/login";
+  const { host } = useContext(HostContext);
+  const LoginAPI = host + "user/login";
   let navigate = useNavigate();
   
   const handleSubmit = (event) => {

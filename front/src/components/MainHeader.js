@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Box, Typography, IconButton, Menu, MenuItem } from '@mui/material';
+import HostContext from '../Context/HostContext';
 import { useNavigate } from "react-router-dom";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AuthContext from "../auth/AuthContext";
@@ -8,9 +9,10 @@ import cookie from 'react-cookies';
 const MainHeader = ({ userRole, userName }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { logout } = useContext(AuthContext);
+  const { host } = useContext(HostContext);
   
   let navigate = useNavigate();
-  const LogoutAPI = "http://localhost:5555/api/user/logout";
+  const LogoutAPI = host + "user/logout";
   
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
