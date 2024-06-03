@@ -83,6 +83,32 @@ public class RekognitionService {
         return listFacesResult.faces().size();
     }
 
+    public List<FaceMatch> SearchFaceMatchingImageCollection(String s3Key, String collectionId) throws JsonProcessingException {
+        Image image = Image.builder()
+                .s3Object(S3Object
+                        .builder()
+                        .bucket(BucketNameEnum.LECTURE.getBucketName())
+                        .name(s3Key)
+                        .build())
+                .build();
+
+        // 이미지 내 가장 큰 얼굴부터 collection 검색을 시작
+        SearchFacesByImageRequest searchFacesByImageRequest = SearchFacesByImageRequest.builder()
+                .collectionId(collectionId)
+                .image(image)
+                .faceMatchThreshold(50F)
+                .qualityFilter(QualityFilter.AUTO)
+                .maxFaces(30)
+                .build();
+
+        SearchFacesByImageResponse searchFacesByImageResult = rekognitionClient.searchFacesByImage(searchFacesByImageRequest);
+
+        log.info("faceMatches: {}", searchFacesByImageResult.faceMatches().size());
+        log.info("faceMatches boolean: {}", searchFacesByImageResult.hasFaceMatches());
+        log.info("faceMatches confidence: {}", searchFacesByImageResult.searchedFaceConfidence());
+
+        return searchFacesByImageResult.faceMatches();
+    }
 
     public Boolean checkValidFace(String key){
         Image image = Image.builder()
