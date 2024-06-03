@@ -29,4 +29,11 @@ public class AttendanceRepository {
         attendanceMapper.insertBoundingBoxes(id, boundingBoxes);
     }
 
+    public List<AttendanceUserRecord> getAttendanceRecords(Long id){
+        return attendanceMapper.getAttendanceUserRecords(id);
+    }
+
+    public List<LectureImageBoundingBox> getLectureImageBoundingBoxes(Long id){
+        return attendanceMapper.getLectureImageBoundingBoxes(id);
+    }
 }

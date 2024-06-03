@@ -40,6 +40,23 @@ public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
     private final LectureService lectureService;
 
+    private List<LectureImageBoundingBox> getLectureImageBoundingBox(Long id){
+        return attendanceRepository.getLectureImageBoundingBoxes(id);
+    }
+
+    private Attendance getAttendance(GetAttendanceRequestDto getAttendanceRequestDto){
+        List<AttendanceUserRecord> attendanceUserRecords = attendanceRepository.getAttendanceRecords(getAttendanceRequestDto.getAttendanceId());
+        List<StudentAttendanceDto> studentsInLecture = lectureService.getStudentInLectureById(getAttendanceRequestDto.getLectureId());
+        AttendanceMetaData attendanceMetaData = new AttendanceMetaData(studentsInLecture.size(), attendanceUserRecords.size(), studentsInLecture.size() - attendanceUserRecords.size());
+        return Attendance.from(attendanceMetaData, attendanceUserRecords);
+    }
+
+    public AttendanceResponseDto getAttendanceResponse(GetAttendanceRequestDto getAttendanceRequestDto){
+        List<LectureImageBoundingBox> lectureImageBoundingBoxList = getLectureImageBoundingBox(getAttendanceRequestDto.getAttendanceId());
+        Attendance attendance = getAttendance(getAttendanceRequestDto);
+        return AttendanceResponseDto.from(lectureImageBoundingBoxList, attendance);
+    }
+
     public Long createAttendance(CreateAttendanceRequestDto attendanceRequestDto){
         // 출석부 생성
         Long createdAttendanceId = attendanceRepository.createAttendance(attendanceRequestDto);

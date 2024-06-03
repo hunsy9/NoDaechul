@@ -27,4 +27,10 @@ public class AttendanceController {
         attendanceService.createStudentAttendanceRecord(attendanceRequestDto, mFile, id);
     }
 
+    @PostMapping("/get")
+    @LoginRequired
+    public ResponseEntity<AttendanceResponseDto> getAttendance(@RequestBody GetAttendanceRequestDto getAttendanceRequestDto) throws IOException {
+        AttendanceResponseDto attendanceResponse = attendanceService.getAttendanceResponse(getAttendanceRequestDto);
+        return ResponseEntity.ok().body(attendanceResponse);
+    }
 }
