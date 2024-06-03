@@ -16,4 +16,6 @@ public interface UserMapper {
     int activateUser(Long userId, UserState state);
 
     UserVO findByEmail(String email);
+
+    String getUserS3Key(Long id);
 }
