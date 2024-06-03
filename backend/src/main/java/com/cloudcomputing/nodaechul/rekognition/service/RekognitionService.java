@@ -60,6 +60,30 @@ public class RekognitionService {
         return indexFacesResult.faceRecords().size();
     }
 
+    public int listIndexedFacesInCollection(String collectionId) throws JsonProcessingException {
+
+        ListFacesResponse listFacesResult = null;
+        System.out.println("Faces in collection " + collectionId);
+
+        String paginationToken = null;
+        do {
+            if (listFacesResult != null) {
+                paginationToken = listFacesResult.nextToken();
+            }
+
+            ListFacesRequest listFacesRequest = ListFacesRequest.builder()
+                    .collectionId(collectionId)
+                    .maxResults(30)
+                    .nextToken(paginationToken)
+                    .build();
+
+            listFacesResult = rekognitionClient.listFaces(listFacesRequest);
+        } while (listFacesResult.nextToken() != null);
+
+        return listFacesResult.faces().size();
+    }
+
+
     public Boolean checkValidFace(String key){
         Image image = Image.builder()
                 .s3Object(S3Object
