@@ -29,15 +29,12 @@ public class LectureService {
             throw new InvalidLectureNameException("중복된 강의명입니다.");
         }
 
-//        // 수업 생성시 수업에 참여
-//        Long professorId = createLectureRequestDto.getCreated_by();
-//        Long lectureId = lectureRepository.createLecture(createLectureRequestDto);
-//        JoinLectureRequestDto joinLectureRequestDto = new JoinLectureRequestDto(professorId,
-//            lectureId);
-//        lectureRepository.joinLecture(joinLectureRequestDto);
-//
-//        return lectureId;
-        return (long) 1.1;
+        // 수업 생성시 수업에 참여
+        Long professorId = createLectureRequestDto.getCreated_by();
+        Long lectureId = lectureRepository.createLecture(createLectureRequestDto);
+        lectureRepository.joinLectureProfessor(professorId, lectureId);
+
+        return lectureId;
     }
 
     public String inviteLecture(Long id) {

@@ -64,4 +64,8 @@ public class LectureRepository {
     public String getProfessorNameByCreatedBy(JoinLectureResponseDto joinLectureResponseDto) {
         return lectureMapper.getProfessorNameByCreatedBy(joinLectureResponseDto);
     }
+
+    public void joinLectureProfessor(Long professorId, Long lectureId) {
+        lectureMapper.joinLectureProfessor(professorId, lectureId);
+    }
 }

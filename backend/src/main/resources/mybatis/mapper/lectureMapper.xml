@@ -94,4 +94,10 @@
     WHERE id = #{created_by};
   </select>
 
+  <insert id="joinLectureProfessor"
+    parameterType="HashMap">
+    INSERT INTO lecture_user
+    VALUES (#{professorId}, #{lectureId}, now(), now());
+  </insert>
+
 </mapper>

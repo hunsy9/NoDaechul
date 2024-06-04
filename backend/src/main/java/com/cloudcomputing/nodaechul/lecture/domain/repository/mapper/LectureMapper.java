@@ -33,4 +33,6 @@ public interface LectureMapper {
     Long getLectureIdByInvitationCode(JoinLectureRequestDto joinLectureRequestDto);
 
     String getProfessorNameByCreatedBy(JoinLectureResponseDto joinLectureResponseDto);
+
+    void joinLectureProfessor(Long professorId, Long lectureId);
 }
