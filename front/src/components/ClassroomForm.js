@@ -59,7 +59,9 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
         redirect: 'follow'
       };
       
-      fetch("http://localhost:5555/api/lecture/getlecture", requestOptions)
+      const getAPI = host + "lecture/getlecture";
+
+      fetch(host, requestOptions)
         .then(response => {
           if(response.ok){
             return response.json();
