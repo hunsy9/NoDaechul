@@ -78,6 +78,7 @@ public class LectureService {
             }
         }
 
+        lectureRepository.joinLecture(joinLectureRequestDto);
         return lectureRepository.getLectureInfo(joinLectureRequestDto);
     }
 
