@@ -29,14 +29,15 @@ public class LectureService {
             throw new InvalidLectureNameException("중복된 강의명입니다.");
         }
 
-        // 수업 생성시 수업에 참여
-        Long professorId = createLectureRequestDto.getCreated_by();
-        Long lectureId = lectureRepository.createLecture(createLectureRequestDto);
-        JoinLectureRequestDto joinLectureRequestDto = new JoinLectureRequestDto(professorId,
-            lectureId);
-        lectureRepository.joinLecture(joinLectureRequestDto);
-
-        return lectureId;
+//        // 수업 생성시 수업에 참여
+//        Long professorId = createLectureRequestDto.getCreated_by();
+//        Long lectureId = lectureRepository.createLecture(createLectureRequestDto);
+//        JoinLectureRequestDto joinLectureRequestDto = new JoinLectureRequestDto(professorId,
+//            lectureId);
+//        lectureRepository.joinLecture(joinLectureRequestDto);
+//
+//        return lectureId;
+        return (long) 1.1;
     }
 
     public String inviteLecture(Long id) {
@@ -48,11 +49,8 @@ public class LectureService {
     }
 
     @Transactional
-    public Long joinLecture(JoinLectureRequestDto joinLectureRequestDto) {
-        // 강의 ID 존재 유효성 검사
-        if (!isLectureIDExists(joinLectureRequestDto.getLecture_id())) {
-            throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
-        }
+    public JoinLectureResponseDto joinLecture(JoinLectureRequestDto joinLectureRequestDto) {
+        joinLectureRequestDto.setLecture_id(lectureRepository.getLectureIdByInvitationCode(joinLectureRequestDto));
         // 강의 중복 참여 유효성 검사
         if (lectureRepository.alreadyJoined(joinLectureRequestDto)) {
             throw new AlreadyJoinedException("이미 참여한 강의입니다.");
@@ -62,7 +60,8 @@ public class LectureService {
             .equals(lectureRepository.checkInvitationCode(joinLectureRequestDto))) {
             throw new InvalidInvitationCodeException("초대 코드가 맞지 않습니다.");
         }
-        return lectureRepository.joinLecture(joinLectureRequestDto);
+        lectureRepository.joinLecture(joinLectureRequestDto);
+        return lectureRepository.getLectureInfo(joinLectureRequestDto);
     }
 
     private Boolean isLectureIDExists(Long lecture_id) {
@@ -87,5 +86,9 @@ public class LectureService {
             throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
         }
         return lectureRepository.getAttendanceByLectureId(lectureId);
+    }
+
+    public String getProfessorNameByCreatedBy(JoinLectureResponseDto joinLectureResponseDto) {
+        return lectureRepository.getProfessorNameByCreatedBy(joinLectureResponseDto);
     }
 }

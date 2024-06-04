@@ -27,4 +27,10 @@ public interface LectureMapper {
     List<StudentAttenanceDto> getMembersByLectureID(Long lectureId);
 
     List<AttendanceDto> getAttendanceByLectureId(Long lectureId);
+
+    JoinLectureResponseDto getLectureInfo(JoinLectureRequestDto joinLectureRequestDto);
+
+    Long getLectureIdByInvitationCode(JoinLectureRequestDto joinLectureRequestDto);
+
+    String getProfessorNameByCreatedBy(JoinLectureResponseDto joinLectureResponseDto);
 }

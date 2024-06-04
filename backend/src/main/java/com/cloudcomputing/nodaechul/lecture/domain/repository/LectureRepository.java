@@ -29,9 +29,8 @@ public class LectureRepository {
         return lectureMapper.isLectureIdExists(lecture_id);
     }
 
-    public Long joinLecture(JoinLectureRequestDto joinLectureRequestDto) {
+    public void joinLecture(JoinLectureRequestDto joinLectureRequestDto) {
         lectureMapper.joinLecture(joinLectureRequestDto);
-        return joinLectureRequestDto.getLecture_id();
     }
 
     public Boolean alreadyJoined(JoinLectureRequestDto joinLectureRequestDto) {
@@ -52,5 +51,17 @@ public class LectureRepository {
 
     public List<AttendanceDto> getAttendanceByLectureId(Long lectureId) {
         return lectureMapper.getAttendanceByLectureId(lectureId);
+    }
+
+    public JoinLectureResponseDto getLectureInfo(JoinLectureRequestDto joinLectureRequestDto) {
+        return lectureMapper.getLectureInfo(joinLectureRequestDto);
+    }
+
+    public Long getLectureIdByInvitationCode(JoinLectureRequestDto joinLectureRequestDto) {
+        return lectureMapper.getLectureIdByInvitationCode(joinLectureRequestDto);
+    }
+
+    public String getProfessorNameByCreatedBy(JoinLectureResponseDto joinLectureResponseDto) {
+        return lectureMapper.getProfessorNameByCreatedBy(joinLectureResponseDto);
     }
 }

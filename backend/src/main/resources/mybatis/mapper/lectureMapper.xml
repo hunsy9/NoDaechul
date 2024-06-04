@@ -39,6 +39,13 @@
                      AND lecture_id = #{lecture_id});
   </select>
 
+  <select id="getLectureInfo" resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureResponseDto"
+    parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto">
+    SELECT id, name, created_by
+    FROM lecture
+    WHERE id = #{lecture_id};
+  </select>
+
   <select id="checkInvitationCode" resultType="string"
     parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto">
     SELECT invitation_code
@@ -63,12 +70,28 @@
       AND id IN (SELECT user_id FROM lecture_user WHERE lecture_id = #{lectureId});
   </select>
 
+  <select id="getLectureIdByInvitationCode"
+    resultType="long"
+    parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto">
+    SELECT id
+    FROM lecture
+    WHERE invitation_code = #{invitation_code};
+  </select>
+
   <select id="getAttendanceByLectureId"
     resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.AttendanceDto"
     parameterType="long">
     SELECT id, `date`
     FROM attendance
     WHERE lecture_id = #{lectureId};
+  </select>
+
+  <select id="getProfessorNameByCreatedBy"
+    resultType="String"
+    parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureResponseDto">
+    SELECT name
+    FROM user
+    WHERE id = #{created_by};
   </select>
 
 </mapper>
