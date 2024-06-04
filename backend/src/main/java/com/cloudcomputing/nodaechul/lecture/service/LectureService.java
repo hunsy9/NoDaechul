@@ -41,7 +41,7 @@ public class LectureService {
 
     public String inviteLecture(Long id) {
         // 강의 ID 존재 유효성 검사
-        if (!isLectureIDExists(id)){
+        if (!isLectureIDExists(id)) {
             throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
         }
         return lectureRepository.inviteLecture(id);
@@ -73,11 +73,19 @@ public class LectureService {
         return lectureRepository.getLecturesByUserID(userId);
     }
 
-    public List<GetAttendanceResponseDto> getAttendanceByLectureID(Long lectureId) {
+    public List<StudentAttenanceDto> getMembersByLectureID(Long lectureId) {
         // 강의 ID 존재 유효성 검사
         if (!isLectureIDExists(lectureId)) {
             throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
         }
-        return lectureRepository.getAttendanceByLectureID(lectureId);
+        return lectureRepository.getMembersByLectureID(lectureId);
+    }
+
+    public List<AttendanceDto> getAttendanceByLectureID(Long lectureId) {
+        // 강의 ID 존재 유효성 검사
+        if (!isLectureIDExists(lectureId)) {
+            throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
+        }
+        return lectureRepository.getAttendanceByLectureId(lectureId);
     }
 }

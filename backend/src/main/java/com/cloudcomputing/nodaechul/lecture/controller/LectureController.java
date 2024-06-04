@@ -71,10 +71,11 @@ public class LectureController {
 
     @GetMapping("/getattendance")
     @LoginRequired
-    public ResponseEntity<List<GetAttendanceResponseDto>> getAttendance(
+    public ResponseEntity<GetAttendanceResponseDto> getAttendance(
         @RequestParam @Valid Long lectureId) throws Exception {
-        List<GetAttendanceResponseDto> getAttendanceResponseDto = lectureService.getAttendanceByLectureID(
-            lectureId);
+        GetAttendanceResponseDto getAttendanceResponseDto = GetAttendanceResponseDto.from(
+            lectureService.getAttendanceByLectureID(lectureId),
+            lectureService.getMembersByLectureID(lectureId));
         return ResponseEntity.status(HttpStatus.OK).body(getAttendanceResponseDto);
     }
 }

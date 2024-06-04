@@ -46,7 +46,11 @@ public class LectureRepository {
         return lectureMapper.getLecturesByUserID(userId);
     }
 
-    public List<GetAttendanceResponseDto> getAttendanceByLectureID(Long lectureId) {
-        return lectureMapper.getAttendanceByLectureID(lectureId);
+    public List<StudentAttenanceDto> getMembersByLectureID(Long lectureId) {
+        return lectureMapper.getMembersByLectureID(lectureId);
+    }
+
+    public List<AttendanceDto> getAttendanceByLectureId(Long lectureId) {
+        return lectureMapper.getAttendanceByLectureId(lectureId);
     }
 }

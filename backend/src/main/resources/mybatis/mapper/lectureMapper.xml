@@ -54,13 +54,21 @@
     WHERE id IN (SELECT lecture_id FROM lecture_user WHERE user_id = #{userId});
   </select>
 
-  <select id="getAttendanceByLectureID"
+  <select id="getMembersByLectureID"
     resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttenanceDto"
     parameterType="long">
     SELECT student_id, name, avatar
     FROM user
     WHERE user_role = "User"
       AND id IN (SELECT user_id FROM lecture_user WHERE lecture_id = #{lectureId});
+  </select>
+
+  <select id="getAttendanceByLectureId"
+    resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.AttendanceDto"
+    parameterType="long">
+    SELECT id, `date`
+    FROM attendance
+    WHERE lecture_id = #{lectureId};
   </select>
 
 </mapper>
