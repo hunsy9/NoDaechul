@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Typography, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material';
 import TabIcon from '@mui/icons-material/Tab';
+import HostContext from '../Context/HostContext';
 
 const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, setShowForm }) => {
   // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
+
+  const {host} = useContext(HostContext);
 
   useEffect(() => {
     getLecture();
@@ -16,8 +19,10 @@ const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, s
         method: 'GET',
         redirect: 'follow'
       };
+
+      const getAPI = host + "lecture/getlecture"
       
-      fetch("http://localhost:5555/api/lecture/getlecture", requestOptions)
+      fetch(getAPI, requestOptions)
         .then(response => {
           if(response.ok){
             return response.json();

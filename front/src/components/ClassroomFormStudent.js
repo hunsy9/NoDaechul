@@ -14,12 +14,15 @@ const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
     e.preventDefault();
 
     const createAPI = host + "lecture/joinlecture";
-  
+    
+    console.log(createAPI);
+
     const data = {
       invitation_code: classCode,
     }
     
     const raw = JSON.stringify(data);
+    
     console.log(raw);
     var requestOptions = {
       credentials: 'include',
@@ -34,9 +37,14 @@ const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
     fetch(createAPI, requestOptions)
       .then(response => {
         if(response.ok) return response.text();
-        else alert("서버와의 통신이 불안정합니다.\n다시 시도해주세요.");
+        else {
+          alert("서버와의 통신이 불안정합니다.\n다시 시도해주세요.")
+          throw new Error("error");
+        };
       })
       .then(result => {
+        console.log(result);
+        getLecture();
         alert("수업이 추가되었습니다.");
       })
       .catch(error => console.log('error', error));
@@ -52,7 +60,9 @@ const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
         redirect: 'follow'
       };
       
-      fetch("http://localhost:5555/api/lecture/getlecture", requestOptions)
+      const getAPI = host + "lecture/getlecture"
+
+      fetch(getAPI, requestOptions)
         .then(response => {
           if(response.ok){
             return response.json();
