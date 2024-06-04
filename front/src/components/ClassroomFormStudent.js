@@ -5,9 +5,8 @@ import HostContext from '../Context/HostContext';
 import FileUpload from './FileUpload';
 // import Classroom from './classroom';
 
-const ClassroomFormStudent = ({ onCancel }) => {
+const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
   const [classCode, setClassCode] = useState('');
-  const [password, setPassword] = useState('');
 
   const { host } = useContext(HostContext);
 
@@ -15,32 +14,60 @@ const ClassroomFormStudent = ({ onCancel }) => {
     e.preventDefault();
 
     const createAPI = host + "lecture/joinlecture";
-
   
-    const loginData = {
-      code: classCode,
-      password: password,
+    const data = {
+      invitation_code: classCode,
     }
     
-    const raw = JSON.stringify(loginData);
-
+    const raw = JSON.stringify(data);
+    console.log(raw);
     var requestOptions = {
+      credentials: 'include',
       method: 'POST',
       body: raw,
-      redirect: 'follow'
+      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/json'
+      }
     };
 
     fetch(createAPI, requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
+      .then(response => {
+        if(response.ok) return response.text();
+        else alert("서버와의 통신이 불안정합니다.\n다시 시도해주세요.");
+      })
+      .then(result => {
+        alert("수업이 추가되었습니다.");
+      })
       .catch(error => console.log('error', error));
-
+    getLecture();
     setClassCode('');
-    setPassword('');
   };
 
-  const onImage = () => {
-    console.log('onImage');
+  const getLecture = () => {
+    try{
+      var requestOptions = {
+        credentials: 'include',
+        method: 'GET',
+        redirect: 'follow'
+      };
+      
+      fetch("http://localhost:5555/api/lecture/getlecture", requestOptions)
+        .then(response => {
+          if(response.ok){
+            return response.json();
+          }
+        })
+        .then(result => {
+          console.log(result);
+          let newClassrooms = [...classrooms];
+          newClassrooms = result;
+          setClassrooms(newClassrooms);
+        })
+        .catch(error => console.log('error', error));
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   return (
@@ -65,54 +92,12 @@ const ClassroomFormStudent = ({ onCancel }) => {
       <TextField
         required
         fullWidth
-        autoFocus
         id="class-name"
         label="Invitation Code"
         value={classCode}
         onChange={(e) => setClassCode(e.target.value)}
       />
-      <TextField
-        fullWidth
-        id="password"
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <Typography variant="h6" sx={{marginRight:16, marginTop: 2, marginBottom: 2}}>
-        Upload Your Selfie Image
-      </Typography>
       
-      {/* <DropzoneAreaComponent/> */}
-      <FileUpload/>
-      
-      {/* <Box sx={{
-        width: 300,
-        height: 300,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-        '& .MuiButton-root': { m: 1 },
-        borderRadius:5
-        }} 
-        className="Shadow"
-        >
-        <Box sx={{height: 50}}></Box> */}
-        {/* TODO: 이미지 업로드 기능 구현 */}
-        {/* <Button sx={{ marginTop:5 }} onClick={onImage} variant="contained" color="secondary">
-          Upload Image
-        </Button>
-        <Typography variant="subtitle1" sx={{marginTop:5}}>
-          or drop a file
-        </Typography>
-        <Typography variant="subtitle1" sx={{marginTop:2, color:'gray'}}>
-          paste image or URL
-        </Typography>
-      </Box> */}
-
-      
-
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 2 }}>
         <Button type="submit" variant="contained" color="primary">Create</Button>
         <Button onClick={onCancel} variant="contained" color="secondary">Cancel</Button>

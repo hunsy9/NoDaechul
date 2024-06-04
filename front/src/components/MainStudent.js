@@ -6,7 +6,7 @@ import ClassroomContent from "./ClassroomContent";
 const MainStudent = (props) => {
   return(
   (props.showClassroom) ?
-    <ClassroomContent className={props.className}/> : 
+    <ClassroomContent classObj={props.classObj}/> : 
     
     <Box
       sx={{
@@ -44,7 +44,12 @@ const MainStudent = (props) => {
           </Button>
         </>
       }
-      {(props.showForm && !props.showClassroom) && <ClassroomFormStudent addClassroom={props.addClassroom} onCancel={props.handleClick}/>}
+      {(props.showForm && !props.showClassroom) && 
+      <ClassroomFormStudent 
+        onCancel={props.handleClick}
+        classrooms={props.classrooms}
+        setClassrooms={props.setClassrooms}
+      />}
     </Box>
   );
 }

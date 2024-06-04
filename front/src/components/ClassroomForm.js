@@ -1,20 +1,20 @@
 // ClassroomForm.js
 import { Box, Button, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import HostContext from '../Context/HostContext';
+import React, { useContext, useState } from 'react';
 
 const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
   const [className, setClassName] = useState('');
-  const [password, setPassword] = useState('');
-
+  const host = useContext(HostContext);
   const handleSubmit = (e) => {
     e.preventDefault();
-    const createAPI = "http://localhost:5555/api/lecture/createlecture";
+    const createAPI = host + "lecture/createlecture";
 
-    const loginData = {
+    const Data = {
       name: className,
     }
     
-    const raw = JSON.stringify(loginData);
+    const raw = JSON.stringify(Data);
 
     const requestOptions = {
       credentials: 'include',
@@ -34,7 +34,6 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
           addClassroom({
             id: Math.floor(Math.random() * 10000),
             text: className,
-            password: password,
           });
           
           const lectures = setLecture();
@@ -42,7 +41,6 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
             throw new Error('Class name already exists.');
           }
           setClassName('');
-          setPassword('');
           return response.json();
         }
         else{
@@ -107,13 +105,6 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
         label="Class Name"
         value={className}
         onChange={(e) => setClassName(e.target.value)}
-      />
-      <TextField
-        id="password"
-        label="Password"
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
       />
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 2 }}>
         <Button type="submit" variant="contained" color="primary">Create</Button>
