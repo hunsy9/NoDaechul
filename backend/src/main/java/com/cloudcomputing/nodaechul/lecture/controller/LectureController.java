@@ -3,7 +3,6 @@ package com.cloudcomputing.nodaechul.lecture.controller;
 import com.cloudcomputing.nodaechul.annotation.AdminRoleRequired;
 import com.cloudcomputing.nodaechul.annotation.LoginRequired;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;

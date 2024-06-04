@@ -1,9 +1,6 @@
 package com.cloudcomputing.nodaechul.lecture.service;
 
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
+import com.cloudcomputing.nodaechul.lecture.domain.model.dto.*;
 import com.cloudcomputing.nodaechul.lecture.domain.repository.LectureRepository;
 import com.cloudcomputing.nodaechul.lecture.exception.AlreadyJoinedException;
 import com.cloudcomputing.nodaechul.lecture.exception.InvalidInvitationCodeException;
