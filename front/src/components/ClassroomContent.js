@@ -42,39 +42,45 @@ const ClassroomContent = (props) => {
   const handleShowStudents = () => {
     setShowStudents('true');
   }
-  const handleInvite = async () => {
+  const handleInvite = () => {
     try{
       var text = '';
-
+      
       const inviteData = {
         id: props.classObj.id
       };
 
-      const raw = JSON.stringify(inviteData);
-
       var requestOptions = {
         credentials: 'include',
         method: 'GET',
-        body: raw,
         redirect: 'follow',
       };
 
-      const inviteAPI = host + "lecture/invitelecture";
-      
+      const inviteAPI = host + "lecture/invitelecture" + `?id=${props.classObj.id}`;
+      console.log(inviteAPI);
+
       fetch(inviteAPI, requestOptions)
         .then(response => response.text())
         .then(result => {
           text = result;
-          console.log(result);
+          copyURLToClipboard(text);
         })
         .catch(error => console.log('error', error));
-        await navigator.clipboard.writeText(text);
-        alert('초대 코드가 클립보드에 복사되었습니다.');
+        
     } 
     catch (e) {
       console.log(e);
     }
   }
+
+  const copyURLToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("클립보드에 초대코드가 복사되었습니다.");
+    } catch (e) {
+      alert("복사에 실패하였습니다");
+    }
+};
 
   const handleAttendance = ({date, className}) => {
     let newStudents = [...students];
