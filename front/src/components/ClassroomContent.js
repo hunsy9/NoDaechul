@@ -146,7 +146,7 @@ const ClassroomContent = (props) => {
           </Box>
         </Grid>
       </Grid> : 
-      <CreateAttendance></CreateAttendance>
+      <CreateAttendance classObj={props.classObj}/>
 
       }
     </>
