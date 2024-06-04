@@ -6,6 +6,7 @@ import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureReques
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
+import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureResponseDto;
 import com.cloudcomputing.nodaechul.lecture.service.LectureService;
 import com.cloudcomputing.nodaechul.user.domain.model.User;
 import jakarta.servlet.http.HttpSession;
@@ -51,12 +52,13 @@ public class LectureController {
 
     @PostMapping("/joinlecture")
     @LoginRequired
-    public ResponseEntity<Long> joinLecture(HttpSession session,
+    public ResponseEntity<JoinLectureResponseDto> joinLecture(HttpSession session,
         @RequestBody @Valid JoinLectureRequestDto joinLectureRequestDto) throws Exception {
         User user = (User) session.getAttribute("USER");
         joinLectureRequestDto.setUser_id(user.getId());
-        Long lecture_id = lectureService.joinLecture(joinLectureRequestDto);
-        return ResponseEntity.status(HttpStatus.OK).body(lecture_id);
+        JoinLectureResponseDto joinLectureResponseDto = lectureService.joinLecture(joinLectureRequestDto);
+        joinLectureResponseDto.setProfessorName(lectureService.getProfessorNameByCreatedBy(joinLectureResponseDto));
+        return ResponseEntity.status(HttpStatus.OK).body(joinLectureResponseDto);
     }
 
     @GetMapping("/getlecture")
@@ -71,10 +73,11 @@ public class LectureController {
 
     @GetMapping("/getattendance")
     @LoginRequired
-    public ResponseEntity<List<GetAttendanceResponseDto>> getAttendance(
+    public ResponseEntity<GetAttendanceResponseDto> getAttendance(
         @RequestParam @Valid Long lectureId) throws Exception {
-        List<GetAttendanceResponseDto> getAttendanceResponseDto = lectureService.getAttendanceByLectureID(
-            lectureId);
+        GetAttendanceResponseDto getAttendanceResponseDto = GetAttendanceResponseDto.from(
+            lectureService.getAttendanceByLectureID(lectureId),
+            lectureService.getMembersByLectureID(lectureId));
         return ResponseEntity.status(HttpStatus.OK).body(getAttendanceResponseDto);
     }
 }

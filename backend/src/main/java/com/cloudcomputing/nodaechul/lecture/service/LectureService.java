@@ -38,6 +38,8 @@ public class LectureService {
         Long professorId = createLectureRequestDto.getCreated_by();
         Long lectureId = lectureRepository.createLecture(createLectureRequestDto);
 
+        lectureRepository.joinLectureProfessor(professorId, lectureId);
+
         //AWS Rekognition Collection 추가
         rekognitionService.createCollection(invitation_code);
 
@@ -50,18 +52,15 @@ public class LectureService {
 
     public String inviteLecture(Long id) {
         // 강의 ID 존재 유효성 검사
-        if (!isLectureIDExists(id)){
+        if (!isLectureIDExists(id)) {
             throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
         }
         return lectureRepository.inviteLecture(id);
     }
 
     @Transactional
-    public Long joinLecture(JoinLectureRequestDto joinLectureRequestDto) {
-        // 강의 ID 존재 유효성 검사
-        if (!isLectureIDExists(joinLectureRequestDto.getLecture_id())) {
-            throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
-        }
+    public JoinLectureResponseDto joinLecture(JoinLectureRequestDto joinLectureRequestDto) {
+        joinLectureRequestDto.setLecture_id(lectureRepository.getLectureIdByInvitationCode(joinLectureRequestDto));
         // 강의 중복 참여 유효성 검사
         if (lectureRepository.alreadyJoined(joinLectureRequestDto)) {
             throw new AlreadyJoinedException("이미 참여한 강의입니다.");
@@ -71,7 +70,7 @@ public class LectureService {
             .equals(lectureRepository.checkInvitationCode(joinLectureRequestDto))) {
             throw new InvalidInvitationCodeException("초대 코드가 맞지 않습니다.");
         }
-
+      
         Long lectureId = lectureRepository.joinLecture(joinLectureRequestDto);
 
         // 수업 컬렉션에 유저 아바타 추가
@@ -83,7 +82,7 @@ public class LectureService {
             }
         }
 
-        return lectureId;
+        return lectureRepository.getLectureInfo(joinLectureRequestDto);
     }
 
     public List<StudentAttendanceDto> getStudentInLectureById(Long lectureId){
@@ -98,6 +97,14 @@ public class LectureService {
         return lectureRepository.getLecturesByUserID(userId);
     }
 
+    public List<StudentAttenanceDto> getMembersByLectureID(Long lectureId) {
+        // 강의 ID 존재 유효성 검사
+        if (!isLectureIDExists(lectureId)) {
+            throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
+        }
+        return lectureRepository.getMembersByLectureID(lectureId);
+    }
+  
     public String getLectureCollectionId(Long id){
         return lectureRepository.getLectureCollectionId(id);
     }
@@ -107,6 +114,18 @@ public class LectureService {
         if (!isLectureIDExists(lectureId)) {
             throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
         }
-        return lectureRepository.getAttendanceByLectureID(lectureId);
+        return lectureRepository.getMembersByLectureID(lectureId);
+    }
+
+    public List<AttendanceDto> getAttendanceByLectureID(Long lectureId) {
+        // 강의 ID 존재 유효성 검사
+        if (!isLectureIDExists(lectureId)) {
+            throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
+        }
+        return lectureRepository.getAttendanceByLectureId(lectureId);
+    }
+
+    public String getProfessorNameByCreatedBy(JoinLectureResponseDto joinLectureResponseDto) {
+        return lectureRepository.getProfessorNameByCreatedBy(joinLectureResponseDto);
     }
 }

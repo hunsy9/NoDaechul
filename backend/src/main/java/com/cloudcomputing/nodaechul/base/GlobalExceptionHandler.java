@@ -20,7 +20,9 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<ExceptionResponse> validException(MethodArgumentNotValidException ex) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse("Validation Failed : " + ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+            "Validation Failed : " + ex.getBindingResult().getAllErrors().get(0)
+                .getDefaultMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
@@ -33,29 +35,30 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({InvalidLectureIdException.class})
     public ResponseEntity<ExceptionResponse> validException(InvalidLectureIdException ex) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
-        return new ResponseEntity<>(exceptionResponse,  HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({AlreadyJoinedException.class})
     public ResponseEntity<ExceptionResponse> validException(AlreadyJoinedException ex) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
-        return new ResponseEntity<>(exceptionResponse,  HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({InvalidInvitationCodeException.class})
     public ResponseEntity<ExceptionResponse> validException(InvalidInvitationCodeException ex) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
-        return new ResponseEntity<>(exceptionResponse,  HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({InvalidLectureNameException.class})
     public ResponseEntity<ExceptionResponse> validException(InvalidLectureNameException ex) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
-        return new ResponseEntity<>(exceptionResponse,  HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(InvalidRegisterException.class)
-    public ResponseEntity<ExceptionResponse> handleInvalidReservationException(InvalidRegisterException ex) {
+    public ResponseEntity<ExceptionResponse> handleInvalidReservationException(
+        InvalidRegisterException ex) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
@@ -67,7 +70,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ActivationFailedException.class)
-    public ResponseEntity<ExceptionResponse> handleActivationFailedException(ActivationFailedException ex) {
+    public ResponseEntity<ExceptionResponse> handleActivationFailedException(
+        ActivationFailedException ex) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
