@@ -73,7 +73,7 @@
   </select>
 
   <select id="getMembersByLectureID"
-    resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttenanceDto"
+    resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttendanceDto"
     parameterType="long">
     SELECT student_id, name, avatar
     FROM user

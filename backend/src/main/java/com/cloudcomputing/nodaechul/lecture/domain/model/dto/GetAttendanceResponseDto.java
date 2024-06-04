@@ -11,10 +11,10 @@ public class GetAttendanceResponseDto {
 
     private List<AttendanceDto> attendance;
     @Setter
-    private List<StudentAttenanceDto> members;
+    private List<StudentAttendanceDto> members;
 
     public static GetAttendanceResponseDto from(List<AttendanceDto> attendance,
-        List<StudentAttenanceDto> members) {
+        List<StudentAttendanceDto> members) {
         return new GetAttendanceResponseDto(attendance, members);
     }
 }

@@ -43,10 +43,6 @@ public class LectureService {
         //AWS Rekognition Collection 추가
         rekognitionService.createCollection(invitation_code);
 
-        JoinLectureRequestDto joinLectureRequestDto = new JoinLectureRequestDto(professorId,
-            lectureId);
-        lectureRepository.joinLecture(joinLectureRequestDto);
-
         return lectureId;
     }
 
@@ -71,7 +67,7 @@ public class LectureService {
             throw new InvalidInvitationCodeException("초대 코드가 맞지 않습니다.");
         }
       
-        Long lectureId = lectureRepository.joinLecture(joinLectureRequestDto);
+        Long lectureId = joinLectureRequestDto.getLecture_id();
 
         // 수업 컬렉션에 유저 아바타 추가
         if(lectureId != null) {
@@ -97,7 +93,7 @@ public class LectureService {
         return lectureRepository.getLecturesByUserID(userId);
     }
 
-    public List<StudentAttenanceDto> getMembersByLectureID(Long lectureId) {
+    public List<StudentAttendanceDto> getMembersByLectureID(Long lectureId) {
         // 강의 ID 존재 유효성 검사
         if (!isLectureIDExists(lectureId)) {
             throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
@@ -107,14 +103,6 @@ public class LectureService {
   
     public String getLectureCollectionId(Long id){
         return lectureRepository.getLectureCollectionId(id);
-    }
-
-    public List<GetAttendanceResponseDto> getAttendanceByLectureID(Long lectureId) {
-        // 강의 ID 존재 유효성 검사
-        if (!isLectureIDExists(lectureId)) {
-            throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
-        }
-        return lectureRepository.getMembersByLectureID(lectureId);
     }
 
     public List<AttendanceDto> getAttendanceByLectureID(Long lectureId) {

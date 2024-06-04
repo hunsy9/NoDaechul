@@ -26,7 +26,7 @@ public interface LectureMapper {
 
     List<GetLectureRequestDto> getLecturesByUserID(Long userId);
 
-    List<StudentAttenanceDto> getMembersByLectureID(Long lectureId);
+    List<StudentAttendanceDto> getMembersByLectureID(Long lectureId);
 
     List<AttendanceDto> getAttendanceByLectureId(Long lectureId);
 
