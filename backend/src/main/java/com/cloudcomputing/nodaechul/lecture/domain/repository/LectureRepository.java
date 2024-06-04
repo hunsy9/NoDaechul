@@ -3,7 +3,6 @@ package com.cloudcomputing.nodaechul.lecture.domain.repository;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.repository.mapper.LectureMapper;
 import java.util.List;
@@ -25,8 +24,8 @@ public class LectureRepository {
         return lectureMapper.isLectureNameExists(createLectureRequestDto.getName());
     }
 
-    public String inviteLecture(InviteLectureRequestDto inviteLectureRequestDto) {
-        return lectureMapper.inviteLecture(inviteLectureRequestDto);
+    public String inviteLecture(Long id) {
+        return lectureMapper.inviteLecture(id);
     }
 
     public Boolean isLectureIdExists(Long lecture_id) {

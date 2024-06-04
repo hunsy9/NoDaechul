@@ -5,7 +5,6 @@ import com.cloudcomputing.nodaechul.annotation.LoginRequired;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.service.LectureService;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -32,7 +32,6 @@ public class LectureController {
     private final LectureService lectureService;
 
     @PostMapping("/createlecture")
-    @LoginRequired
     @AdminRoleRequired
     public ResponseEntity<Long> createLecture(HttpSession session,
         @RequestBody @Valid CreateLectureRequestDto createLectureRequestDto) throws Exception {
@@ -44,11 +43,10 @@ public class LectureController {
     }
 
     @GetMapping("/invitelecture")
-    @LoginRequired
     @AdminRoleRequired
     public ResponseEntity<String> inviteLecture(
-        @RequestBody @Valid InviteLectureRequestDto inviteLectureRequestDto) throws Exception {
-        String invitation_code = lectureService.inviteLecture(inviteLectureRequestDto);
+        @RequestParam @Valid Long id) throws Exception {
+        String invitation_code = lectureService.inviteLecture(id);
         return ResponseEntity.status(HttpStatus.OK).body(invitation_code);
     }
 

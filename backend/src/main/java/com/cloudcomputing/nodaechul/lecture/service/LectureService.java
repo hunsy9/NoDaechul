@@ -3,7 +3,6 @@ package com.cloudcomputing.nodaechul.lecture.service;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.repository.LectureRepository;
 import com.cloudcomputing.nodaechul.lecture.exception.AlreadyJoinedException;
@@ -43,12 +42,12 @@ public class LectureService {
         return lectureId;
     }
 
-    public String inviteLecture(InviteLectureRequestDto inviteLectureRequestDto) {
+    public String inviteLecture(Long id) {
         // 강의 ID 존재 유효성 검사
-        if (!isLectureIDExists(inviteLectureRequestDto.getId())) {
+        if (!isLectureIDExists(id)){
             throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
         }
-        return lectureRepository.inviteLecture(inviteLectureRequestDto);
+        return lectureRepository.inviteLecture(id);
     }
 
     @Transactional
