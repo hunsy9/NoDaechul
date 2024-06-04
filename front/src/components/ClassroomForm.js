@@ -97,7 +97,7 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      {/*TODO: 과목이름 중복 방지기능이 필요할거 같아요 */}
+      
       <Typography variant="h6" sx={{marginLeft:1, marginRight:1}}>
         Your New Classroom
       </Typography>

@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import Link from '@mui/material/Link';
 import { useNavigate } from "react-router-dom";
 import HostContext from '../Context/HostContext';
+import { useDropzone } from 'react-dropzone';
 import {
   Avatar,
   Button,
@@ -45,13 +46,30 @@ const Register = () => {
   const [nameError, setNameError] = useState('');
   const [registerError, setRegisterError] = useState('');
 
+  const [Images, setImages] = useState([]);
+  const onDrop = useCallback(acceptedFiles => {
+    console.log(acceptedFiles)
+    setImages(acceptedFiles)
+  }, [])
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
+  const inputBox = {
+    width: '30vw',
+    height: '40vh',
+    // backgroundColor: '#FFFFFF',
+    borderRadius: '20px',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' // 그림자
+  };
+
+
   const { host } = useContext(HostContext);
 
   const handleStudentChange = (event) => {
     setIsStudent(event.target.value === 'yes');
   };
 
-  const onhandlePost = async (data) => {
+  const onhandlePost = (data) => {
     var role = '';
     var studentId = null
     const localhost = host + "user/signup";
@@ -63,6 +81,7 @@ const Register = () => {
       studentId = null;
     }
     const { email, name, password } = data;
+    console.log(data)
     const postData = {
       email,
       name,
@@ -70,36 +89,40 @@ const Register = () => {
       password,
       user_role: role,
     };
-    console.log(postData);
+    console.log("p ", postData);
 
-    const raw = JSON.stringify(postData);
+    const formData = new FormData();
+    formData.append("signUpDto", new Blob([JSON.stringify(postData)], {type: "application/json"}))
+    console.log(Images)
+    formData.append("faceImage", Images[0])
+    
+
 
     const requestOptions = {
       method: 'POST',
-      body: raw,
+      body: formData,
       redirect: 'follow',
-      headers: {
-        'Content-Type': 'application/json',
-        // 'Content-Type': 'multipart/form-data'
-
-      },
     };
+
+    
 
     fetch(localhost, requestOptions)
       .then(response => {
-        if(response.ok){
-          alert('회원가입이 완료되었습니다.');
+        if(!response.ok){
+          throw new Error(response.json())
+        }
+        alert('회원가입이 완료되었습니다.');
           navigate('/Login');
-        }
-        else{
-          console.log('response error');
-        }
+      }).catch((e)=>{
+        alert(e.message)
       })
-      .then(result => console.log(result))
-      .catch(error => alert(error));
   };
 
-  const handleSubmit = (e) => {
+  
+
+  
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const data = new FormData(e.currentTarget);
@@ -107,10 +130,14 @@ const Register = () => {
       email: data.get('email'),
       name: data.get('name'),
       password: data.get('password'),
-      rePassword: data.get('rePassword'),
-      studentId: data.get('studentId'),
+      student_id: data.get('student_id'),
+
     };
-    const { email, name, password, rePassword } = joinData;
+    
+    
+    const { email, name, password} = joinData;
+    
+    const rePassword = data.get('rePassword');
 
     // 이메일 유효성 체크
     const emailRegex = /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -132,12 +159,24 @@ const Register = () => {
     if (!nameRegex.test(name) || name.length < 1) setNameError('올바른 이름을 입력해주세요.');
     else setNameError('');
 
+    
+    // joinData.append("file", files[0])
+    // formData.append("server", new Blob([JSON.stringify(testDto)], {type: "application/json"}))
+
+    // data append를 post 할 때 보내기
+    // data.append("signUpDto", new Blob([JSON.stringify(joinData)], {type: "application/json"}))
+    // // setImages([...Images, response.data.filePath])
+    // console.log(Images)
+    // data.append("faceImage", Images[0])
+    // data.append("faceImage", acceptedFiles)
+
     if (
       emailRegex.test(email) &&
       passwordRegex.test(password) &&
       password === rePassword &&
       nameRegex.test(name)
     ) {
+      // console.log("d", data);
       onhandlePost(joinData);
     }
     
@@ -170,7 +209,7 @@ const Register = () => {
           <Boxs component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <FormControl component="fieldset" variant="standard">
               <Grid container spacing={2}>
-                {/* 폰트 적용 확인 필요 */}
+
               <Grid item xs={12}>
                   <TextField
                     required
@@ -179,15 +218,9 @@ const Register = () => {
                     id="name"
                     name="name"
                     label="Your Name"
-                    // error={nameError !== '' || false}
+
                     error={nameError}
-                    // InputProps={{
-                    //   style: {
-                    //     color: "#0a0a0a",
-                    //     fontFamily: 'Inter',
-                    //     fontWeight: 'bold'
-                    //   }
-                    // }}
+
                   />
                 </Grid>
                 <FormHelperTexts>{nameError}</FormHelperTexts>
@@ -254,7 +287,28 @@ const Register = () => {
                       <Typography variant="h6" sx={{marginRight:16, marginTop: 2, marginBottom: 2}}>
                         Upload Your Selfie Image
                       </Typography>
-                      <DropzoneAreaComponent/>
+                      <div style={inputBox} {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      {
+                        isDragActive ?
+                          <p>Drop the files here ...</p> :
+                          <p style={{ textAlign: 'center' }}>
+                            <div >
+                              <Button variant="contained"
+                                sx={{ width: 150, borderRadius: 3.5, backgroundColor: '#000000', fontFamily: 'Inter', color: '#F4F4F4', fontWeight: 'bold', boxShadow: 'none', marginTop: '18%' }}>
+                                Upload Image
+                              </Button>
+                              <Typography variant="subtitle2" sx={{ fontFamily: 'Inter', color: '#000000', fontWeight: 'bold', marginTop: '13%' }}>
+                                or drop a file.
+                              </Typography>
+                              <Typography variant="subtitle2" sx={{ fontFamily: 'Inter', color: '#b0b0b0' }}>
+                                paste image or URL
+                              </Typography>
+                            </div>
+                          </p>
+
+                      }
+                    </div>
                     </Grid>
                     
                   )}
