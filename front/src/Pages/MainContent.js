@@ -69,6 +69,7 @@ const MainContent = () => {
             addClassroom={addClassroom}
             showClassroom={showClassroom}
             classObj={classObj}
+            setClassrooms={setClassrooms}
           />
           }
         </Grid>

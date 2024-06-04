@@ -15,12 +15,12 @@ const StudentsByDate = (props) => {
       <Grid item xs={7}></Grid>
       <Grid item xs={2}>
         <Typography variant="subtitle1" sx={{marginLeft:2, marginTop:2, marginBottom:2}}>
-          Total: {props.students.length}
+          Total: {props.students && props.students.length}
         </Typography>
       </Grid>
     </Grid>
-    {props.students.map((students) => (
-      <Button variant="contained" className="Shadow" sx={{ 
+    {props.students && props.students.map((students, index) => (
+      <Button key={index} variant="contained" className="Shadow" sx={{ 
         width:600, height:80, marginTop:1, marginBottom:1, borderRadius: 3.5, fontSize:13, backgroundColor: '#FBFCFE', fontFamily:'Inter', color:'#000000', fontWeight:'bold', paddingBottom:2, paddingTop:2 
       }}>
         <Grid container direction={"row"}>

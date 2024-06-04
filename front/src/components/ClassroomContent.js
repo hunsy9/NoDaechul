@@ -8,31 +8,22 @@ import StudentsByDate from "./StudentsByDate";
 const ClassroomContent = (props) => {
   //TODO: 수업 날짜 목록, 날짜당 출석부를 API호출을 통해 가져와서 리스트로 표시
   // 테스트용 데이터
+  const role = localStorage.getItem('role');
   const attendance = [
-    {date:'2024/05/15'},
-    {date:'2024/05/22'},
-    {date:'2024/05/29'},
-    {date:'2024/05/29'},
-    {date:'2024/05/29'},
-    {date:'2024/05/29'},
-    {date:'2024/05/29'},
-    {date:'2024/05/29'},
+    {date:'2024/05/15', 
+    students: [
+      {name: 'Seunghun Yu', studentId: '201924515'},
+      {name: 'SangJun Lee', studentId: '201924515'},
+    ]},
+    {date:'2024/05/22',
+    students: [
+      {name: 'Seunghun Yu', studentId: '201924515'},
+    ]},
   ]
 
   const [showCreate, setShowCreate] = useState(false);
   const [showStudents, setShowStudents] = useState(false);
-  const [students, setStudents] = useState([
-    {name: 'Seunghun Yu', studentId: '201924515'},
-    {name: 'SangJun Lee', studentId: '201924515'},
-    {name: 'Seyoung Chae', studentId: '201924515'},
-    {name: 'JongHoon Kim', studentId: '201924515'},
-    {name: 'JongHoon Kim', studentId: '201924515'},
-    {name: 'JongHoon Kim', studentId: '201924515'},
-    {name: 'JongHoon Kim', studentId: '201924515'},
-    {name: 'JongHoon Kim', studentId: '201924515'},
-    {name: 'JongHoon Kim', studentId: '201924515'},
-    
-  ]);
+  const [students, setStudents] = useState([{name: '', studentId: ''}]);
 
   const { host } = useContext(HostContext);
 
@@ -42,44 +33,48 @@ const ClassroomContent = (props) => {
   const handleShowStudents = () => {
     setShowStudents('true');
   }
-  const handleInvite = async () => {
+  const handleInvite = () => {
     try{
       var text = '';
-
+      
       const inviteData = {
         id: props.classObj.id
       };
 
-      const raw = JSON.stringify(inviteData);
-
       var requestOptions = {
         credentials: 'include',
         method: 'GET',
-        body: raw,
         redirect: 'follow',
       };
 
-      const inviteAPI = host + "lecture/invitelecture";
-      
+      const inviteAPI = host + "lecture/invitelecture" + `?id=${props.classObj.id}`;
+      console.log(inviteAPI);
+
       fetch(inviteAPI, requestOptions)
         .then(response => response.text())
         .then(result => {
           text = result;
-          console.log(result);
+          copyURLToClipboard(text);
         })
         .catch(error => console.log('error', error));
-        await navigator.clipboard.writeText(text);
-        alert('초대 코드가 클립보드에 복사되었습니다.');
+        
     } 
     catch (e) {
       console.log(e);
     }
   }
 
-  const handleAttendance = ({date, className}) => {
-    let newStudents = [...students];
-    //TODO: API를 통한 학생 변경
-    setStudents(newStudents);
+  const copyURLToClipboard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("클립보드에 초대코드가 복사되었습니다.");
+    } catch (e) {
+      alert("복사에 실패하였습니다");
+    }
+};
+
+  const handleAttendance = ({classObj}) => {
+    ;
   }
 
   return(
@@ -97,7 +92,7 @@ const ClassroomContent = (props) => {
         </Grid>
         <Grid item xs={5}>
           {/* 버튼 스타일 변경 */}
-          {!showCreate ? 
+          {!showCreate &&  role == "Admin" ? 
             <>
               <Button variant="contained" onClick={handleInvite} sx={{ 
                  width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', marginRight: 2, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' 
@@ -109,7 +104,7 @@ const ClassroomContent = (props) => {
               }}>
                 New Attendance
               </Button>
-            </> :
+            </> : role == "Admin" &&
             <Button variant="contained" onClick={handleCreate}
             sx={{ width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', marginRight: 10, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' }}>
             Back
@@ -132,7 +127,10 @@ const ClassroomContent = (props) => {
                 className="Shadow" 
                 onClick={() => {
                   handleShowStudents();
-                  handleAttendance(attendance.date, props.className);
+                  var newStudents = [...students];
+                  newStudents = attendance.students;
+                  setStudents(newStudents);
+                  handleAttendance(attendance.students, props.classObj);
                 }} 
                 sx={{ 
                 width:200, marginTop:1, marginBottom:1, borderRadius: 3, fontSize:13, backgroundColor: '#FBFCFE', fontFamily:'Inter', color:'#000000', fontWeight:'bold', paddingBottom:2, paddingTop:2 
