@@ -3,7 +3,6 @@ package com.cloudcomputing.nodaechul.lecture.controller;
 import com.cloudcomputing.nodaechul.annotation.AdminRoleRequired;
 import com.cloudcomputing.nodaechul.annotation.LoginRequired;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.CreateLectureRequestDto;
-import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetAttendanceResponseDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.JoinLectureRequestDto;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetLectureRequestDto;
@@ -73,9 +72,9 @@ public class LectureController {
     @GetMapping("/getattendance")
     @LoginRequired
     public ResponseEntity<List<GetAttendanceResponseDto>> getAttendance(
-        @RequestBody @Valid GetAttendanceRequestDto getAttendanceRequestDto) throws Exception {
+        @RequestParam @Valid Long lectureId) throws Exception {
         List<GetAttendanceResponseDto> getAttendanceResponseDto = lectureService.getAttendanceByLectureID(
-            getAttendanceRequestDto.getLectureId());
+            lectureId);
         return ResponseEntity.status(HttpStatus.OK).body(getAttendanceResponseDto);
     }
 }
