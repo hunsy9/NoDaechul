@@ -1,12 +1,16 @@
 package com.cloudcomputing.nodaechul.user.service;
 
 import com.cloudcomputing.nodaechul.mail.service.MailService;
+import com.cloudcomputing.nodaechul.rekognition.service.RekognitionService;
+import com.cloudcomputing.nodaechul.s3.domain.enums.BucketNameEnum;
+import com.cloudcomputing.nodaechul.s3.service.S3Service;
 import com.cloudcomputing.nodaechul.user.domain.model.dto.SignUpRequestDto;
 import com.cloudcomputing.nodaechul.user.domain.model.User;
 import com.cloudcomputing.nodaechul.user.domain.model.UserVO;
 import com.cloudcomputing.nodaechul.user.domain.model.enums.UserState;
 import com.cloudcomputing.nodaechul.user.domain.repository.UserRepository;
 import com.cloudcomputing.nodaechul.user.exception.ActivationFailedException;
+import com.cloudcomputing.nodaechul.user.exception.InvalidFaceException;
 import com.cloudcomputing.nodaechul.user.exception.InvalidRegisterException;
 import com.cloudcomputing.nodaechul.user.exception.LoginException;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +19,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -27,7 +32,8 @@ public class UserService {
     private final RedisTemplate<String, String> redisTemplate;
     private final PasswordEncoder passwordEncoder;
     private final MailService mailService;
-
+    private final S3Service s3Service;
+    private final RekognitionService rekognitionService;
     private final String RedisAuthenticationPrefix = "AuthenticationCode:";
 
     private void cacheCodeToRedis(Long userId, String uuid) {
@@ -35,7 +41,16 @@ public class UserService {
     }
 
     @Transactional
-    public Long createUser(SignUpRequestDto signUpRequestDto) throws Exception {
+    public Long createUser(SignUpRequestDto signUpRequestDto, MultipartFile mFile) throws Exception {
+
+        String generatedS3Key = s3Service.UploadToS3(mFile, BucketNameEnum.AVATAR);
+
+        if(!rekognitionService.checkValidFace(generatedS3Key)){
+            throw new InvalidFaceException("형식에 맞는 얼굴 사진을 업로드해주세요.");
+        }
+
+        // 유효한 얼굴사진의 S3 Key를 Avatar에 저장
+        signUpRequestDto.setAvatar(generatedS3Key);
 
         Boolean hasKey = redisTemplate.hasKey(RedisAuthenticationPrefix.concat(signUpRequestDto.getEmail()));
 
@@ -58,6 +73,7 @@ public class UserService {
 
         // UUID(Value) 생성하여, Redis에 ttl(하루)로 생성
         cacheCodeToRedis(createdUserId, verifyCode);
+
         // 사용자 이메일로 메일 발송
         mailService.sendAuthMail(signUpRequestDto.getEmail(), verifyCode, createdUserId);
 
@@ -101,6 +117,10 @@ public class UserService {
         }
 
         throw new LoginException("패스워드가 일치하지 않습니다.");
+    }
+
+    public String getUserAvatarById(Long userId) {
+        return userRepository.getUserS3KeyById(userId);
     }
 }
 

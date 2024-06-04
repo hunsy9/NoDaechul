@@ -4,7 +4,7 @@
 
 <mapper namespace="com.cloudcomputing.nodaechul.user.domain.repository.mapper.UserMapper">
     <insert id="createUser" parameterType="com.cloudcomputing.nodaechul.user.domain.model.dto.SignUpRequestDto" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO user VALUES (0, #{email}, #{student_id}, #{name}, #{password}, #{user_state}, #{user_role}, now(), now())
+        INSERT INTO user VALUES (0, #{email}, #{student_id}, #{name}, #{avatar}, #{password}, #{user_state}, #{user_role}, now(), now())
     </insert>
 
     <update id="activateUser" parameterType="hashMap">
@@ -18,4 +18,8 @@
     <delete id="deleteUser" parameterType="Long">
         DELETE FROM user WHERE id = #{userId}
     </delete>
+
+    <select id="getUserS3Key" parameterType="Long">
+        SELECT avatar FROM user WHERE id = #{id}
+    </select>
 </mapper>

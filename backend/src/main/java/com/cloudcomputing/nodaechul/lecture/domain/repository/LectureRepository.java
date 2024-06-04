@@ -25,6 +25,10 @@ public class LectureRepository {
         return lectureMapper.inviteLecture(id);
     }
 
+    public List<StudentAttendanceDto> getStudentInLectureById(Long lectureId){
+        return lectureMapper.getStudentInLectureById(lectureId);
+    }
+
     public Boolean isLectureIdExists(Long lecture_id) {
         return lectureMapper.isLectureIdExists(lecture_id);
     }
@@ -67,5 +71,8 @@ public class LectureRepository {
 
     public void joinLectureProfessor(Long professorId, Long lectureId) {
         lectureMapper.joinLectureProfessor(professorId, lectureId);
+      
+    public String getLectureCollectionId(Long id){
+        return lectureMapper.getLectureCollectionId(id);
     }
 }

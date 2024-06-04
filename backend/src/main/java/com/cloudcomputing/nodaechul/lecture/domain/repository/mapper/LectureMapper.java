@@ -16,6 +16,8 @@ public interface LectureMapper {
 
     boolean isLectureIdExists(Long id);
 
+    List<StudentAttendanceDto> getStudentInLectureById(Long lectureId);
+
     void joinLecture(JoinLectureRequestDto joinLectureRequestDto);
 
     boolean alreadyJoined(JoinLectureRequestDto joinLectureRequestDto);
@@ -35,4 +37,6 @@ public interface LectureMapper {
     String getProfessorNameByCreatedBy(JoinLectureResponseDto joinLectureResponseDto);
 
     void joinLectureProfessor(Long professorId, Long lectureId);
+
+    String getLectureCollectionId(Long id);
 }

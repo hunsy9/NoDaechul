@@ -5,6 +5,7 @@ import com.cloudcomputing.nodaechul.lecture.exception.InvalidInvitationCodeExcep
 import com.cloudcomputing.nodaechul.lecture.exception.InvalidLectureIdException;
 import com.cloudcomputing.nodaechul.lecture.exception.InvalidLectureNameException;
 import com.cloudcomputing.nodaechul.user.exception.ActivationFailedException;
+import com.cloudcomputing.nodaechul.user.exception.InvalidFaceException;
 import com.cloudcomputing.nodaechul.user.exception.InvalidRegisterException;
 import com.cloudcomputing.nodaechul.user.exception.LoginException;
 import org.springframework.http.HttpStatus;
@@ -58,6 +59,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(InvalidRegisterException.class)
     public ResponseEntity<ExceptionResponse> handleInvalidReservationException(
         InvalidRegisterException ex) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidFaceException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidFaceException(InvalidFaceException ex) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }

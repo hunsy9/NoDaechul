@@ -8,6 +8,9 @@ import com.cloudcomputing.nodaechul.lecture.exception.InvalidLectureIdException;
 import com.cloudcomputing.nodaechul.lecture.exception.InvalidLectureNameException;
 import java.util.List;
 import java.util.UUID;
+
+import com.cloudcomputing.nodaechul.rekognition.service.RekognitionService;
+import com.cloudcomputing.nodaechul.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class LectureService {
 
     private final LectureRepository lectureRepository;
+    private final RekognitionService rekognitionService;
+    private final UserService userService;
 
     @Transactional
     public Long createLecture(CreateLectureRequestDto createLectureRequestDto) {
@@ -32,7 +37,15 @@ public class LectureService {
         // 수업 생성시 수업에 참여
         Long professorId = createLectureRequestDto.getCreated_by();
         Long lectureId = lectureRepository.createLecture(createLectureRequestDto);
+
         lectureRepository.joinLectureProfessor(professorId, lectureId);
+
+        //AWS Rekognition Collection 추가
+        rekognitionService.createCollection(invitation_code);
+
+        JoinLectureRequestDto joinLectureRequestDto = new JoinLectureRequestDto(professorId,
+            lectureId);
+        lectureRepository.joinLecture(joinLectureRequestDto);
 
         return lectureId;
     }
@@ -57,12 +70,27 @@ public class LectureService {
             .equals(lectureRepository.checkInvitationCode(joinLectureRequestDto))) {
             throw new InvalidInvitationCodeException("초대 코드가 맞지 않습니다.");
         }
-        lectureRepository.joinLecture(joinLectureRequestDto);
+      
+        Long lectureId = lectureRepository.joinLecture(joinLectureRequestDto);
+
+        // 수업 컬렉션에 유저 아바타 추가
+        if(lectureId != null) {
+            String userAvatar = userService.getUserAvatarById(joinLectureRequestDto.getUser_id());
+            int result = rekognitionService.addFaceToCollection(userAvatar, joinLectureRequestDto.getInvitation_code());
+            if(result > 0) {
+                log.info("User Avatar {} is added to collection: {}", userAvatar, joinLectureRequestDto.getInvitation_code());
+            }
+        }
+
         return lectureRepository.getLectureInfo(joinLectureRequestDto);
     }
 
-    private Boolean isLectureIDExists(Long lecture_id) {
-        return lectureRepository.isLectureIdExists(lecture_id);
+    public List<StudentAttendanceDto> getStudentInLectureById(Long lectureId){
+        return lectureRepository.getStudentInLectureById(lectureId);
+    }
+
+    private Boolean isLectureIDExists(Long lectureId) {
+        return lectureRepository.isLectureIdExists(lectureId);
     }
 
     public List<GetLectureRequestDto> getLecturesByUserID(Long userId) {
@@ -70,6 +98,18 @@ public class LectureService {
     }
 
     public List<StudentAttenanceDto> getMembersByLectureID(Long lectureId) {
+        // 강의 ID 존재 유효성 검사
+        if (!isLectureIDExists(lectureId)) {
+            throw new InvalidLectureIdException("존재하지 않는 강의입니다.");
+        }
+        return lectureRepository.getMembersByLectureID(lectureId);
+    }
+  
+    public String getLectureCollectionId(Long id){
+        return lectureRepository.getLectureCollectionId(id);
+    }
+
+    public List<GetAttendanceResponseDto> getAttendanceByLectureID(Long lectureId) {
         // 강의 ID 존재 유효성 검사
         if (!isLectureIDExists(lectureId)) {
             throw new InvalidLectureIdException("존재하지 않는 강의입니다.");

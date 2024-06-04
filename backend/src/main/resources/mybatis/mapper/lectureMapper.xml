@@ -17,6 +17,17 @@
     WHERE id = #{id};
   </select>
 
+  <select id="getStudentInLectureById" parameterType="Long" resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttendanceDto">
+    SELECT u.id, u.student_id, u.name, u.avatar
+    FROM lecture_user l
+    JOIN user u ON u.id = l.user_id
+    WHERE l.lecture_id = #{lectureId} AND u.user_role != "Admin"
+  </select>
+
+  <select id="getLectureCollectionId" parameterType="Long" resultType="String">
+    SELECT invitation_code FROM lecture WHERE id = #{id}
+  </select>
+
   <select id="isLectureNameExists" resultType="boolean" parameterType="string">
     SELECT EXISTS (SELECT 1 FROM lecture WHERE name = #{name});
   </select>
@@ -63,6 +74,15 @@
 
   <select id="getMembersByLectureID"
     resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttenanceDto"
+    parameterType="long">
+    SELECT student_id, name, avatar
+    FROM user
+    WHERE user_role = "User"
+      AND id IN (SELECT user_id FROM lecture_user WHERE lecture_id = #{lectureId});
+  </select>
+
+  <select id="getAttendanceByLectureID"
+    resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttendanceDto"
     parameterType="long">
     SELECT student_id, name, avatar
     FROM user

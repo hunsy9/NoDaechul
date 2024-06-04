@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cloudcomputing.nodaechul.attendance.domain.repository.mapper.AttendanceMapper">
+    <insert id="createAttendance" parameterType="com.cloudcomputing.nodaechul.attendance.domain.model.CreateAttendanceRequestDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO attendance VALUES (0, #{lectureId}, #{attendanceDate}, now(), now())
+    </insert>
+
+    <insert id="createStudentAttendanceRecord" parameterType="com.cloudcomputing.nodaechul.attendance.domain.model.DetectedStudent">
+        INSERT INTO attendance_user
+        VALUES
+        <foreach collection="list" item="item" open="(" close=")" separator="), (">
+            0, #{item.attendance_id}, #{item.user_id}, #{item.status}, #{item.similarity}, now(), now()
+        </foreach>
+    </insert>
+
+    <insert id="insertBoundingBoxes" parameterType="HashMap" useGeneratedKeys="true">
+        INSERT INTO attendance_bounding_box (id, attendance_id, width, height, left_pos, top)
+        VALUES
+        <foreach collection="boundingBoxes" item="boundingBox" open="(" close=")" separator="), (">
+            0, #{id}, #{boundingBox.width}, #{boundingBox.height}, #{boundingBox.left}, #{boundingBox.top}
+        </foreach>
+    </insert>
+
+    <select id="getAttendanceUserRecords" parameterType="Long" resultType="com.cloudcomputing.nodaechul.attendance.domain.model.entity.AttendanceUserRecord">
+        SELECT u.id, u.student_id, u.name, au.similarity, au.status
+        FROM attendance_user au
+        JOIN user u
+        ON au.user_id = u.id
+        WHERE attendance_id = #{id}
+    </select>
+    
+    <select id="getLectureImageBoundingBoxes" parameterType="Long" resultType="com.cloudcomputing.nodaechul.attendance.domain.model.entity.LectureImageBoundingBox">
+        SELECT width, height, left_pos, top AS top_pos
+        FROM attendance_bounding_box
+        WHERE attendance_id = #{id}
+    </select>
+</mapper>

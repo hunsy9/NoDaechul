@@ -1,5 +1,7 @@
 package com.cloudcomputing.nodaechul.annotation;
 
+import com.cloudcomputing.nodaechul.user.domain.model.User;
+import com.cloudcomputing.nodaechul.user.domain.model.enums.UserRole;
 import com.cloudcomputing.nodaechul.utils.SessionUtils;
 import jakarta.servlet.http.HttpSession;
 import org.aspectj.lang.JoinPoint;
@@ -18,9 +20,13 @@ public class AdminRoleAspect {
     public void checkAdminRole(JoinPoint jp) throws Throwable {
 
         HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest().getSession();
-        Boolean adminRole = SessionUtils.checkAdmin(session);
+        User user = (User) session.getAttribute("USER");
 
-        if (!adminRole) {
+        if (user == null) {
+            throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "NOT_LOGIN") {};
+        }
+
+        if (user.getUser_role() != UserRole.Admin) {
             throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "NOT_ADMIN") {};
         }
     }

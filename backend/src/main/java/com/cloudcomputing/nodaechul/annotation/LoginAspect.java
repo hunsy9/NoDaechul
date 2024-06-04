@@ -1,5 +1,6 @@
 package com.cloudcomputing.nodaechul.annotation;
 
+import com.cloudcomputing.nodaechul.user.domain.model.User;
 import com.cloudcomputing.nodaechul.utils.SessionUtils;
 import jakarta.servlet.http.HttpSession;
 import org.aspectj.lang.JoinPoint;
@@ -20,9 +21,8 @@ public class LoginAspect {
     public void memberLoginCheck(JoinPoint jp) throws Throwable {
 
         HttpSession session = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest().getSession();
-        Long userId = SessionUtils.getLoginUserId(session);
-
-        if (userId == null) {
+        User user = (User) session.getAttribute("USER");
+        if (user == null) {
             throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "NO_LOGIN") {};
         }
     }
