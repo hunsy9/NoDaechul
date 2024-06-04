@@ -7,9 +7,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface LectureMapper {
+
     void createLecture(CreateLectureRequestDto createLectureRequestDto);
 
-    String inviteLecture(InviteLectureRequestDto inviteLectureRequestDto);
+    String inviteLecture(Long id);
 
     boolean isLectureNameExists(String name);
 

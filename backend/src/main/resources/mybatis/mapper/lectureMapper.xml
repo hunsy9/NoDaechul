@@ -11,7 +11,7 @@
   </insert>
 
   <select id="inviteLecture"
-    parameterType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.InviteLectureRequestDto">
+    parameterType="long">
     SELECT invitation_code
     FROM lecture
     WHERE id = #{id};

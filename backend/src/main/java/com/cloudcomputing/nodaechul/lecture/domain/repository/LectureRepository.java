@@ -21,8 +21,8 @@ public class LectureRepository {
         return lectureMapper.isLectureNameExists(createLectureRequestDto.getName());
     }
 
-    public String inviteLecture(InviteLectureRequestDto inviteLectureRequestDto) {
-        return lectureMapper.inviteLecture(inviteLectureRequestDto);
+    public String inviteLecture(Long id) {
+        return lectureMapper.inviteLecture(id);
     }
 
     public List<StudentAttendanceDto> getStudentInLectureById(Long lectureId){
