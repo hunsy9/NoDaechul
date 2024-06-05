@@ -1,10 +1,11 @@
 package com.cloudcomputing.nodaechul.attendance.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -12,5 +13,6 @@ import java.sql.Timestamp;
 public class CreateAttendanceRequestDto {
     private Long id;
     private Long lectureId;
-    private Timestamp attendanceDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date attendanceDate;
 }
