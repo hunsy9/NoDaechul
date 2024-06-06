@@ -1,5 +1,4 @@
-// import Typography from '@mui/material/Typography';
-// import Box from '@mui/material/Box';
+
 import { Box, Typography, Button } from '@mui/material';
 
 const CreateAttendanceComplete = () => {
