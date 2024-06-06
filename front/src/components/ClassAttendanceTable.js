@@ -4,32 +4,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Box, Typography } from '@mui/material';
 
 const DataTable = (props) => {
-  console.log(props)
-  const { host } = useContext(HostContext);
-  // todo : GetAttendanceAPI port와 lectureId 추가 (잘 안됨)
-
-  const GetAttendanceAPI = host + 'attendance/get';
-  // 테스트 필요
-  
-  const url = new URL(GetAttendanceAPI);
-  const lectureId = props.classObj.id;
-  const attendanceId = props.attendances[0].id;
-  url.searchParams.append('lectureId', lectureId);
-
-  console.log("attendanceId", attendanceId);
-  
-
-  // url 확인
-  console.log(url);
-  
-  const [rows, setRows] = useState([]);
-
-  // 수업 참가 수, 수업 학생수, 결석 수
-  const [attendCount, setAttendCount] = useState(0);
-  const [totalCount, setTotalCount] = useState(0);
-  const [absentCount, setAbsentCount] = useState(0);
-
-  console.log("total count", totalCount);
 
   
   const columns = [
@@ -44,55 +18,9 @@ const DataTable = (props) => {
       width: 200,
     },
   ];
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const postData = {
-          lectureId,
-          attendanceId,
-        };
-        console.log("p ", postData);
-
-        const raw = JSON.stringify(postData);
-
-        const requestOptions = {
-          credentials: 'include',
-          method: 'POST',
-          body: raw,
-          redirect: 'follow',
-          headers: {
-                'Content-Type': 'application/json'
-          },
-        };
-        const response = await fetch(url, requestOptions);
-        // const response = await fetch(url, {
-        //   credentials: 'include',
-        //   method: 'POST',
-        //   redirect: 'follow'
-        //   // headers: {
-        //   //   'Content-Type': 'application/json'
-        //   // },
-        //   // body: JSON.stringify({ lectureId: 12 })
-        // });
-
-
-        if (response.ok) {
-          const data = await response.json();
-          setTotalCount(data.attendance.attendanceMetaData.total_students);
-          setAttendCount(data.attendance.attendanceMetaData.attend_students);
-          setAbsentCount(data.attendance.attendanceMetaData.absent_students);
-          setRows(data.attendance.attendanceUserRecords);
-        } else {
-          console.error('Failed to fetch data');
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
+  console.log(props.attendances.attendanceMetaData);
+  console.log(props.attendanceData);
+  console.log(props.setAttendanceData);
 
   return (
     <Box>
@@ -105,15 +33,15 @@ const DataTable = (props) => {
                 marginBottom: '30px',
                 marginTop: '30px',
                 }}>
-              Total {totalCount} Attend {attendCount} Absent {absentCount}
+              {/* Total {totalCount} Attend {attendCount} Absent {absentCount} */}
       </Typography>      
       <div style={{ height: 300, width: '80%'}}>
-        <DataGrid
+        {/* <DataGrid
           rows={rows}
           columns={columns}
           pageSizeOptions={[5, 10]}
           pagination
-        />
+        /> */}
       </div>
     </Box>
   );

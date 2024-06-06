@@ -44,12 +44,7 @@ const ClassAttendance = ({
           setIsLoading={setIsLoading}
           setShowAttendance={setShowAttendance}
         />
-      }
-      {/* {!isLoading && isComplete &&
-        <DataTable classObj={classObj} attendances={attendances} />
-      } */}
-        
-        
+      } 
 
     </Box>
     </>
