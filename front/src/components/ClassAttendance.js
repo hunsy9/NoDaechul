@@ -15,7 +15,9 @@ const ClassAttendance = ({
     isComplete,
     setIsComplete,
     setShowCreate,
-    setShowAttendance
+    setShowAttendance,
+    attendanceData,
+    setAttendanceData
   }) => {
 
   return(
@@ -31,7 +33,7 @@ const ClassAttendance = ({
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
       <img src={classImg} alt="Face ID" style={{maxWidth: '30vw', height: 'auto', marginBottom : 30}} />
       {!isLoading && !isComplete &&
-        <DataTable classObj={classObj} attendances={attendances} />
+        <DataTable classObj={classObj} attendances={attendances} attendanceData={attendanceData} setAttendanceData={setAttendanceData}/>
       }
       {isLoading && !isComplete &&
         <CreateAttendanceLoading />

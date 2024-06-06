@@ -26,6 +26,8 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
   const [isLoading, setIsLoading] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
+  const [attendanceData, setAttendanceData] = useState([]);
+
   const handleInvite = () => {
     try{
       var text = '';
@@ -137,6 +139,8 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
           setIsComplete={setIsComplete}
           setShowCreate={setShowCreate}
           setShowAttendance={setShowAttendance}
+          attendanceData={attendanceData}
+          setAttendanceData={setAttendanceData}
         />
       }
       {!showCreate && showAttendance &&
@@ -151,6 +155,9 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
           setIsComplete={setIsComplete}
           setShowCreate={setShowCreate}
           setShowAttendance={setShowAttendance}
+
+          attendanceData={attendanceData}
+          setAttendanceData={setAttendanceData}
 
         />
       }
