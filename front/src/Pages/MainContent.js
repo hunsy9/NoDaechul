@@ -16,7 +16,7 @@ const MainContent = () => {
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
   const [showClassroom, setShowClassroom] = useState(false);
-  const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState([{}]);
 
   const addClassroom = (classroom) => {
     if (!classroom.text || /^\s*$/.test(classroom.text)) {

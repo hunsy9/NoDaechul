@@ -3,7 +3,7 @@ import { Typography, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material
 import TabIcon from '@mui/icons-material/Tab';
 import HostContext from '../Context/HostContext';
 
-const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, setShowForm, students, setStudents }) => {
+const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, setShowForm, students, setStudents, classObj }) => {
   // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
 
   const {host} = useContext(HostContext);

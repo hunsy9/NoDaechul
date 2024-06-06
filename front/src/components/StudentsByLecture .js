@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, SvgIcon, Grid, IconButton, Button } from '@mui/material'
 
-const StudentsByDate = (props) => {
+const StudentsByLecture = (props) => {
 
 
     return (
@@ -42,4 +42,4 @@ const StudentsByDate = (props) => {
   )
 }
 
-export default StudentsByDate;
+export default StudentsByLecture;
