@@ -20,7 +20,7 @@ const StudentsByLecture = (props) => {
       </Grid>
     </Grid>
     {props.students && props.students.map((students, index) => (
-      <Button key={index} variant="contained" className="Shadow" sx={{ 
+      <Box key={index} variant="contained" className="Shadow" sx={{ 
         width:600, height:80, marginTop:1, marginBottom:1, borderRadius: 3.5, fontSize:13, backgroundColor: '#FBFCFE', fontFamily:'Inter', color:'#000000', fontWeight:'bold', paddingBottom:2, paddingTop:2 
       }}>
         <Grid container direction={"row"}>
@@ -36,7 +36,7 @@ const StudentsByLecture = (props) => {
             </Typography>
           </Grid>
         </Grid>
-      </Button>
+      </Box>
     ))}
   </>
   )
