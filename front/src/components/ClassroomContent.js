@@ -63,7 +63,7 @@ const ClassroomContent = (props) => {
     }
 };
 
-  const handleAttendance = ({classObj}) => {
+  const handleAttendance = () => {
     ;
   }
 
@@ -116,7 +116,7 @@ const ClassroomContent = (props) => {
                 variant="contained" 
                 className="Shadow" 
                 onClick={() => {
-                  handleAttendance(attendance.students, props.classObj);
+                  handleShowAttendance();
                 }} 
                 sx={{ 
                 width:200, marginTop:1, marginBottom:1, borderRadius: 3, fontSize:13, backgroundColor: '#FBFCFE', fontFamily:'Inter', color:'#000000', fontWeight:'bold', paddingBottom:2, paddingTop:2 
