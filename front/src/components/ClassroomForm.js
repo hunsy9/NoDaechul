@@ -62,7 +62,7 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
       
       const getAPI = host + "lecture/getlecture";
 
-      fetch(host, requestOptions)
+      fetch(getAPI, requestOptions)
         .then(response => {
           if(response.ok){
             return response.json();

@@ -4,6 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Box, Typography } from '@mui/material';
 
 const DataTable = (props) => {
+  console.log(props)
   const { host } = useContext(HostContext);
   // todo : GetAttendanceAPI port와 lectureId 추가 (잘 안됨)
 
@@ -14,6 +15,7 @@ const DataTable = (props) => {
   const lectureId = props.classObj.id;
   const attendanceId = props.attendances.id;
   url.searchParams.append('lectureId', lectureId);
+  
 
   // url 확인
   console.log(url);
