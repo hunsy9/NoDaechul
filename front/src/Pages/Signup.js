@@ -310,7 +310,7 @@ const Register = () => {
 
                       }
                     </div>
-                    {/* Dropzone옆에 올린 파일 보여지는 곳 */}
+                    {/* Dropzone아래 이미지 보여지는 곳 */}
                     <div style={{ display: 'flex', width: '350px', height: '240px', overflowX:'scroll'}}>
                      
                       { console.log("dd")}

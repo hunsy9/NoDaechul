@@ -137,6 +137,22 @@ const CreateAttendance = (props) => {
         </div>
         {/* Image FileUpload */}
 
+        {/* Dropzone아래 이미지 보여지는 곳 */}
+        <div style={{ display: 'flex', width: '350px', height: '240px', overflowX:'scroll'}}>
+                     
+          { console.log("dd")}
+
+          {Images.map((image, index) => (
+              <div>
+                <img style={{ minWidth: '300px', width:'300px', height: ' 240px'}}
+                
+                src={`${localhost}${image}`}
+                />
+              </div>
+          ))} 
+
+        </div>
+
         <div style={{ textAlign: 'center' }}>
           <Typography variant="subtitle1" sx ={{fontFamily:'Inter', color:'#000000', fontWeight:'bold', marginTop: '30px'}}>
             Choose your Class Date.
