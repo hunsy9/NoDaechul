@@ -7,7 +7,7 @@ const MainAdmin = (props) => {
 
   return(
     (props.showClassroom) ?
-    <ClassroomContent classObj={props.classObj}/> : 
+    <ClassroomContent classObj={props.classObj} students={props.students} /> : 
     
     <Box
       sx={{

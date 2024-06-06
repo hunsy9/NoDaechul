@@ -23,7 +23,7 @@ const ClassroomContent = (props) => {
 
   const [showCreate, setShowCreate] = useState(false);
   const [showStudents, setShowStudents] = useState(false);
-  const [students, setStudents] = useState([{name: '', studentId: ''}]);
+  const [showAttendance, setShowAttendance] = useState(false);
 
   const { host } = useContext(HostContext);
 
@@ -129,7 +129,7 @@ const ClassroomContent = (props) => {
                   handleShowStudents();
                   var newStudents = [...students];
                   newStudents = attendance.students;
-                  setStudents(newStudents);
+                  props.setStudents(newStudents);
                   handleAttendance(attendance.students, props.classObj);
                 }} 
                 sx={{ 
@@ -142,7 +142,7 @@ const ClassroomContent = (props) => {
         </Grid>
         <Grid item xs={8.5}>
           <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
-            {showStudents ? <StudentsByDate students={students}></StudentsByDate> : <></>}
+            {showStudents ? <StudentsByDate students={props.students}></StudentsByDate> : <></>}
           </Box>
         </Grid>
       </Grid> : 
