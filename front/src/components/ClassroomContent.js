@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import HostContext from '../Context/HostContext';
 import { Box, Typography, SvgIcon, Grid, IconButton, Button } from '@mui/material'
-import TabIcon from '@mui/icons-material/Tab';
 import CreateAttendance from "./CreateAttendance";
 import StudentsByLecture from "./StudentsByLecture ";
 import ClassAttendance from "./ClassAttendance";
+import PackageIcon from '../../src/assets/package-01.svg';
 
 const ClassroomContent = ({ classObj, students, attendances, showCreate,
   showAttendance,
@@ -71,10 +71,10 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
         <Grid item xs={7}>
           <Box
             sx={{
-            fontSize: 32 // Adjust emoji size
+            fontSize: 23, // Adjust emoji size
             }}
           >
-            <SvgIcon component={TabIcon} sx={{marginRight: 2}}/>
+            <img src={PackageIcon} style={{marginRight: 5, verticalAlign:'middle'}}/>
             {classObj.name}
           </Box>
         </Grid>
@@ -83,18 +83,18 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
           {!showCreate && !showAttendance &&  role == "Admin" ? 
             <>
               <Button variant="contained" onClick={handleInvite} sx={{ 
-                 width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', marginRight: 2, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' 
+                 width:130, borderRadius: 3.5, textTransform: 'none', backgroundColor: '#F4F4F4', marginRight: 2, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none'
               }}>
               Invite Member
               </Button>
               <Button variant="contained" onClick={handleCreate} sx={{ 
-                 width:170, borderRadius: 3.5, backgroundColor: '#3D3D3D', fontFamily:'Inter', color:'#FFFFFF', fontWeight:'bold', boxShadow: 'none' 
+                 width:150, borderRadius: 3.5, textTransform: 'none', backgroundColor: '#3D3D3D', fontFamily:'Inter', color:'#FFFFFF', fontWeight:'bold', boxShadow: 'none'
               }}>
                 New Attendance
               </Button>
             </> : role == "Admin" && !showAttendance &&
             <Button variant="contained" onClick={handleCreate}
-            sx={{ width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', marginRight: 10, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' }}>
+            sx={{ width:80, borderRadius: 3.5, backgroundColor: '#F4F4F4',textTransform: 'none', marginRight: 10, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' }}>
             Back
             </Button>
             }

@@ -3,6 +3,7 @@ import {  Box, Typography, Button, SvgIcon } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ClassroomFormStudent from "./ClassroomFormStudent";
 import ClassroomContent from "./ClassroomContent";
+import packageIcon from "../assets/package-01.svg";
 const MainStudent = (props) => {
   return(
   (props.showClassroom) ?
@@ -48,11 +49,11 @@ const MainStudent = (props) => {
             <></>}
           <Button variant="contained" onClick={props.handleClick} sx={{ width: 300, backgroundColor: '#F6F6F6', color: '#000000', marginTop: 5, padding: 2}}>
             Join New Classroom
-          <SvgIcon component={AddIcon} sx={{marginLeft: 2}}/>
+              <img src={packageIcon} style={{marginRight: 10}}/>
           </Button>
         </>
       }
-      {(props.showForm && !props.showClassroom) && 
+        {(props.showForm && !props.showClassroom) &&
       <ClassroomFormStudent 
         onCancel={props.handleClick}
         classrooms={props.classrooms}
