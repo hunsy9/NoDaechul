@@ -43,7 +43,7 @@ public class UserService {
     @Transactional
     public Long createUser(SignUpRequestDto signUpRequestDto, MultipartFile mFile) throws Exception {
 
-        if(!mFile.isEmpty()){
+        if(mFile != null){
             String generatedS3Key = s3Service.UploadToS3(mFile, BucketNameEnum.AVATAR);
 
             if(!rekognitionService.checkValidFace(generatedS3Key)){
