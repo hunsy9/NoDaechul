@@ -22,11 +22,11 @@ export default function Side(props) {
   
 
   const DrawerList = (
-    <Box sx={{ width: 300, height: "100vh", borderRadius: 3, overflow:'scroll'}} className="SideBar" role="presentation" align="center">
+    <Box sx={{ width: 300, height: "100vh", borderRadius: 3, overflow:'scroll', backgroundColor: '#FBFCFE'}} className="SideBar" role="presentation" align="center">
       <Box display="flex" alignItems="center" style={{ flexGrow: 1, marginBottom: 30 }}>
-        <img src={faceIdImage} alt="Face ID" style={{ marginRight: 20, width: 40, height: 40 }} />
+        <img src={faceIdImage} alt="Face ID" style={{ marginLeft:10, marginRight: 10, width: 40, height: 40 }} />
         <Box>
-          <Typography variant="h6" align="left">
+          <Typography variant="h6" align="left" style={{fontWeight:'bold'}}>
             No Dae Chul
           </Typography>
           <Typography variant="caption" align="left">
@@ -35,25 +35,14 @@ export default function Side(props) {
         </Box>
       </Box>  
       <Typography fontSize={18} sx={{margin: 1, display: "flex", alignItems: "center", textAlign: 'center'}} align="left">
-        <SvgIcon component={BookmarkIcon} fontSize='medium' align="left"/>
+        <SvgIcon component={BookmarkIcon} fontSize='medium' align="left" style={{marginRight: 10, marginLeft: 10}}/>
         Dashboard
       </Typography>
-      <Button 
-        variant="contained" 
-        onClick={() => {
-          props.setShowForm(true);
-          props.setShowClassroom(false);
-          }} 
-          sx={{ width: 250, borderRadius: 3, backgroundColor: '#F3F7FF', color: '#000000', boxShadow: 'none', padding:1.5, marginBottom:2}}>
-        Create Classroom
-      <SvgIcon component={AddIcon} sx={{marginLeft: 2}}/>
-      </Button>
-      
       <ListItemButton onClick={handleClick} sx={{ width: 250, borderRadius: 3, backgroundColor: '#F3F7FF'}}>
-        <ListItemIcon>
-          <ArticleOutlinedIcon />
-        </ListItemIcon>
-        <ListItemText primary="Your Classroom" />
+        {/*<ListItemIcon>*/}
+        {/*  <ArticleOutlinedIcon />*/}
+        {/*</ListItemIcon>*/}
+        <ListItemText primary="Your Classroom" style={{fontWeight: 'bolder'}}/>
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
       <Collapse in={open} timeout="auto" unmountOnExit>
@@ -73,7 +62,18 @@ export default function Side(props) {
           handleShows={props.handleShows}
         />
         </List>
+          <Button
+              variant="contained"
+              onClick={() => {
+                  props.setShowForm(true);
+                  props.setShowClassroom(false);
+              }}
+              sx={{ width: 250, borderRadius: 3, textTransform: 'none', backgroundColor: '#F6F6F6', color: '#000000', boxShadow: 'none', padding:1.5, marginBottom:2}}>
+              Create Classroom
+              <SvgIcon component={AddIcon} sx={{marginLeft: 8}}/>
+          </Button>
       </Collapse>
+
     </Box>
     
   );

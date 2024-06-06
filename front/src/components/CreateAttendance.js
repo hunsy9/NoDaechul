@@ -29,7 +29,6 @@ const CreateAttendance = (props) => {
   // console.log(value);
   console.log(dateFormat);
 
-
   const inputBox = {
     width: '30vw',
     height: '40vh',
@@ -37,11 +36,7 @@ const CreateAttendance = (props) => {
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' // 그림자
   };
 
-  
-
   const onhandlePost = (data) => {
-
-
     // const localhost = host + "api/attendance";
     // const { lectureId } = data;
     console.log(data)
@@ -55,8 +50,6 @@ const CreateAttendance = (props) => {
     formData.append("createAttendanceDto", new Blob([JSON.stringify(postData)], {type: "application/json"}))
     console.log(Images)
     formData.append("lectureImage", Images[0])
-    
-
 
     const requestOptions = {
       method: 'POST',
@@ -128,13 +121,13 @@ const CreateAttendance = (props) => {
               <p style={{ textAlign: 'center' }}>
                 <div >
                   <Button variant="contained"
-                    sx={{ width: 150, borderRadius: 3.5, backgroundColor: '#000000', fontFamily: 'Inter', color: '#F4F4F4', fontWeight: 'bold', boxShadow: 'none', marginTop: '18%' }}>
+                    sx={{ width: 150, borderRadius: 3.5, backgroundColor: '#000000', textTransform: 'none', fontFamily: 'Inter', color: '#F4F4F4', fontWeight: 'bold', boxShadow: 'none', marginTop: '18%' }}>
                     Upload Image
                   </Button>
-                  <Typography variant="subtitle2" sx={{ fontFamily: 'Inter', color: '#000000', fontWeight: 'bold', marginTop: '13%' }}>
+                  <Typography variant="subtitle2" sx={{ fontFamily: 'Inter', color: '#000000', textTransform: 'none', fontWeight: 'bold', marginTop: '13%' }}>
                     or drop a file.
                   </Typography>
-                  <Typography variant="subtitle2" sx={{ fontFamily: 'Inter', color: '#b0b0b0' }}>
+                  <Typography variant="subtitle2" sx={{ fontFamily: 'Inter',textTransform: 'none', color: '#b0b0b0' }}>
                     paste image or URL
                   </Typography>
                 </div>

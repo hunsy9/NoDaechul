@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Typography, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material';
 import TabIcon from '@mui/icons-material/Tab';
 import HostContext from '../Context/HostContext';
+import packageIcon from '../assets/package-01.svg'
 
 const Classroom = ({ 
     classrooms, 
@@ -105,9 +106,9 @@ const Classroom = ({
     <div>
       {classrooms && classrooms.map((classroom, index) => (
         <div key={index}>
-          <div key={classroom.id}>
-          <ListItemButton 
-            sx={{ pl: 4, margin: 1, padding: 2 }}
+          <div key={classroom.id} style={{paddingLeft: 16, paddingRight: 16}}>
+          <ListItemButton
+            sx={{ pl: 4, margin: 1, padding: 3, height: 20, borderRadius: 3, backgroundColor: 'rgba(248,248,248,0.55)'}}
             onClick={() => {
               setClassObj({name: classroom.name, id: classroom.id, created_by: classroom.created_by});
               console.log(classObj);
@@ -117,10 +118,9 @@ const Classroom = ({
               console.log({name: classroom.name, id: classroom.id, created_by: classroom.created_by});
             }}
           >
-
             <ListItemIcon>
-              <SvgIcon component={TabIcon} sx={{ marginRight: 2 }} />
-            <Typography>
+              <img src={packageIcon} style={{marginRight: 10}}/>
+            <Typography style={{color: '#000000'}}>
               {classroom.name}
             </Typography>
             </ListItemIcon>

@@ -61,7 +61,7 @@ const ClassAttendance = (props) => {
                 </Typography>
               </Box>
               <Button variant="contained" onClick={handleBackClick}
-                sx={{ width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', marginRight: 10, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' }}>
+                sx={{ width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4',textTransform: 'none', marginRight: 10, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' }}>
                 Back
               </Button>
             </Box>
