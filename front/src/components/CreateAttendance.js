@@ -24,7 +24,7 @@ const CreateAttendance = (props) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
   const [value, setValue] = useState();
   const dateFormat = dayjs(value).format("YYYY-MM-DD");
-  const localhost = host + "api/attendance";
+  const localhost = host + "attendance";
 
   // console.log(value);
   console.log(dateFormat);
@@ -43,10 +43,10 @@ const CreateAttendance = (props) => {
 
 
     // const localhost = host + "api/attendance";
-    const { lectureId } = data;
+    // const { lectureId } = data;
     console.log(data)
     const postData = {
-      lectureId,
+      lectureId : props.classObj.id,
       attendanceDate : dateFormat,
     };
     console.log("p ", postData);

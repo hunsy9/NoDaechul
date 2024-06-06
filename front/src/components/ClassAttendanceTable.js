@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import HostContext from '../Context/HostContext';
 import { DataGrid } from '@mui/x-data-grid';
+import { Box, Typography } from '@mui/material';
 
 const DataTable = (props) => {
   const { host } = useContext(HostContext);
