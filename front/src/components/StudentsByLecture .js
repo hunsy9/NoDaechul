@@ -32,7 +32,7 @@ const StudentsByLecture = (props) => {
               {students.name}
             </Typography>
             <Typography fontSize={14} sx={{marginTop:1}} >
-              Student Id: {students.student_id}
+              Student Id: {students.studentId}
             </Typography>
           </Grid>
         </Grid>
