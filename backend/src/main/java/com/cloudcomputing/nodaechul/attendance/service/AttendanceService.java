@@ -7,6 +7,7 @@ import com.cloudcomputing.nodaechul.attendance.domain.model.entity.AttendanceUse
 import com.cloudcomputing.nodaechul.attendance.domain.model.entity.LectureImageBoundingBox;
 import com.cloudcomputing.nodaechul.attendance.domain.model.enums.AttendanceStatus;
 import com.cloudcomputing.nodaechul.attendance.domain.repository.AttendanceRepository;
+import com.cloudcomputing.nodaechul.attendance.exception.NoDetectionResultExistException;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttendanceDto;
 import com.cloudcomputing.nodaechul.lecture.service.LectureService;
 import com.cloudcomputing.nodaechul.rekognition.service.RekognitionService;
@@ -64,6 +65,10 @@ public class AttendanceService {
         return createdAttendanceId;
     }
 
+    public void deleteAttendance(Long attendanceId){
+        attendanceRepository.deleteAttendanceRecord(attendanceId);
+    }
+
     @Transactional
     public void createStudentAttendanceRecord(CreateAttendanceRequestDto attendanceRequestDto, MultipartFile mFile, Long createdAttendanceId) throws IOException {
         // 강의 전경 사진 S3 업로드 후, 키 반환
@@ -95,6 +100,10 @@ public class AttendanceService {
                         .build())
                 .toList();
         log.info("Found {} detected info", detectedInfo.size());
+
+        if(detectedInfo.isEmpty()){
+            throw new NoDetectionResultExistException("감지된 정보가 존재하지 않습니다.");
+        }
 
         // 전체 학생 중 감지된 학생 추출
         List<DetectedStudent> detectedStudents = getDetectedStudents(studentsInLecture, createdAttendanceId , detectedInfo);
