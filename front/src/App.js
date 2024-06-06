@@ -21,6 +21,7 @@ import MainStudent from './components/MainStudent';
 import Classroom from './components/classroom';
 // import Signup from './Pages/Signup';
 import CreateAttendanceLoading from './components/CreateAttendanceLoading';
+import CreateAttendanceComplete from './components/CreateAttendanceComplete';
 
 const theme = createTheme({
   palette: {
@@ -54,7 +55,6 @@ function App() {
        {/* <ClassroomFormStudent/> */}
 
        
-       <CreateAttendanceLoading/>
      </ThemeProvider>
      
     
