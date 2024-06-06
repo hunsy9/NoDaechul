@@ -5,7 +5,7 @@ import React, { useContext, useState } from 'react';
 
 const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
   const [className, setClassName] = useState('');
-  const host = useContext(HostContext);
+  const {host} = useContext(HostContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const createAPI = host + "lecture/createlecture";
