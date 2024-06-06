@@ -8,6 +8,8 @@ import AuthProvider from './auth/AuthProvider';
 import HostProvider from './Context/HostProvider';
 import ClassAttendance from './Pages/ClassAttendance';
 import MainContent from './Pages/MainContent';
+// import CircularWithValueLabel from './components/CircularWithValueLabel'; 
+
 
 
 // test
@@ -33,9 +35,9 @@ const theme = createTheme({
 function App() {
 
   return (
-    
+    // <CircularWithValueLabel />
     <ThemeProvider theme={theme}>
-
+      
       <CssBaseline/>
       <HostProvider>
         <AuthProvider>
@@ -43,15 +45,15 @@ function App() {
             <AppRoutes/>
           </BrowserRouter> 
         </AuthProvider> 
-        {/* <ClassAttendance/> */}
+       {/* <ClassAttendance/> */}
       </HostProvider>
 
       {/* ClassAttendance 테스트 시 1 입력*/}
       
-      {/* <MainContent/> */}
-      {/* <ClassroomFormStudent/> */}
+       {/* <MainContent/> */}
+       {/* <ClassroomFormStudent/> */}
       
-    </ThemeProvider>
+     </ThemeProvider>
     
   );
 }
