@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { CssBaseline, Grid, Box, Typography, IconButton, Button, SvgIcon } from '@mui/material';
+import { CssBaseline, Grid, Box, Typography, IconButton, Button } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 
 import ClassroomForm from '../components/ClassroomForm';
@@ -12,15 +12,10 @@ import DataTable from '../components/ClassAttendanceTable';
 
 const ClassAttendance = (props) => {
   const [classrooms, setClassrooms] = useState([]);
-  
-  
 
   const handleBackClick = () => {
     window.history.back(); // 이전 페이지로 이동
   };
-  
-  
-
 
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
@@ -33,9 +28,9 @@ const ClassAttendance = (props) => {
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: 2 }}>
             
             {/* TODO: 유저 이름 가져와야됨*/}
-            <Typography variant="subtitle1" sx={{marginRight: 2}}>
-              Kim Tae Un
-            </Typography>
+            {/*<Typography variant="subtitle1" sx={{marginRight: 2}}>*/}
+            {/*  Kim Tae Un*/}
+            {/*</Typography>*/}
             {/* TODO: 설정버튼 기능 추가 */}
             <IconButton>
               <SettingsIcon />
@@ -72,7 +67,6 @@ const ClassAttendance = (props) => {
                 <img src={classImg} alt="Face ID" style={{maxWidth: '30vw', height: 'auto', marginBottom : 30}} />
                 <DataTable classObj={props.classObj}/>
 
-              
             </Box>
           </Box>
         </Grid>

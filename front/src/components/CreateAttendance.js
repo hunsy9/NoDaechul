@@ -37,7 +37,7 @@ const CreateAttendance = ({classObj,
   console.log(dateFormat);
 
   const inputBox = {
-    width: '30vw',
+    width: '27vw',
     height: '40vh',
     borderRadius: '20px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' // 그림자
@@ -137,8 +137,8 @@ const CreateAttendance = ({classObj,
               <p style={{ textAlign: 'center' }}>
                 <div >
                   <Button variant="contained"
-                    sx={{ width: 150, borderRadius: 3.5, backgroundColor: '#000000', textTransform: 'none', fontFamily: 'Inter', color: '#F4F4F4', fontWeight: 'bold', boxShadow: 'none', marginTop: '18%' }}>
-                    Upload Image
+                    sx={{ width: 200, borderRadius: 3.5, backgroundColor: '#000000', textTransform: 'none', fontFamily: 'Inter', color: '#F4F4F4', fontWeight: 'bold', boxShadow: 'none', marginTop: '18%' }}>
+                    Upload ClassRoom Image
                   </Button>
                   <Typography variant="subtitle2" sx={{ fontFamily: 'Inter', color: '#000000', textTransform: 'none', fontWeight: 'bold', marginTop: '13%' }}>
                     or drop a file.
@@ -151,20 +151,6 @@ const CreateAttendance = ({classObj,
 
           }
         </div>
-        {/* Image FileUpload */}
-
-        {/* Dropzone아래 이미지 보여지는 곳 */}
-        <div style={{ display: 'flex', width: '350px', height: '240px', overflowX:'scroll'}}>
-          {Images.map((image, index) => (
-              <div>
-                <img style={{ minWidth: '300px', width:'300px', height: ' 240px'}}
-                
-                src={`${localhost}${image}`}
-                />
-              </div>
-          ))} 
-
-        </div>
 
         <div style={{ textAlign: 'center' }}>
           <Typography variant="subtitle1" sx ={{fontFamily:'Inter', color:'#000000', fontWeight:'bold', marginTop: '30px'}}>
@@ -173,7 +159,6 @@ const CreateAttendance = ({classObj,
           <Box sx = {{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
           
           <LocalizationProvider dateAdapter={AdapterDayjs} >
-
             <DatePicker 
               label="Choose Class Date"  
               sx = {{ width : '200px', marginTop : '20px'}}

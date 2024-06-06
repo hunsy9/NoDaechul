@@ -193,8 +193,6 @@ const Register = () => {
       // console.log("d", data);
       onhandlePost(joinData);
     }
-
-
     setShouldUpdateProcessingStatus(true); // 상태 업데이트
   };
 
