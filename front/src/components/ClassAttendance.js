@@ -8,7 +8,7 @@ const ClassAttendance = ({ classObj, handleShowAttendance }) => {
   return(
     <>
       <Button variant="contained" onClick={handleShowAttendance}
-        sx={{ width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' }}>
+        sx={{ width:150, float:'right',borderRadius: 3.5, backgroundColor: '#F4F4F4', fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' }}>
         Back
       </Button>
 
