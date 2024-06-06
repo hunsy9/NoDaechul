@@ -43,14 +43,16 @@ public class UserService {
     @Transactional
     public Long createUser(SignUpRequestDto signUpRequestDto, MultipartFile mFile) throws Exception {
 
-        String generatedS3Key = s3Service.UploadToS3(mFile, BucketNameEnum.AVATAR);
+        if(!mFile.isEmpty()){
+            String generatedS3Key = s3Service.UploadToS3(mFile, BucketNameEnum.AVATAR);
 
-        if(!rekognitionService.checkValidFace(generatedS3Key)){
-            throw new InvalidFaceException("형식에 맞는 얼굴 사진을 업로드해주세요.");
+            if(!rekognitionService.checkValidFace(generatedS3Key)){
+                throw new InvalidFaceException("형식에 맞는 얼굴 사진을 업로드해주세요.");
+            }
+
+            // 유효한 얼굴사진의 S3 Key를 Avatar에 저장
+            signUpRequestDto.setAvatar(generatedS3Key);
         }
-
-        // 유효한 얼굴사진의 S3 Key를 Avatar에 저장
-        signUpRequestDto.setAvatar(generatedS3Key);
 
         Boolean hasKey = redisTemplate.hasKey(RedisAuthenticationPrefix.concat(signUpRequestDto.getEmail()));
 
