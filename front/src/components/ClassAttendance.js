@@ -28,12 +28,12 @@ const ClassAttendance = ({ classObj, handleShowAttendance, attendances }) => {
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
       <img src={classImg} alt="Face ID" style={{maxWidth: '30vw', height: 'auto', marginBottom : 30}} />
       <DataTable classObj={classObj} attendances={attendances} />
-      {!isLoading && !isComplete &&
+      {/* {!isLoading && !isComplete &&
         <CreateAttendanceLoading />
       }
       {isLoading && !isComplete &&
         <CreateAttendanceComplete />
-      }
+      } */}
       {/* {!isLoading && isComplete &&
         <DataTable classObj={classObj} attendances={attendances} />
       } */}

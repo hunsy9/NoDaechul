@@ -13,8 +13,10 @@ const DataTable = (props) => {
   
   const url = new URL(GetAttendanceAPI);
   const lectureId = props.classObj.id;
-  const attendanceId = props.attendances.id;
+  const attendanceId = props.attendances[0].id;
   url.searchParams.append('lectureId', lectureId);
+
+  console.log("attendanceId", attendanceId);
   
 
   // url 확인
@@ -26,6 +28,8 @@ const DataTable = (props) => {
   const [attendCount, setAttendCount] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [absentCount, setAbsentCount] = useState(0);
+
+  console.log("total count", totalCount);
 
   
   const columns = [
@@ -50,10 +54,16 @@ const DataTable = (props) => {
         };
         console.log("p ", postData);
 
+        const raw = JSON.stringify(postData);
+
         const requestOptions = {
+          credentials: 'include',
           method: 'POST',
-          body: postData,
+          body: raw,
           redirect: 'follow',
+          headers: {
+                'Content-Type': 'application/json'
+          },
         };
         const response = await fetch(url, requestOptions);
         // const response = await fetch(url, {
@@ -65,6 +75,7 @@ const DataTable = (props) => {
         //   // },
         //   // body: JSON.stringify({ lectureId: 12 })
         // });
+
 
         if (response.ok) {
           const data = await response.json();
