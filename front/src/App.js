@@ -9,6 +9,7 @@ import HostProvider from './Context/HostProvider';
 import ClassAttendance from './Pages/ClassAttendance';
 import MainContent from './Pages/MainContent';
 
+
 // test
 // import DropzoneAreaComponent from './components/dropzone';
 import MainAdmin from './components/MainAdmin';
@@ -34,6 +35,7 @@ function App() {
   return (
     
     <ThemeProvider theme={theme}>
+
       <CssBaseline/>
       <HostProvider>
         <AuthProvider>
@@ -42,6 +44,7 @@ function App() {
           </BrowserRouter> 
         </AuthProvider> 
       </HostProvider>
+
       {/* ClassAttendance 테스트 시 1 입력*/}
       {/* <ClassAttendance/> */}
       {/* <MainContent/> */}

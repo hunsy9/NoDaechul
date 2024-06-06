@@ -64,6 +64,7 @@ const Register = () => {
 
 
   const { host } = useContext(HostContext);
+  const localhost = host + "user/signup";
 
   const handleStudentChange = (event) => {
     setIsStudent(event.target.value === 'yes');
@@ -72,7 +73,7 @@ const Register = () => {
   const onhandlePost = (data) => {
     var role = '';
     var studentId = null
-    const localhost = host + "user/signup";
+    // const localhost = host + "user/signup";
     if(isStudent){
       role = 'User'
     }
@@ -308,6 +309,21 @@ const Register = () => {
                           </p>
 
                       }
+                    </div>
+                    {/* Dropzone옆에 올린 파일 보여지는 곳 */}
+                    <div style={{ display: 'flex', width: '350px', height: '240px', overflowX:'scroll'}}>
+                     
+                      { console.log("dd")}
+
+                      {Images.map((image, index) => (
+                          <div>
+                            <img style={{ minWidth: '300px', width:'300px', height: ' 240px'}}
+                            
+                            src={`${localhost}${image}`}
+                            />
+                          </div>
+                      ))} 
+
                     </div>
                     </Grid>
                     

@@ -10,7 +10,7 @@ import DataTable from '../components/ClassAttendanceTable';
 
 
 
-const ClassAttendance = () => {
+const ClassAttendance = (props) => {
   const [classrooms, setClassrooms] = useState([]);
   
   
@@ -70,7 +70,7 @@ const ClassAttendance = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
 
                 <img src={classImg} alt="Face ID" style={{maxWidth: '30vw', height: 'auto', marginBottom : 30}} />
-                <DataTable/>
+                <DataTable classObj={props.classObj}/>
 
               
             </Box>

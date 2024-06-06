@@ -89,17 +89,17 @@ const CreateAttendance = (props) => {
     };
     
     
-    const { lectureId} = joinData;
-    // console.log(lectureId);
+    // const { lectureId} = joinData;
+    // // console.log(lectureId);
 
-    const datePickerFormat = "YYYY-MM-DD";
+    // const datePickerFormat = "YYYY-MM-DD";
 
-    const datePickerUtils = {
-        format: datePickerFormat,
-        parse: (value) => dayjs(value, datePickerFormat, true).toDate(),
+    // const datePickerUtils = {
+    //     format: datePickerFormat,
+    //     parse: (value) => dayjs(value, datePickerFormat, true).toDate(),
         
 
-    };
+    // };
     
 
     onhandlePost(joinData);

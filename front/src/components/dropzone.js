@@ -41,6 +41,11 @@ const MyDropzone = () => {
 
       }
     </div>
+    
+
+
+
+
   )
 }
 export default MyDropzone; 
