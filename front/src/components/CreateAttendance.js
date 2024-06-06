@@ -47,7 +47,7 @@ const CreateAttendance = (props) => {
     console.log(data)
     const postData = {
       lectureId,
-      // attendanceDate,
+      attendanceDate : dateFormat,
     };
     console.log("p ", postData);
 
@@ -109,8 +109,9 @@ const CreateAttendance = (props) => {
   return(
     <Box sx={{marginTop: '10vh'}}>
     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh'}}>
-      <Box sx={{ alignItems: 'center', justifyContent: 'center'}}>
-        
+      {/* component="form" noValidate onSubmit={handleSubmit} 속성 추가함 */}
+      <Box component="form" noValidate onSubmit={handleSubmit} sx={{ alignItems: 'center', justifyContent: 'center'}}>
+
         {/* Image FileUpload */}
         <div style={inputBox} {...getRootProps()}>
           <input {...getInputProps()} />
@@ -135,6 +136,7 @@ const CreateAttendance = (props) => {
           }
         </div>
         {/* Image FileUpload */}
+
         <div style={{ textAlign: 'center' }}>
           <Typography variant="subtitle1" sx ={{fontFamily:'Inter', color:'#000000', fontWeight:'bold', marginTop: '30px'}}>
             Choose your Class Date.
@@ -151,8 +153,8 @@ const CreateAttendance = (props) => {
             </DatePicker>
           </LocalizationProvider>
 
-          {/** Save 버튼 기능 추가 필요 */}
-          <Button variant="contained" 
+          {/** Save 버튼 기능 확인 필요 */}
+          <Button type="submit" variant="contained" 
             sx={{ width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none', marginTop : '30px' }}>
             Save
           </Button>
