@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { Component } from 'react';
 import AppRoutes from './AppRoutes';
 import {BrowserRouter} from "react-router-dom";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -8,7 +8,7 @@ import AuthProvider from './auth/AuthProvider';
 import HostProvider from './Context/HostProvider';
 import ClassAttendance from './Pages/ClassAttendance';
 import MainContent from './Pages/MainContent';
-// import CircularWithValueLabel from './components/CircularWithValueLabel'; 
+
 
 
 
@@ -20,6 +20,7 @@ import CreateAttendance from './components/CreateAttendance';
 import MainStudent from './components/MainStudent';
 import Classroom from './components/classroom';
 // import Signup from './Pages/Signup';
+import CreateAttendanceLoading from './components/CreateAttendanceLoading';
 
 const theme = createTheme({
   palette: {
@@ -35,7 +36,6 @@ const theme = createTheme({
 function App() {
 
   return (
-    // <CircularWithValueLabel />
     <ThemeProvider theme={theme}>
       
       <CssBaseline/>
@@ -52,8 +52,11 @@ function App() {
       
        {/* <MainContent/> */}
        {/* <ClassroomFormStudent/> */}
-      
+
+       
+       <CreateAttendanceLoading/>
      </ThemeProvider>
+     
     
   );
 }
