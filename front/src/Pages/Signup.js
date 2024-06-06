@@ -188,11 +188,12 @@ const Register = () => {
         passwordRegex.test(password) &&
         password === rePassword &&
         nameRegex.test(name) &&
-        studentIdRegex.test(studentId)
+        (!isStudent || (isStudent && studentIdRegex.test(studentId)))
     ) {
       // console.log("d", data);
       onhandlePost(joinData);
     }
+
 
     setShouldUpdateProcessingStatus(true); // 상태 업데이트
   };
