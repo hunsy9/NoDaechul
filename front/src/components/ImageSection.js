@@ -7,7 +7,7 @@ const ImageSection = ({ src, alt }) => {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      style={{ width: '100%', height: '300px', backgroundColor: '#f9f9f9', marginBottom: '20px' }}
+      style={{ width: '100%', height: '300px', borderRadius:'20px', backgroundColor: '#FBFCFE', marginBottom: '50px', marginTop: '50px', padding: '20px'}}
     >
       <img src={src} alt={alt} style={{ maxWidth: '100%', maxHeight: '100%' }} />
     </Box>
