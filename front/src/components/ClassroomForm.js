@@ -31,16 +31,17 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
     fetch(createAPI, requestOptions)
       .then(response => {
         if(response.ok){
-          addClassroom({
-            id: Math.floor(Math.random() * 10000),
-            text: className,
-          });
+          // addClassroom({
+          //   id: Math.floor(Math.random() * 10000),
+          //   text: className,
+          // });
           
           const lectures = setLecture();
           if (lectures.includes(className)) {
             throw new Error('Class name already exists.');
           }
           setClassName('');
+          
           return response.json();
         }
         else{

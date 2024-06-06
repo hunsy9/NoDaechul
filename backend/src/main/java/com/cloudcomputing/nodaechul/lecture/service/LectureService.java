@@ -94,7 +94,7 @@ public class LectureService {
         return lectureRepository.getLecturesByUserID(userId);
     }
 
-    public List<StudentAttendanceDto> getMembersByLectureID(Long lectureId) {
+    public List<GetStudentAttendanceDto> getMembersByLectureID(Long lectureId) {
         // 강의 ID 존재 유효성 검사
         if (!isLectureIDExists(lectureId)) {
             throw new InvalidLectureIdException("존재하지 않는 강의입니다.");

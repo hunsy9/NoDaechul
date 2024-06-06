@@ -12,10 +12,9 @@ const CreateAttendance = (props) => {
   // setClassObj={setClassObj};
   // classObj={classObj};
   // console.log("class object id ", props.classObj.id);
-  
+  const { host } = useContext(HostContext);
   console.log(props.classObj.id);
 
-  const CreateAttendanceAPI = "http://localhost:5555/api/attendance";
   const [Images, setImages] = useState([]);
   const onDrop = useCallback(acceptedFiles => {
     console.log(acceptedFiles)
@@ -38,7 +37,7 @@ const CreateAttendance = (props) => {
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' // 그림자
   };
 
-  const { host } = useContext(HostContext);
+  
 
   const onhandlePost = (data) => {
 

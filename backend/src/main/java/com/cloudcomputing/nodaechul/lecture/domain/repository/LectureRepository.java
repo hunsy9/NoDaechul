@@ -49,7 +49,7 @@ public class LectureRepository {
         return lectureMapper.getLecturesByUserID(userId);
     }
 
-    public List<StudentAttendanceDto> getMembersByLectureID(Long lectureId) {
+    public List<GetStudentAttendanceDto> getMembersByLectureID(Long lectureId) {
         return lectureMapper.getMembersByLectureID(lectureId);
     }
 

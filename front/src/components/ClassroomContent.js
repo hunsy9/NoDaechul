@@ -16,12 +16,11 @@ const ClassroomContent = (props) => {
 
   const [showCreate, setShowCreate] = useState(false);
   const [showAttendance, setShowAttendance] = useState(false);
-
+  let date = '';
   const { host } = useContext(HostContext);
 
   const handleCreate = () => {
     setShowCreate(!showCreate);
-    setShowAttendance(!showAttendance);
   }
   const handleShowAttendance = () => {
     setShowAttendance(!showAttendance);
@@ -63,7 +62,7 @@ const ClassroomContent = (props) => {
     }
 };
 
-  const handleAttendance = ({classObj}) => {
+  const handleAttendance = () => {
     ;
   }
 
@@ -116,7 +115,8 @@ const ClassroomContent = (props) => {
                 variant="contained" 
                 className="Shadow" 
                 onClick={() => {
-                  handleAttendance(attendance.students, props.classObj);
+                  handleShowAttendance();
+                  date = attendance.date;
                 }} 
                 sx={{ 
                 width:200, marginTop:1, marginBottom:1, borderRadius: 3, fontSize:13, backgroundColor: '#FBFCFE', fontFamily:'Inter', color:'#000000', fontWeight:'bold', paddingBottom:2, paddingTop:2 

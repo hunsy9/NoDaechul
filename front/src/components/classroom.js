@@ -6,11 +6,17 @@ import HostContext from '../Context/HostContext';
 const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, setShowForm, students, setStudents, classObj }) => {
   // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
 
-  const {host} = useContext(HostContext);
+  const { host } = useContext(HostContext);
 
   useEffect(() => {
     getLecture();
   }, []);
+
+  useEffect(() => {
+    if (classObj.id != -1) {  // classObj.id가 유효한 경우에만 getStudents를 호출합니다.
+      getStudents(classObj);
+    }
+  }, [classObj]);
 
   const getLecture = () => {
     try{
@@ -40,15 +46,16 @@ const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, s
     }
   }
 
-  const getStudents = () => {
+  const getStudents = (clickedClass) => {
     try{
       var requestOptions = {
         credentials: 'include',
         method: 'GET',
         redirect: 'follow'
       };
-
-      const getAPI = host + "lecture/getattendance" + `?lectureId=${classObj.id}`
+      console.log(clickedClass);
+      const getAPI = host + "lecture/getattendance" + `?lectureId=${clickedClass.id}`
+      console.log(getAPI);
       
       fetch(getAPI, requestOptions)
         .then(response => {
@@ -77,9 +84,9 @@ const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, s
             sx={{ pl: 4, margin: 1, padding: 2 }}
             onClick={() => {
               setClassObj({name: classroom.name, id: classroom.id, created_by: classroom.created_by});
+              console.log(classObj);
               setShowClassroom(true);
               setShowForm(false);
-              getStudents();
               console.log({name: classroom.name, id: classroom.id, created_by: classroom.created_by});
             }}
           >
