@@ -36,4 +36,8 @@ public class AttendanceRepository {
     public List<LectureImageBoundingBox> getLectureImageBoundingBoxes(Long id){
         return attendanceMapper.getLectureImageBoundingBoxes(id);
     }
+
+    public void deleteAttendanceRecord(Long id){
+        attendanceMapper.deleteAttendanceRecord(id);
+    }
 }

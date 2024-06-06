@@ -14,6 +14,7 @@ const Classroom = ({
     classObj,
     attendances,
     setAttendances, 
+    handleShows
 }) => {
   // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
 
@@ -112,6 +113,7 @@ const Classroom = ({
               console.log(classObj);
               setShowClassroom(true);
               setShowForm(false);
+              handleShows();
               console.log({name: classroom.name, id: classroom.id, created_by: classroom.created_by});
             }}
           >

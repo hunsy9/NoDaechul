@@ -24,7 +24,11 @@ public class AttendanceController {
     @AdminRoleRequired
     public void createAttendance(@RequestPart("createAttendanceDto") CreateAttendanceRequestDto attendanceRequestDto, @RequestPart("lectureImage") MultipartFile mFile) throws IOException {
         Long id = attendanceService.createAttendance(attendanceRequestDto);
-        attendanceService.createStudentAttendanceRecord(attendanceRequestDto, mFile, id);
+        try{
+            attendanceService.createStudentAttendanceRecord(attendanceRequestDto, mFile, id);
+        }catch (Exception e){
+            attendanceService.deleteAttendance(id);
+        }
     }
 
     @PostMapping("/get")

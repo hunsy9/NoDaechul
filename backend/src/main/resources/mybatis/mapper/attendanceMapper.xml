@@ -7,6 +7,10 @@
         INSERT INTO attendance VALUES (0, #{lectureId}, #{attendanceDate}, now(), now())
     </insert>
 
+    <delete id="deleteAttendanceRecord" parameterType="Long">
+        DELETE FROM attendance WHERE id = #{id}
+    </delete>
+
     <insert id="createStudentAttendanceRecord" parameterType="com.cloudcomputing.nodaechul.attendance.domain.model.DetectedStudent">
         INSERT INTO attendance_user
         VALUES

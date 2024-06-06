@@ -1,5 +1,6 @@
 package com.cloudcomputing.nodaechul.base;
 
+import com.cloudcomputing.nodaechul.attendance.exception.NoDetectionResultExistException;
 import com.cloudcomputing.nodaechul.lecture.exception.AlreadyJoinedException;
 import com.cloudcomputing.nodaechul.lecture.exception.InvalidInvitationCodeException;
 import com.cloudcomputing.nodaechul.lecture.exception.InvalidLectureIdException;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpStatusCodeException;
+
+import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -30,6 +33,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ExceptionResponse> validException(HttpStatusCodeException ex) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, ex.getStatusCode());
+    }
+
+    @ExceptionHandler({SQLIntegrityConstraintViolationException.class})
+    public ResponseEntity<ExceptionResponse> validException(SQLIntegrityConstraintViolationException ex) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler({InvalidLectureIdException.class})
@@ -78,6 +87,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(LoginException.class)
     public ResponseEntity<ExceptionResponse> handleLoginException(LoginException ex) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NoDetectionResultExistException.class)
+    public ResponseEntity<ExceptionResponse> handleNoDetectionResultExistException(NoDetectionResultExistException ex) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }

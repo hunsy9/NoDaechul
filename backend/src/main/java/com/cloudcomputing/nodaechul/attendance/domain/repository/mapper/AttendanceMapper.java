@@ -21,4 +21,6 @@ public interface AttendanceMapper {
     List<LectureImageBoundingBox> getLectureImageBoundingBoxes(Long id);
 
     List<AttendanceUserRecord> getAttendanceUserRecords(Long id);
+
+    void deleteAttendanceRecord(Long id);
 }
