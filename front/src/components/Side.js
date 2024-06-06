@@ -66,6 +66,8 @@ export default function Side(props) {
           setStudents={props.setStudents}
           classObj={props.classObj}
           students={props.students}
+          attendances={props.attendances}
+          setAttendances={props.setAttendances}
         />
         </List>
       </Collapse>

@@ -12,6 +12,7 @@ const MainContent = () => {
   
   const [classrooms, setClassrooms] = useState([]);
   const [classObj, setClassObj] = useState({name: '', id: -1, created_by: -1});
+  const [attendances, setAttendances] = useState([{id: -1, date: ''},]);
   const [showForm, setShowForm] = useState(false); 
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
@@ -49,6 +50,8 @@ const MainContent = () => {
             setShowForm={setShowForm}
             students={students}
             setStudents={setStudents}
+            attendances={attendances}
+            setAttendances={setAttendances}
           /> {/* 사이드바 컴포넌트 */}
         </Grid>
         <Grid item xs={9} sx={{ padding: 3 }}>
@@ -66,6 +69,7 @@ const MainContent = () => {
             classObj={classObj}
             setClassrooms={setClassrooms}
             students={students}
+            attendances={attendances}
           /> :
           <MainStudent
             classrooms={classrooms}
@@ -76,6 +80,7 @@ const MainContent = () => {
             classObj={classObj}
             setClassrooms={setClassrooms}
             students={students}
+            attendances={attendances}
           />
           }
         </Grid>

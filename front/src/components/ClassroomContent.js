@@ -6,13 +6,10 @@ import CreateAttendance from "./CreateAttendance";
 import StudentsByLecture from "./StudentsByLecture ";
 import ClassAttendance from "./ClassAttendance";
 
-const ClassroomContent = (props) => {
+const ClassroomContent = ({ classObj, students, attendances }) => {
   //TODO: 수업 날짜 목록, 날짜당 출석부를 API호출을 통해 가져와서 리스트로 표시
   // 테스트용 데이터
   const role = localStorage.getItem('role');
-  const attendance = [
-    {date:'2024/05/15',}, {date:'2024/05/22',},
-  ]
 
   const [showCreate, setShowCreate] = useState(false);
   const [showAttendance, setShowAttendance] = useState(false);
@@ -36,7 +33,7 @@ const ClassroomContent = (props) => {
         redirect: 'follow',
       };
 
-      const inviteAPI = host + "lecture/invitelecture" + `?id=${props.classObj.id}`;
+      const inviteAPI = host + "lecture/invitelecture" + `?id=${classObj.id}`;
       console.log(inviteAPI);
 
       fetch(inviteAPI, requestOptions)
@@ -62,9 +59,6 @@ const ClassroomContent = (props) => {
     }
 };
 
-  const handleAttendance = () => {
-    ;
-  }
 
   return(
     <>
@@ -76,7 +70,7 @@ const ClassroomContent = (props) => {
             }}
           >
             <SvgIcon component={TabIcon} sx={{marginRight: 2}}/>
-            {props.classObj.name}
+            {classObj.name}
           </Box>
         </Grid>
         <Grid item xs={5}>
@@ -104,12 +98,11 @@ const ClassroomContent = (props) => {
       {!showCreate && !showAttendance &&
       <Grid container direction={"row"} spacing={3}>
         <Grid item xs={3}>
-          {/* 테스트용 데이터 추가, attendance.map의 attendance에 API호출로 받아온 JSON값이 들어가야함 */}
           <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
             <Typography variant="h6" fontWeight={'bold'} sx={{marginTop:2, marginBottom:2, marginRight:9}}>
               Attendance
             </Typography>
-            {attendance.map((attendance, index) => (
+            {attendances.map((attendance, index) => (
               <Button 
                 key={index}
                 variant="contained" 
@@ -128,16 +121,16 @@ const ClassroomContent = (props) => {
         </Grid>
         <Grid item xs={8.5}>
           <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
-            <StudentsByLecture students={props.students}></StudentsByLecture>
+            <StudentsByLecture students={students}></StudentsByLecture>
           </Box>
         </Grid>
       </Grid> 
       }
       {showCreate && !showAttendance &&
-        <CreateAttendance classObj={props.classObj}/>
+        <CreateAttendance classObj={classObj}/>
       }
       {!showCreate && showAttendance &&
-        <ClassAttendance classObj={props.classObj} handleShowAttendance={handleShowAttendance} />
+        <ClassAttendance classObj={classObj} handleShowAttendance={handleShowAttendance} />
       }
     </>
     

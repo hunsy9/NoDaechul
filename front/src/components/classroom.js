@@ -3,7 +3,18 @@ import { Typography, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material
 import TabIcon from '@mui/icons-material/Tab';
 import HostContext from '../Context/HostContext';
 
-const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, setShowForm, students, setStudents, classObj }) => {
+const Classroom = ({ 
+    classrooms, 
+    setClassrooms, 
+    setClassObj, 
+    setShowClassroom, 
+    setShowForm, 
+    students, 
+    setStudents, 
+    classObj,
+    attendances,
+    setAttendances, 
+}) => {
   // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
 
   const { host } = useContext(HostContext);
@@ -15,6 +26,7 @@ const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, s
   useEffect(() => {
     if (classObj.id != -1) {  // classObj.id가 유효한 경우에만 getStudents를 호출합니다.
       getStudents(classObj);
+      console.log(students);
     }
   }, [classObj]);
 
@@ -60,14 +72,21 @@ const Classroom = ({ classrooms, setClassrooms, setClassObj, setShowClassroom, s
       fetch(getAPI, requestOptions)
         .then(response => {
           if(response.ok){
+            console.log(response.json);
             return response.json();
           }
         })
         .then(result => {
-          console.log(result);
           let newStudents = [...students];
-          newStudents = result;
+          newStudents = result.members;
           setStudents(newStudents);
+          let newAttendances = [...attendances];
+          newAttendances = result.attendance.map(entry => ({
+            ...entry,
+            date: entry.date.split('T')[0]
+          }));
+          console.log(newAttendances);
+          setAttendances(newAttendances);
         })
         .catch(error => console.log('error', error));
     } catch (e) {
