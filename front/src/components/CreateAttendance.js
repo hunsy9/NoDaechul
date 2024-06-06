@@ -7,13 +7,20 @@ import { useDropzone } from 'react-dropzone';
 import HostContext from '../Context/HostContext';
 import dayjs, { Dayjs } from 'dayjs';
 
-const CreateAttendance = (props) => {
+const CreateAttendance = ({classObj,
+  attendances,
+  setIsLoading,
+  setIsComplete,
+  setShowCreate,
+  setShowAttendance,
+  attendanceData,
+  setAttendanceData}) => {
   // const [classObj, setClassObj] = useState({name: '', id: -1});
   // setClassObj={setClassObj};
   // classObj={classObj};
   // console.log("class object id ", props.classObj.id);
   const { host } = useContext(HostContext);
-  console.log(props.classObj.id);
+  console.log(classObj.id);
 
   const [Images, setImages] = useState([]);
   const onDrop = useCallback(acceptedFiles => {
@@ -36,12 +43,12 @@ const CreateAttendance = (props) => {
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' // 그림자
   };
 
-  const onhandlePost = (data) => {
+  const onhandlePost = async ({data, classObject}) => {
     // const localhost = host + "api/attendance";
     // const { lectureId } = data;
-    console.log(data)
+    console.log(classObj);
     const postData = {
-      lectureId : props.classObj.id,
+      lectureId : classObj.id,
       attendanceDate : dateFormat,
     };
     console.log("p ", postData);
@@ -52,25 +59,34 @@ const CreateAttendance = (props) => {
     formData.append("lectureImage", Images[0])
 
     const requestOptions = {
+      credentials: 'include',
       method: 'POST',
       body: formData,
       redirect: 'follow',
     };
 
-    
 
-    fetch(localhost, requestOptions)
+
+    await fetch(localhost, requestOptions)
       .then(response => {
         if(!response.ok){
           throw new Error(response.json())
         }
         alert('출석부가 생성되었습니다.');
 
-        props.setIsLoading(false);
-        props.setIsComplete(true);
+        setIsLoading(false);
+        setIsComplete(true);
+
+        console.log(response);
+
+      return response.text();
 
 
-      }).catch((e)=>{
+      })
+      .then(result => {
+        console.log(result);
+      })
+      .catch((e)=>{
         alert(e.message)
       })
   };
@@ -96,13 +112,13 @@ const CreateAttendance = (props) => {
 
     // };
 
-
-    props.showCreate(false);
-    props.showAttendance(true);
-    props.setIsLoading(true);
+    console.log(classObj);
+    setShowCreate(false);
+    setShowAttendance(true);
+    setIsLoading(true);
     
 
-    onhandlePost(joinData);
+    onhandlePost(joinData, classObj);
   };
 
 
@@ -139,9 +155,6 @@ const CreateAttendance = (props) => {
 
         {/* Dropzone아래 이미지 보여지는 곳 */}
         <div style={{ display: 'flex', width: '350px', height: '240px', overflowX:'scroll'}}>
-                     
-          { console.log("dd")}
-
           {Images.map((image, index) => (
               <div>
                 <img style={{ minWidth: '300px', width:'300px', height: ' 240px'}}
