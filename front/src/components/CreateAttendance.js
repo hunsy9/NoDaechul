@@ -73,6 +73,10 @@ const CreateAttendance = (props) => {
         }
         alert('출석부가 생성되었습니다.');
 
+        props.setIsLoading(false);
+        props.setIsComplete(true);
+
+
       }).catch((e)=>{
         alert(e.message)
       })
@@ -84,8 +88,6 @@ const CreateAttendance = (props) => {
     const data = new FormData(e.currentTarget);
     const joinData = {
       lectureId: data.get('lectureId'),
-      
-
     };
     
     
@@ -100,6 +102,11 @@ const CreateAttendance = (props) => {
         
 
     // };
+
+
+    props.showCreate(false);
+    props.showAttendance(true);
+    props.setIsLoading(true);
     
 
     onhandlePost(joinData);

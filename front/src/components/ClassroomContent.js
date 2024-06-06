@@ -23,6 +23,8 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
   const handleShowAttendance = () => {
     setShowAttendance(!showAttendance);
   }
+  const [isLoading, setIsLoading] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
 
   const handleInvite = () => {
     try{
@@ -96,7 +98,7 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
             }
         </Grid>
       </Grid>
-      {!showCreate && !showAttendance &&
+      {!showCreate && !showAttendance && !isLoading && !isComplete &&
       <Grid container direction={"row"} spacing={3}>
         <Grid item xs={3}>
           <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
@@ -128,10 +130,29 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
       </Grid> 
       }
       {showCreate && !showAttendance &&
-        <CreateAttendance classObj={classObj} attendances={attendances}/>
+        <CreateAttendance 
+          classObj={classObj} 
+          attendances={attendances}
+          setIsLoading={setIsLoading}
+          setIsComplete={setIsComplete}
+          setShowCreate={setShowCreate}
+          setShowAttendance={setShowAttendance}
+        />
       }
       {!showCreate && showAttendance &&
-        <ClassAttendance classObj={classObj} handleShowAttendance={handleShowAttendance} attendances={attendances}/>
+        <ClassAttendance 
+          classObj={classObj} 
+          handleShowAttendance={handleShowAttendance} 
+          attendances={attendances}
+
+          isLoading={isLoading}
+          setIsLoading={setIsLoading}
+          isComplete={isComplete}
+          setIsComplete={setIsComplete}
+          setShowCreate={setShowCreate}
+          setShowAttendance={setShowAttendance}
+
+        />
       }
     </>
     
