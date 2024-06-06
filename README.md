@@ -1,4 +1,4 @@
-<h1 style="display: flex; align-items: center;">DaechulNoh<img height="30" style=" margin-left: 1rem; padding: 0;" src=".\backend\asset\daechulNohLogo.png"></h1>
+<h1 style="display: flex; align-items: center;">DaechulNoh<img height="30" style=" margin-left: 2rem; padding: 0;" src=".\backend\asset\daechulNohLogo.png"></h1>
 
 - Developed an in-class facial recognition attendance system to prevent proxy attendance.
 - Ensuring the integrity of the attendance process and promoting a fair learning environment.
