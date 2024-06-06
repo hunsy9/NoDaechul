@@ -41,6 +41,7 @@ const Register = () => {
   const navigate = useNavigate();
   const [isStudent, setIsStudent] = useState(false);
   const [emailError, setEmailError] = useState('');
+  const [studentIdError, setStudentIdError] = useState('');
   const [passwordState, setPasswordState] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [nameError, setNameError] = useState('');
@@ -72,16 +73,14 @@ const Register = () => {
 
   const onhandlePost = (data) => {
     var role = '';
-    var studentId = null
     // const localhost = host + "user/signup";
     if(isStudent){
       role = 'User'
     }
     else {
       role = 'Admin'
-      studentId = null;
     }
-    const { email, name, password } = data;
+    const { email, name, password, studentId } = data;
     console.log(data)
     const postData = {
       email,
@@ -131,12 +130,12 @@ const Register = () => {
       email: data.get('email'),
       name: data.get('name'),
       password: data.get('password'),
-      student_id: data.get('student_id'),
+      studentId: data.get('studentId'),
 
     };
     
     
-    const { email, name, password} = joinData;
+    const { email, name, password, studentId } = joinData;
     
     const rePassword = data.get('rePassword');
 
@@ -160,7 +159,11 @@ const Register = () => {
     if (!nameRegex.test(name) || name.length < 1) setNameError('올바른 이름을 입력해주세요.');
     else setNameError('');
 
-    
+    const studentIdRegex = /^\d{9}$/;
+    if (!studentIdRegex.test(studentId) || studentId.length < 1) setStudentIdError('9자리 숫자를 입력해주세요.');
+    else setStudentIdError('');
+
+
     // joinData.append("file", files[0])
     // formData.append("server", new Blob([JSON.stringify(testDto)], {type: "application/json"}))
 
@@ -175,7 +178,8 @@ const Register = () => {
       emailRegex.test(email) &&
       passwordRegex.test(password) &&
       password === rePassword &&
-      nameRegex.test(name)
+      nameRegex.test(name) &&
+      studentIdRegex.test(studentId)
     ) {
       // console.log("d", data);
       onhandlePost(joinData);
@@ -284,7 +288,9 @@ const Register = () => {
                         id="studentId"
                         name="studentId"
                         label="학번"
+                        error={studentIdError !== '' || false}
                       />
+                      <FormHelperTexts>{studentIdError}</FormHelperTexts>
                       <Typography variant="h6" sx={{marginRight:16, marginTop: 2, marginBottom: 2}}>
                         Upload Your Selfie Image
                       </Typography>
