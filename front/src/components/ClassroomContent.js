@@ -3,43 +3,33 @@ import HostContext from '../Context/HostContext';
 import { Box, Typography, SvgIcon, Grid, IconButton, Button } from '@mui/material'
 import TabIcon from '@mui/icons-material/Tab';
 import CreateAttendance from "./CreateAttendance";
-import StudentsByDate from "./StudentsByDate";
+import StudentsByLecture from "./StudentsByLecture ";
+import ClassAttendance from "./ClassAttendance";
 
 const ClassroomContent = (props) => {
   //TODO: 수업 날짜 목록, 날짜당 출석부를 API호출을 통해 가져와서 리스트로 표시
   // 테스트용 데이터
   const role = localStorage.getItem('role');
   const attendance = [
-    {date:'2024/05/15', 
-    students: [
-      {name: 'Seunghun Yu', studentId: '201924515'},
-      {name: 'SangJun Lee', studentId: '201924515'},
-    ]},
-    {date:'2024/05/22',
-    students: [
-      {name: 'Seunghun Yu', studentId: '201924515'},
-    ]},
+    {date:'2024/05/15',}, {date:'2024/05/22',},
   ]
 
   const [showCreate, setShowCreate] = useState(false);
-  const [showStudents, setShowStudents] = useState(false);
   const [showAttendance, setShowAttendance] = useState(false);
 
   const { host } = useContext(HostContext);
 
   const handleCreate = () => {
     setShowCreate(!showCreate);
+    setShowAttendance(!showAttendance);
   }
-  const handleShowStudents = () => {
-    setShowStudents('true');
+  const handleShowAttendance = () => {
+    setShowAttendance(!showAttendance);
   }
+
   const handleInvite = () => {
     try{
       var text = '';
-      
-      const inviteData = {
-        id: props.classObj.id
-      };
 
       var requestOptions = {
         credentials: 'include',
@@ -92,7 +82,7 @@ const ClassroomContent = (props) => {
         </Grid>
         <Grid item xs={5}>
           {/* 버튼 스타일 변경 */}
-          {!showCreate &&  role == "Admin" ? 
+          {!showCreate && !showAttendance &&  role == "Admin" ? 
             <>
               <Button variant="contained" onClick={handleInvite} sx={{ 
                  width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', marginRight: 2, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' 
@@ -104,7 +94,7 @@ const ClassroomContent = (props) => {
               }}>
                 New Attendance
               </Button>
-            </> : role == "Admin" &&
+            </> : role == "Admin" && !showAttendance &&
             <Button variant="contained" onClick={handleCreate}
             sx={{ width:150, borderRadius: 3.5, backgroundColor: '#F4F4F4', marginRight: 10, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' }}>
             Back
@@ -112,7 +102,7 @@ const ClassroomContent = (props) => {
             }
         </Grid>
       </Grid>
-      {!showCreate ? 
+      {!showCreate && !showAttendance &&
       <Grid container direction={"row"} spacing={3}>
         <Grid item xs={3}>
           {/* 테스트용 데이터 추가, attendance.map의 attendance에 API호출로 받아온 JSON값이 들어가야함 */}
@@ -126,10 +116,6 @@ const ClassroomContent = (props) => {
                 variant="contained" 
                 className="Shadow" 
                 onClick={() => {
-                  handleShowStudents();
-                  var newStudents = [...students];
-                  newStudents = attendance.students;
-                  props.setStudents(newStudents);
                   handleAttendance(attendance.students, props.classObj);
                 }} 
                 sx={{ 
@@ -142,12 +128,16 @@ const ClassroomContent = (props) => {
         </Grid>
         <Grid item xs={8.5}>
           <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
-            {showStudents ? <StudentsByDate students={props.students}></StudentsByDate> : <></>}
+            <StudentsByLecture students={props.students}></StudentsByLecture>
           </Box>
         </Grid>
-      </Grid> : 
-      <CreateAttendance classObj={props.classObj}/>
-
+      </Grid> 
+      }
+      {showCreate && !showAttendance &&
+        <CreateAttendance classObj={props.classObj}/>
+      }
+      {!showCreate && showAttendance &&
+        <ClassAttendance classObj={props.classObj} handleShowAttendance={handleShowAttendance} />
       }
     </>
     

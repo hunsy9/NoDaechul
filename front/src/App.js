@@ -41,9 +41,10 @@ function App() {
             <AppRoutes/>
           </BrowserRouter> 
         </AuthProvider> 
+        {/* <ClassAttendance/> */}
       </HostProvider>
       {/* ClassAttendance 테스트 시 1 입력*/}
-      {/* <ClassAttendance/> */}
+      
       {/* <MainContent/> */}
       {/* <ClassroomFormStudent/> */}
       
