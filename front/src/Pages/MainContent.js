@@ -11,11 +11,12 @@ import MainHeader from '../components/MainHeader';
 const MainContent = () => {
   
   const [classrooms, setClassrooms] = useState([]);
-  const [classObj, setClassObj] = useState({name: '', id: -1});
+  const [classObj, setClassObj] = useState({name: '', id: -1, created_by: -1});
   const [showForm, setShowForm] = useState(false); 
   const [userName, setUserName] = useState('');
   const [userRole, setUserRole] = useState('');
   const [showClassroom, setShowClassroom] = useState(false);
+  const [students, setStudents] = useState([]);
 
   const addClassroom = (classroom) => {
     if (!classroom.text || /^\s*$/.test(classroom.text)) {
@@ -42,9 +43,12 @@ const MainContent = () => {
           <Side 
             classrooms={classrooms} 
             setClassrooms={setClassrooms}
+            classObj={classObj}
             setClassObj={setClassObj} 
             setShowClassroom={setShowClassroom} 
             setShowForm={setShowForm}
+            students={students}
+            setStudents={setStudents}
           /> {/* 사이드바 컴포넌트 */}
         </Grid>
         <Grid item xs={9} sx={{ padding: 3 }}>
@@ -61,6 +65,7 @@ const MainContent = () => {
             showClassroom={showClassroom}
             classObj={classObj}
             setClassrooms={setClassrooms}
+            students={students}
           /> :
           <MainStudent
             classrooms={classrooms}
@@ -70,6 +75,7 @@ const MainContent = () => {
             showClassroom={showClassroom}
             classObj={classObj}
             setClassrooms={setClassrooms}
+            students={students}
           />
           }
         </Grid>
