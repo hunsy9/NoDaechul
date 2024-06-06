@@ -127,10 +127,10 @@ const ClassroomContent = ({ classObj, students, attendances }) => {
       </Grid> 
       }
       {showCreate && !showAttendance &&
-        <CreateAttendance classObj={classObj}/>
+        <CreateAttendance classObj={classObj} attendances={attendances}/>
       }
       {!showCreate && showAttendance &&
-        <ClassAttendance classObj={classObj} handleShowAttendance={handleShowAttendance} />
+        <ClassAttendance classObj={classObj} handleShowAttendance={handleShowAttendance} attendances={attendances}/>
       }
     </>
     

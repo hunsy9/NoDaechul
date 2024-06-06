@@ -35,7 +35,10 @@ const Classroom = ({
       var requestOptions = {
         credentials: 'include',
         method: 'GET',
-        redirect: 'follow'
+        redirect: 'follow',
+        headers: {
+          'Content-Type': 'application/json'
+        }
       };
 
       const getAPI = host + "lecture/getlecture"
@@ -63,7 +66,10 @@ const Classroom = ({
       var requestOptions = {
         credentials: 'include',
         method: 'GET',
-        redirect: 'follow'
+        redirect: 'follow',
+        headers: {
+          'Content-Type': 'application/json'
+        }
       };
       console.log(clickedClass);
       const getAPI = host + "lecture/getattendance" + `?lectureId=${clickedClass.id}`

@@ -4,7 +4,7 @@ import DataTable from '../components/ClassAttendanceTable';
 import PackageIcon from '../../src/assets/package-01.png';
 import classImg from '../assets/class_example.png';
 
-const ClassAttendance = ({ classObj, handleShowAttendance }) => {
+const ClassAttendance = ({ classObj, handleShowAttendance, attendances }) => {
   return(
     <>
       <Button variant="contained" onClick={handleShowAttendance}
@@ -16,7 +16,7 @@ const ClassAttendance = ({ classObj, handleShowAttendance }) => {
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
 
         <img src={classImg} alt="Face ID" style={{maxWidth: '30vw', height: 'auto', marginBottom : 30}} />
-        <DataTable classObj={classObj}/>
+        <DataTable classObj={classObj} attendances={attendances} />
 
     </Box>
     </>

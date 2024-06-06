@@ -12,7 +12,7 @@ const DataTable = (props) => {
   
   const url = new URL(GetAttendanceAPI);
   const lectureId = props.classObj.id;
-  const attendanceId = props.classObj.attendanceId;
+  const attendanceId = props.attendances.id;
   url.searchParams.append('lectureId', lectureId);
 
   // url 확인
