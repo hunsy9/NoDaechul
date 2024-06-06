@@ -43,11 +43,11 @@ const MainStudent = (props) => {
           </Typography>
             {props.classrooms.length <= 0 ? 
             <Typography variant="subtitle1" sx={{ marginBottom: 2 }}>
-            Please make your classroom!
+            Please join new classroom!
             </Typography> : 
             <></>}
           <Button variant="contained" onClick={props.handleClick} sx={{ width: 300, backgroundColor: '#F6F6F6', color: '#000000', marginTop: 5, padding: 2}}>
-            Create Your Classroom
+            Join New Classroom
           <SvgIcon component={AddIcon} sx={{marginLeft: 2}}/>
           </Button>
         </>
