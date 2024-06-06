@@ -1,4 +1,5 @@
-# DeachulNoh <img width= '29' src=".\backend\asset\daechulNohLogo.png">
+<h1 style="display: flex; align-items: center;"><img height="33" style=" margin-right: 10px; padding: 0;" src=".\backend\asset\daechulNohLogo.png">DaechulNoh</h1>
+
 - Developed an in-class facial recognition attendance system to prevent proxy attendance.
 - Ensuring the integrity of the attendance process and promoting a fair learning environment.
 ---
@@ -15,7 +16,7 @@
   - 웹 프론트 개발 (React Component 개발)
 
 ## 프로젝트 소개
-### AWS Rekognition을 활용한 얼굴 인식 출석 체크 시스템
+### DaechulNoh - AWS Rekognition을 활용한 얼굴 인식 출석 체크 시스템
 - 위 서비스는 편리하고 신뢰할 수 있는 출석 체크 시스템을 제공하는 것을 목표로, 현재 강의실의 사진을 AWS에서 제공하는 Rekognition 서비스를 통해 수업에 참여중인 학생을 추출한 후 DB에 저장된 학생의 사진과 비교함으로써 학생이 출석했는지 확인할 수 있음.
 - 서비스의 대략적인 동작 과정)
   1. 사전 설정 단계 : 각 수업의 생성 단계에서 교수는 해당 수업에 참가할 학생들의 정보를 등록하여 수업에 추가.
@@ -37,15 +38,15 @@
   <img width="500" alt="image" src="https://github.com/hunsy9/DaechulNoh/assets/101303791/aaaa8a05-3383-4d8a-a74e-d79ea60da1c2">
 </p><br>
 
-1. 학생들의 정보(이름, 학번 등)을 시스템에 등록
-2. 각 학생의 얼굴 사진을 촬영하고, AWS S3에 저장
-3. AWS Rekognition의 IndexFaces API를 호출
+1. 학생들의 정보(이름, 학번, 사진 등)을 시스템과 AWS S3에 저장
+2. AWS Rekognition의 IndexFaces API를 호출
    - 얼굴 사진을 분석하고, 얼굴 특징 벡터를 추출하여 컬렉션에 저장
-4. 매 수업 시작 시, 출석 체크를 위한 사진을 촬영 후 S3로 업로드 
-5. S3에 업로드된 출석 체크 사진에 대해 AWS Rekognition의 SearchFacesByImage API 호출 
-6. 매칭된 얼굴의 정보(등록된 학생 이름, 학번 등)를 반환, 교수자는 웹 인터페이스를 통해 매 수업 별 출석 결과를 확인
+3. 매 수업 시작 시, 출석 체크를 위한 강의실 전경 사진을 촬영 후 S3로 업로드 
+4. S3에 업로드된 출석 체크 사진에 대해 AWS Rekognition의 SearchFacesByImage API 호출 
+5. 매칭된 얼굴의 정보(등록된 학생 이름, 학번 등)를 반환, 교수자는 웹 인터페이스를 통해 매 수업 별 출석 결과를 확인
 
 ## 개발 결과물을 사용하는 방법
+[//]: # (todo)
 
 ## 개발 결과물의 활용방안
 앞서 언급한 기존 플라토 시스템의 단점을 보안하기 위해 AWS Rekognition을 활용한 얼굴 인식 출석 체크 시스템인 DaechulNoh를 제안함으로써 대리출석을 방지하고 출석체크에 소요되는 시간 또한 단축될 것으로 기대함.
