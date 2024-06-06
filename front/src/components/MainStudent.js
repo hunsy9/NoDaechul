@@ -6,7 +6,15 @@ import ClassroomContent from "./ClassroomContent";
 const MainStudent = (props) => {
   return(
   (props.showClassroom) ?
-    <ClassroomContent classObj={props.classObj} students={props.students} attendances={props.attendances}/> : 
+    <ClassroomContent 
+      classObj={props.classObj} 
+      students={props.students} 
+      attendances={props.attendances}
+      showCreate={props.showCreate}
+      showAttendance={props.showAttendance}
+      setShowCreate={props.setShowCreate}
+      setShowAttendance={props.setShowAttendance}
+    /> : 
     
     <Box
       sx={{

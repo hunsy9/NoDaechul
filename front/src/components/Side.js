@@ -19,6 +19,8 @@ export default function Side(props) {
     setOpen(!open);
   };
   
+  
+
   const DrawerList = (
     <Box sx={{ width: 300, height: "100vh", borderRadius: 3, overflow:'scroll'}} className="SideBar" role="presentation" align="center">
       <Box display="flex" alignItems="center" style={{ flexGrow: 1, marginBottom: 30 }}>
@@ -68,6 +70,7 @@ export default function Side(props) {
           students={props.students}
           attendances={props.attendances}
           setAttendances={props.setAttendances}
+          handleShows={props.handleShows}
         />
         </List>
       </Collapse>

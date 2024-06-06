@@ -19,6 +19,9 @@ const MainContent = () => {
   const [showClassroom, setShowClassroom] = useState(false);
   const [students, setStudents] = useState([{name: '', student_id: '', avatar: ''},]);
 
+  const [showCreate, setShowCreate] = useState(false);
+  const [showAttendance, setShowAttendance] = useState(false);
+
   const addClassroom = (classroom) => {
     if (!classroom.text || /^\s*$/.test(classroom.text)) {
       return;
@@ -29,6 +32,11 @@ const MainContent = () => {
   const handleCreateClassroomClick = () => {
     setShowForm(!showForm); // 현재 상태의 반대값으로 토글
   };
+
+  const handleShows = () => {
+    setShowAttendance(false);
+    setShowCreate(false);
+  }
 
   useEffect(() => {
     setUserName(localStorage.getItem('name'));
@@ -52,6 +60,8 @@ const MainContent = () => {
             setStudents={setStudents}
             attendances={attendances}
             setAttendances={setAttendances}
+            handleShows={handleShows}
+
           /> {/* 사이드바 컴포넌트 */}
         </Grid>
         <Grid item xs={9} sx={{ padding: 3 }}>
@@ -70,6 +80,10 @@ const MainContent = () => {
             setClassrooms={setClassrooms}
             students={students}
             attendances={attendances}
+            showCreate={showCreate}
+            setShowCreate={setShowCreate}
+            showAttendance={showAttendance}
+            setShowAttendance={setShowAttendance}
           /> :
           <MainStudent
             classrooms={classrooms}
@@ -81,6 +95,10 @@ const MainContent = () => {
             setClassrooms={setClassrooms}
             students={students}
             attendances={attendances}
+            showCreate={showCreate}
+            setShowCreate={setShowCreate}
+            showAttendance={showAttendance}
+            setShowAttendance={setShowAttendance}
           />
           }
         </Grid>
