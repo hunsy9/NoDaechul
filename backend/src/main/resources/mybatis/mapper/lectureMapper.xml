@@ -72,17 +72,16 @@
     WHERE id IN (SELECT lecture_id FROM lecture_user WHERE user_id = #{userId});
   </select>
 
-  <select id="getMembersByLectureID"
-    resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttendanceDto"
+  <select id="getAttendanceByLectureId"
+    resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.AttendanceDto"
     parameterType="long">
-    SELECT student_id, name, avatar
-    FROM user
-    WHERE user_role = "User"
-      AND id IN (SELECT user_id FROM lecture_user WHERE lecture_id = #{lectureId});
+    SELECT id, `date`
+    FROM attendance
+    WHERE lecture_id = #{lectureId};
   </select>
 
-  <select id="getAttendanceByLectureID"
-    resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttendanceDto"
+  <select id="getMembersByLectureID"
+    resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetStudentAttendanceDto"
     parameterType="long">
     SELECT student_id, name, avatar
     FROM user
@@ -96,14 +95,6 @@
     SELECT id
     FROM lecture
     WHERE invitation_code = #{invitation_code};
-  </select>
-
-  <select id="getAttendanceByLectureId"
-    resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.AttendanceDto"
-    parameterType="long">
-    SELECT id, `date`
-    FROM attendance
-    WHERE lecture_id = #{lectureId};
   </select>
 
   <select id="getProfessorNameByCreatedBy"
