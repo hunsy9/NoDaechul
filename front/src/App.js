@@ -6,22 +6,8 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import AuthProvider from './auth/AuthProvider';
 import HostProvider from './Context/HostProvider';
-import ClassAttendance from './Pages/ClassAttendance';
 import MainContent from './Pages/MainContent';
 
-
-
-
-// test
-// import DropzoneAreaComponent from './components/dropzone';
-import MainAdmin from './components/MainAdmin';
-import ClassroomFormStudent from './components/ClassroomFormStudent';
-import CreateAttendance from './components/CreateAttendance';
-import MainStudent from './components/MainStudent';
-import Classroom from './components/classroom';
-// import Signup from './Pages/Signup';
-import CreateAttendanceLoading from './components/CreateAttendanceLoading';
-import CreateAttendanceComplete from './components/CreateAttendanceComplete';
 
 const theme = createTheme({
   palette: {

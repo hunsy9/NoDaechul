@@ -3,16 +3,16 @@ import { CssBaseline, Grid, Box, Typography, IconButton, Button, SvgIcon } from 
 import DataTable from '../components/ClassAttendanceTable';
 import PackageIcon from '../../src/assets/package-01.png';
 import classImg from '../assets/class_example.png';
-import CreateAttendanceLoading from "../Pages/ClassAttendance";
+import CreateAttendanceLoading from "./CreateAttendanceLoading";
 import CreateAttendanceComplete from "./CreateAttendanceComplete";
 
 const ClassAttendance = ({ 
     classObj, 
     handleShowAttendance, 
-    attendances, 
     isLoading,  
     setIsLoading,
     isComplete,
+    attendanceId,
     setIsComplete,
     setShowCreate,
     setShowAttendance,
@@ -33,7 +33,9 @@ const ClassAttendance = ({
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
       <img src={classImg} alt="Face ID" style={{maxWidth: '30vw', height: 'auto', marginBottom : 30}} />
       {!isLoading && !isComplete &&
-        <DataTable classObj={classObj} attendances={attendances} attendanceData={attendanceData} setAttendanceData={setAttendanceData}/>
+        <DataTable 
+          attendanceData={attendanceData} 
+        />
       }
       {isLoading && !isComplete &&
         <CreateAttendanceLoading />

@@ -6,7 +6,6 @@ import Landing from './Pages/Landing';
 import MainContent from './Pages/MainContent';
 import {Routes, Route, Navigate} from "react-router-dom";
 import AuthContext from './auth/AuthContext';
-import ClassAttendance from './Pages/ClassAttendance';
 
 const AppRoutes = () => {
   const { isLoggedIn, isLoading } = useContext(AuthContext);
@@ -21,9 +20,6 @@ const AppRoutes = () => {
       <Route path="/Login" element={isLoggedIn ? <Navigate to="/MainContent" replace/> : <SignIn/>} />
       <Route path="/Signup" element={isLoggedIn ? <Navigate to="/MainContent" replace/> : <Signup/>} />
       <Route path="/MainContent" element={isLoggedIn ? <MainContent /> : <Navigate to="/Login" replace/>} />
-      {/* 현재 테스트용 */}
-      <Route path="/ClassAttendance" element={<ClassAttendance/>} />
-      
     </Routes>
   );
 };
