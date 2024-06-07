@@ -23,7 +23,8 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
   const handleShowAttendance = () => {
     setShowAttendance(!showAttendance);
   }
-  const [isLoading, setIsLoading] = useState(false);
+  // isLoading false -> true
+  const [isLoading, setIsLoading] = useState(true);
   const [isComplete, setIsComplete] = useState(false);
 
   const [Images, setImages] = useState([]);
@@ -92,10 +93,18 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
 
     fetch(getHost, requestOptions)
     .then(response => {
+      console.log("loading, complete" , isLoading, isComplete);
       if(response.ok){
+        // state 변수 상태 추가
+        setIsLoading(false);
+        setIsComplete(true);
+        
         return response.text();
       }
       else{
+        // state 변수 상태 추가
+        setIsLoading(true);
+        setIsComplete(false);
         throw new Error(response.json());
       }
     })
@@ -147,7 +156,8 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
             }
         </Grid>
       </Grid>
-      {!showCreate && !showAttendance && !isLoading && !isComplete &&
+      {/* !isLoading -> isLoading  */}
+      {!showCreate && !showAttendance && isLoading && !isComplete &&
       <Grid container direction={"row"} spacing={3}>
         <Grid item xs={3}>
           <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">

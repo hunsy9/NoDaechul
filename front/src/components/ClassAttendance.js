@@ -15,6 +15,7 @@ const ClassAttendance = ({
     isComplete,
     setIsComplete,
     setShowAttendance,
+    attendanceData,
     Images,
   }) => {
   const boundingBoxes = attendanceData.lectureImageBoundingBoxes;
@@ -26,7 +27,7 @@ const ClassAttendance = ({
     img.src = Images[0];
     img.onload = () => {
       const canvas = canvasRef.current
-      const ctv = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d');
       canvas.width = img.width;
       canvas.height = img.height;
       ctx.drawImage(img, 0, 0);
@@ -46,6 +47,10 @@ const ClassAttendance = ({
       });
     };
   }, [Images, boundingBoxes]);
+
+
+  console.log("loading, complete" , isLoading, isComplete);
+  console.log("attendenceId ", attendanceId);
 
   return(
     <>
