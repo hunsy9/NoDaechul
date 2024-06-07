@@ -1,12 +1,12 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import React, { useState, useContext } from 'react';
 import HostContext from '../Context/HostContext';
-// import DropzoneAreaComponent from '../components/dropzone';
-import FileUpload from './FileUpload';
 // import Classroom from './classroom';
+import { useNavigate } from "react-router-dom";
 
 const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
   const [classCode, setClassCode] = useState('');
+  let navigate = useNavigate();
 
   const { host } = useContext(HostContext);
 
@@ -37,6 +37,9 @@ const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
     fetch(createAPI, requestOptions)
       .then(response => {
         if(response.ok) return response.text();
+        if (response.status === 401) {
+          navigate('/Login');
+        }
         else {
           alert("서버와의 통신이 불안정합니다.\n다시 시도해주세요.")
           throw new Error("error");
@@ -66,6 +69,9 @@ const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
         .then(response => {
           if(response.ok){
             return response.json();
+          }
+          if (response.status === 401) {
+            navigate('/Login');
           }
         })
         .then(result => {

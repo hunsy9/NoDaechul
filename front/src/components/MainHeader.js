@@ -45,6 +45,9 @@ const MainHeader = ({ userRole, userName }) => {
           navigate("/");
           alert("로그아웃!");
         }
+        if (response.status === 401) {
+          navigate('/Login');
+        }
         return response.text();
       })
       .then(result => console.log(result))

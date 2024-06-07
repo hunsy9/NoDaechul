@@ -1,4 +1,4 @@
-import React, {useState, useContext, useCallback} from 'react';
+import React, {useState, useContext, useCallback, useEffect} from 'react';
 import { Box, Typography, Button } from '@mui/material';
 // import DropzoneAreaComponent from '../components/dropzone';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
@@ -6,6 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useDropzone } from 'react-dropzone';
 import HostContext from '../Context/HostContext';
 import dayjs, { Dayjs } from 'dayjs';
+import { useNavigate } from "react-router-dom";
 
 const CreateAttendance = ({classObj,
   attendances,
@@ -19,13 +20,15 @@ const CreateAttendance = ({classObj,
   Images,
   setImages,
   setShowSide,
+  setAttendanceId,
 }) => {
   // const [classObj, setClassObj] = useState({name: '', id: -1});
   // setClassObj={setClassObj};
   // classObj={classObj};
   // console.log("class object id ", props.classObj.id);
   const { host } = useContext(HostContext);
-  console.log(classObj.id);
+  // console.log(classObj.id);
+  let navigate = useNavigate();
 
   
   const onDrop = useCallback(acceptedFiles => {
@@ -37,9 +40,15 @@ const CreateAttendance = ({classObj,
   const [value, setValue] = useState();
   const dateFormat = dayjs(value).format("YYYY-MM-DD");
   const localhost = host + "attendance";
+  const [imageUrl, setImageUrl] = useState('')
 
-  // console.log(value);
-  console.log(dateFormat);
+  useEffect(() => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageUrl(reader.result);
+    };
+    reader.readAsDataURL(new Blob(Images));
+  }, [onDrop, Images]);
 
   const inputBox = {
     width: '27vw',
@@ -74,6 +83,9 @@ const CreateAttendance = ({classObj,
     .then(response => {
       if(response.ok){
         return response.text();
+      }
+      if (response.status === 401) {
+        navigate('/Login');
       }
       else{
         throw new Error(response.json());
@@ -120,7 +132,12 @@ const CreateAttendance = ({classObj,
     fetch(localhost, requestOptions)
       .then(response => {
         if(!response.ok){
-          throw new Error(response.json())
+          if (response.status === 401) {
+            navigate('/Login');
+          }
+          else {
+            throw new Error(response.json())
+          }
         }
         alert('출석부가 생성되었습니다.');
 
@@ -132,6 +149,7 @@ const CreateAttendance = ({classObj,
       })
       .then(result => {
         console.log(result);
+        setAttendanceId(result.id);
       })
       .catch((e)=>{
         alert(e.message)
@@ -159,7 +177,7 @@ const CreateAttendance = ({classObj,
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ alignItems: 'center', justifyContent: 'center'}}>
 
         {/* Image FileUpload */}
-        <div style={inputBox} {...getRootProps()}>
+        {/* <div style={inputBox} {...getRootProps()}>
           <input {...getInputProps()} />
           {
             isDragActive ?
@@ -180,7 +198,62 @@ const CreateAttendance = ({classObj,
               </p>
 
           }
-        </div>
+        </div> */}
+
+          <div style={inputBox} {...getRootProps()}>
+            <input {...getInputProps()} />
+            {
+              isDragActive ?
+                  <p>Drop the files here...</p> : (
+                      (imageUrl != null && Images.length != 0) ? <div>
+                            <div style={{
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              paddingTop: '10%',
+                            }}>
+                              <img style={{
+                                width: '70%',
+                                height: '70%',
+                                borderRadius: '10px'
+                              }} src={imageUrl}/>
+                            </div>
+                            <p style={{textAlign: "center", color: '#888888'}}>Drop file to edit!</p>
+                          </div>
+                          : <p style={{textAlign: 'center'}}>
+                            <div>
+                              <Button variant="contained"
+                                      sx={{
+                                        width: 150,
+                                        borderRadius: 3.5,
+                                        backgroundColor: '#000000',
+                                        fontFamily: 'Inter',
+                                        color: '#F4F4F4',
+                                        fontWeight: 'bold',
+                                        boxShadow: 'none',
+                                        marginTop: '30%'
+                                      }}>
+                                Upload Image
+                              </Button>
+                              <Typography variant="subtitle2" sx={{
+                                fontFamily: 'Inter',
+                                color: '#000000',
+                                fontWeight: 'bold',
+                                marginTop: '20%'
+                              }}>
+                                or drop a file.
+                              </Typography>
+                              <Typography variant="subtitle2" sx={{
+                                fontFamily: 'Inter',
+                                color: '#b0b0b0'
+                              }}>
+                                paste image or URL
+                              </Typography>
+                            </div>
+                          </p>
+                  )
+            }
+          </div>
 
         <div style={{ textAlign: 'center' }}>
           <Typography variant="subtitle1" sx ={{fontFamily:'Inter', color:'#000000', fontWeight:'bold', marginTop: '30px'}}>
