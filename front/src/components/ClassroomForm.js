@@ -3,11 +3,15 @@ import { Box, Button, TextField, Typography } from '@mui/material';
 import HostContext from '../Context/HostContext';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../auth/AuthContext";
 
 const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
   const [className, setClassName] = useState('');
+  
   let navigate = useNavigate();
   const {host} = useContext(HostContext);
+  const { logout } = useContext(AuthContext);
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const createAPI = host + "lecture/createlecture";
@@ -48,6 +52,7 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
           return response.json();
         }
         if (response.status === 401) {
+          logout();
           navigate('/Login');
         }
         else{
@@ -74,6 +79,7 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
             return response.json();
           }
           if (response.status === 401) {
+            logout();
             navigate('/Login');
           }
         })

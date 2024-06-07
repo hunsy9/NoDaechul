@@ -7,6 +7,7 @@ import { useDropzone } from 'react-dropzone';
 import HostContext from '../Context/HostContext';
 import dayjs, { Dayjs } from 'dayjs';
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../auth/AuthContext";
 
 const CreateAttendance = ({classObj,
   attendances,
@@ -27,6 +28,7 @@ const CreateAttendance = ({classObj,
   // classObj={classObj};
   // console.log("class object id ", props.classObj.id);
   const { host } = useContext(HostContext);
+  const { logout } = useContext(AuthContext);
   // console.log(classObj.id);
   let navigate = useNavigate();
 
@@ -165,6 +167,7 @@ const CreateAttendance = ({classObj,
         return response.text();
       }
       if (response.status === 401) {
+        logout();
         navigate('/Login');
       }
       else{
@@ -213,6 +216,7 @@ const CreateAttendance = ({classObj,
       .then(response => {
         if(!response.ok){
           if (response.status === 401) {
+            logout();
             navigate('/Login');
           }
           else {

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const { login } = useContext(AuthContext);
+  const { login, logout } = useContext(AuthContext);
   const { host } = useContext(HostContext);
   const LoginAPI = host + "user/login";
   let navigate = useNavigate();
@@ -42,6 +42,7 @@ export default function SignIn() {
           return response.json();
         } 
         if (response.status === 401) {
+          logout();
           navigate('/Login');
         }
         else {

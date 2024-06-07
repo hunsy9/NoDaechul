@@ -46,6 +46,7 @@ const MainHeader = ({ userRole, userName }) => {
           alert("로그아웃!");
         }
         if (response.status === 401) {
+          logout();
           navigate('/Login');
         }
         return response.text();

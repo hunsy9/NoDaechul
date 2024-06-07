@@ -3,12 +3,14 @@ import React, { useState, useContext } from 'react';
 import HostContext from '../Context/HostContext';
 // import Classroom from './classroom';
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../auth/AuthContext";
 
 const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
   const [classCode, setClassCode] = useState('');
   let navigate = useNavigate();
 
   const { host } = useContext(HostContext);
+  const { logout } = useContext(AuthContext);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -38,6 +40,7 @@ const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
       .then(response => {
         if(response.ok) return response.text();
         if (response.status === 401) {
+          logout();
           navigate('/Login');
         }
         else {
@@ -71,6 +74,7 @@ const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
             return response.json();
           }
           if (response.status === 401) {
+            logout();
             navigate('/Login');
           }
         })

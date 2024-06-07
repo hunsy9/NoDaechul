@@ -6,6 +6,7 @@ import StudentsByLecture from "./StudentsByLecture ";
 import ClassAttendance from "./ClassAttendance";
 import PackageIcon from '../../src/assets/package-01.svg';
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../auth/AuthContext";
 
 const ClassroomContent = ({ 
   classObj, 
@@ -24,6 +25,7 @@ const ClassroomContent = ({
   let navigate = useNavigate();
   let date = '';
   const { host } = useContext(HostContext);
+  const { logout } = useContext(AuthContext);
 
   const handleCreate = () => {
     setShowCreate(!showCreate);
@@ -100,6 +102,7 @@ const ClassroomContent = ({
         return response.text();
       }
       if (response.status === 401) {
+        logout();
         navigate('/Login');
       }
       else{
@@ -141,6 +144,7 @@ const ClassroomContent = ({
         {
           // 확인 
           if (response.status === 401) {
+            logout();
             navigate('/Login');
           }
           if (response.ok) {
