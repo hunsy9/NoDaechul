@@ -24,13 +24,7 @@ public class AttendanceController {
     @PostMapping
     @AdminRoleRequired
     public ResponseEntity<Long> createAttendance(@RequestPart("createAttendanceDto") CreateAttendanceRequestDto attendanceRequestDto, @RequestPart("lectureImage") MultipartFile mFile) throws IOException {
-        Long id = attendanceService.createAttendance(attendanceRequestDto);
-        try{
-            attendanceService.createStudentAttendanceRecord(attendanceRequestDto, mFile, id);
-        }catch (Exception e){
-            attendanceService.deleteAttendance(id);
-            throw new CreateAttendanceException("출석부 생성 중 오류가 발생하였습니다.");
-        }
+        Long id = attendanceService.createAttendance(attendanceRequestDto, mFile);
         return ResponseEntity.ok().body(id);
     }
 
