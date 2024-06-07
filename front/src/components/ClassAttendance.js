@@ -7,14 +7,13 @@ import CreateAttendanceLoading from "./CreateAttendanceLoading";
 import CreateAttendanceComplete from "./CreateAttendanceComplete";
 
 const ClassAttendance = ({ 
-    classObj,
-    attendanceId,
     handleShowAttendance, 
     isLoading,  
     setIsLoading,
     isComplete,
     setIsComplete,
     setShowAttendance,
+    attendanceData,
     Images,
   }) => {
   const boundingBoxes = attendanceData.lectureImageBoundingBoxes;

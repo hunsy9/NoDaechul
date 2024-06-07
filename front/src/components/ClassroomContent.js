@@ -68,49 +68,6 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
     }
 };
 
-  const onhandleGet = () => {
-    console.log(classObj);
-
-    const getHost = host + "attendance/get";
-
-    const getData = {
-      lectureId : classObj.id,
-      attendanceId: attendanceId
-    }
-
-    const raw = JSON.stringify(getData);
-
-    const requestOptions = {
-      credentials: 'include',
-      method: 'POST',
-      body: raw,
-      redirect: 'follow',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }
-
-    fetch(getHost, requestOptions)
-    .then(response => {
-      if(response.ok){
-        return response.text();
-      }
-      else{
-        throw new Error(response.json());
-      }
-    })
-    .then(result => {
-      var newAttendanceData = [...attendanceData];
-      newAttendanceData = result;
-      setAttendanceData(newAttendanceData);
-      console.log(newAttendanceData);
-    })
-    .catch(error => {
-      console.log(error);
-    })
-  }
-
-
 
   return(
     <>
@@ -162,7 +119,6 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
                 onClick={() => {
                   handleShowAttendance();
                   setAttendanceId(attendance.id);
-                  onhandleGet();
                 }} 
                 sx={{ 
                 width:200, marginTop:1, marginBottom:1, borderRadius: 3, fontSize:13, backgroundColor: '#FBFCFE', fontFamily:'Inter', color:'#000000', fontWeight:'bold', paddingBottom:2, paddingTop:2 
