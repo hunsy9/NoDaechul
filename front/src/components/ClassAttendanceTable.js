@@ -20,13 +20,20 @@ const DataTable = ({
       width: 200,
     },
   ];
+  let data;
+  if(typeof attendanceData !== 'object'){
+    data = JSON.parse(attendanceData);
+  }
+  else{
+    data = attendanceData;
+  }
+  
+  console.log(data);
 
-  let data = JSON.parse(attendanceData);
+  const attendance = data?.attendance.attendanceMetaData;
+  const attendanceUser = data.attendance?.attendanceUserRecords;
 
-  const attendance = data.attendance.attendanceMetaData;
-  const attendanceUser = data.attendance.attendanceUserRecords;
-
-  const attendanceFormat = attendanceUser.map((user) => {
+  const attendanceFormat = attendanceUser?.map((user) => {
     let row = new Object();
     row.id = user.student_id;
     row.studentID = user.student_id;
@@ -34,7 +41,7 @@ const DataTable = ({
     row.status = user.status;
     row.accuracy = user.similarity;
     return row;
-  });
+  }) || [];
   console.log(attendanceFormat);
 
   return (
