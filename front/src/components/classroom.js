@@ -23,8 +23,14 @@ const Classroom = ({
   const { host } = useContext(HostContext);
   const navigate = useNavigate();
 
+  // useEffect(() => {
+  //   getLecture();
+  // }, [classObj]);
+
   useEffect(() => {
-    getLecture();
+    if (classObj.id !== -1) { 
+      getLecture();
+    }
   }, [classObj]);
 
   useEffect(() => {
