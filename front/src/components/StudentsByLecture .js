@@ -25,7 +25,9 @@ const StudentsByLecture = (props) => {
       }}>
         <Grid container direction={"row"}>
           <Grid item xs={2}>
-            <Box sx={{width:50, height:50, borderRadius:'50%', backgroundColor:'#D9D9D9'}}></Box>
+            <Box sx={{width:50, height:50, borderRadius:'50%'}}>
+              <img src={students.avatar_url} style={{width: '100%', borderRadius:'50%', height: '100%'}} />
+            </Box>
           </Grid>
           <Grid item xs={10} sx={{display:'flex', flexDirection: 'column', alignItems:'flex-start'}}>
             <Typography fontSize={16} fontWeight={'bold'}>

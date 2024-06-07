@@ -94,6 +94,7 @@ const ClassroomContent = ({
           <Box
             sx={{
             fontSize: 23, // Adjust emoji size
+              fontWeight: 'bold'
             }}
           >
             <img src={PackageIcon} style={{marginRight: 5, verticalAlign:'middle'}}/>
