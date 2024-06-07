@@ -28,10 +28,11 @@ const DataTable = ({
 
   const attendanceFormat = attendanceUser.map((user) => {
     let row = new Object();
+    row.id = user.student_id;
     row.studentID = user.student_id;
     row.name = user.name;
     row.status = user.status;
-    row.Accuracy = user.similarity;
+    row.accuracy = user.similarity;
     return row;
   });
   console.log(attendanceFormat);

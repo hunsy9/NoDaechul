@@ -16,13 +16,15 @@ const ClassAttendance = ({
     attendanceData,
     Images,
   }) => {
-  const boundingBoxes = attendanceData.lectureImageBoundingBoxes;
+
+  
+  const boundingBoxes = JSON.parse(attendanceData).lectureImageBoundingBoxes;
   const imgRef = useRef(null);
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const img = new Image();
-    img.src = Images[0];
+    img.src = Images;
     img.onload = () => {
       const canvas = canvasRef.current
       const ctx = canvas.getContext('2d');
