@@ -4,7 +4,7 @@
 
 <mapper namespace="com.cloudcomputing.nodaechul.attendance.domain.repository.mapper.AttendanceMapper">
     <insert id="createAttendance" parameterType="com.cloudcomputing.nodaechul.attendance.domain.model.CreateAttendanceRequestDto" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO attendance VALUES (0, #{lectureId}, #{attendanceDate}, now(), now())
+        INSERT INTO attendance VALUES (0, #{lectureId}, #{attendanceDate}, null,  now(), now())
     </insert>
 
     <delete id="deleteAttendanceRecord" parameterType="Long">
