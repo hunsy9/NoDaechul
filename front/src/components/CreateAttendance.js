@@ -32,7 +32,6 @@ const CreateAttendance = ({classObj,
 
   
   const onDrop = useCallback(acceptedFiles => {
-    console.log(acceptedFiles)
     setImages(acceptedFiles)
   }, [])
 
@@ -57,15 +56,16 @@ const CreateAttendance = ({classObj,
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' // 그림자
   };
 
-  const onhandleGet = () => {
-    console.log(classObj);
+  const onhandleGet = (id) => {
 
     const getHost = host + "attendance/get";
 
     const getData = {
       lectureId : classObj.id,
-      attendanceId: attendanceId
+      attendanceId: id
     }
+
+    console.log("attendance ID : ",id);
 
     const raw = JSON.stringify(getData);
 
@@ -96,11 +96,14 @@ const CreateAttendance = ({classObj,
       newAttendanceData = result;
       setAttendanceData(newAttendanceData);
 
+      newAttendanceData = JSON.parse(newAttendanceData);
+      console.log(newAttendanceData.publicImageUrl);
+      setImages(newAttendanceData.publicImageUrl);
+
       setIsLoading(false);
       setIsComplete(true);
       setShowSide(true);
 
-      console.log(newAttendanceData);
     })
     .catch(error => {
       console.log(error);
@@ -108,16 +111,13 @@ const CreateAttendance = ({classObj,
   }
 
   const onhandlePost = () => {
-    console.log(classObj);
     const postData = {
       lectureId : classObj.id,
       attendanceDate : dateFormat,
     };
-    console.log("p ", postData);
 
     const formData = new FormData();
-    formData.append("createAttendanceDto", new Blob([JSON.stringify(postData)], {type: "application/json"}))
-    console.log(Images)
+    formData.append("createAttendanceDto", new Blob([JSON.stringify(postData)], {type: "application/json"}));
     formData.append("lectureImage", Images[0])
 
     const requestOptions = {
@@ -141,15 +141,13 @@ const CreateAttendance = ({classObj,
         }
         alert('출석부가 생성되었습니다.');
 
-        console.log(response);
-
-      return response.text();
+      return response.json();
 
 
       })
       .then(result => {
-        console.log(result);
-        setAttendanceId(result.id);
+        setAttendanceId(result);
+        onhandleGet(result);
       })
       .catch((e)=>{
         alert(e.message)
@@ -159,14 +157,13 @@ const CreateAttendance = ({classObj,
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(classObj);
     setShowCreate(false);
     setShowAttendance(true);
     setIsLoading(true);
     setShowSide(false);
 
     onhandlePost();
-    onhandleGet();
+    
   };
 
 
