@@ -1,4 +1,4 @@
-import React, {useState, useContext, useCallback, useEffect} from 'react';
+import React, {useState, useContext, useCallback, useEffect, useRef} from 'react';
 import { Box, Typography, Button } from '@mui/material';
 // import DropzoneAreaComponent from '../components/dropzone';
 import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
@@ -49,12 +49,92 @@ const CreateAttendance = ({classObj,
     reader.readAsDataURL(new Blob(Images));
   }, [onDrop, Images]);
 
+
+  ////////////// 추가
+
+  const [imgStyle, setImgStyle] = useState({});
+  const imgRef = useRef(null);
+  const adjustImageSize = () => {
+    if (imageUrl && imgRef.current) {
+      const img = imgRef.current;
+      const parent = img.parentElement;
+
+      const parentWidth = parent.clientWidth;
+      const parentHeight = parent.clientHeight;
+
+      const maxDim = Math.max(img.naturalWidth, img.naturalHeight);
+      const scaleFactor = (parentWidth * 0.7) / maxDim;
+      const newWidth = img.naturalWidth * scaleFactor;
+      const newHeight = img.naturalHeight * scaleFactor;
+
+      setImgStyle({
+        width: `${newWidth}px`,
+        height: `${newHeight}px`,
+        borderRadius: '10px',
+        objectFit: 'contain',
+      });
+    }
+  };
+
+  // useEffect(() => {
+  //   const adjustImageSize = () => {
+  //     if (imgRef.current) {
+  //       const img = imgRef.current;
+  //       const parent = img.parentElement;
+
+  //       const parentWidth = parent.clientWidth;
+  //       const parentHeight = parent.clientHeight;
+
+  //       const maxDim = Math.max(img.naturalWidth, img.naturalHeight);
+  //       const scaleFactor = (parentWidth * 0.7) / maxDim;
+  //       const newWidth = img.naturalWidth * scaleFactor;
+  //       const newHeight = img.naturalHeight * scaleFactor;
+
+  //       setImgStyle({
+  //         width: `${newWidth}px`,
+  //         height: `${newHeight}px`,
+  //         borderRadius: '10px',
+  //         objectFit: 'contain',
+  //       });
+  //     }
+  //   };
+
+  //   if (imageUrl) {
+  //     adjustImageSize();
+  //   }
+
+  //   window.addEventListener('resize', adjustImageSize);
+  //   return () => window.removeEventListener('resize', adjustImageSize);
+  // }, [imageUrl]);
+
+  const imageContainer = {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '30px',
+    paddingTop: '5%',
+  };
+
+  /////////////
   const inputBox = {
     width: '27vw',
     height: '40vh',
     borderRadius: '20px',
-    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' // 그림자
+    justifyContent: 'center',
+    alignItems: 'center',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // 그림자
   };
+
+  // const inputBox = {
+  //   width: '100%',
+  //   height: '100%',
+  //   display: 'flex',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   flexDirection: 'column',
+  // };
 
   const onhandleGet = (id) => {
 
@@ -174,46 +254,34 @@ const CreateAttendance = ({classObj,
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ alignItems: 'center', justifyContent: 'center'}}>
 
         {/* Image FileUpload */}
-        {/* <div style={inputBox} {...getRootProps()}>
-          <input {...getInputProps()} />
-          {
-            isDragActive ?
-              <p>Drop the files here ...</p> :
-              <p style={{ textAlign: 'center' }}>
-                <div >
-                  <Button variant="contained"
-                    sx={{ width: 200, borderRadius: 3.5, backgroundColor: '#000000', textTransform: 'none', fontFamily: 'Inter', color: '#F4F4F4', fontWeight: 'bold', boxShadow: 'none', marginTop: '18%' }}>
-                    Upload ClassRoom Image
-                  </Button>
-                  <Typography variant="subtitle2" sx={{ fontFamily: 'Inter', color: '#000000', textTransform: 'none', fontWeight: 'bold', marginTop: '13%' }}>
-                    or drop a file.
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ fontFamily: 'Inter',textTransform: 'none', color: '#b0b0b0' }}>
-                    paste image or URL
-                  </Typography>
-                </div>
-              </p>
-
-          }
-        </div> */}
-
           <div style={inputBox} {...getRootProps()}>
             <input {...getInputProps()} />
             {
               isDragActive ?
                   <p>Drop the files here...</p> : (
                       (imageUrl != null && Images.length != 0) ? <div>
-                            <div style={{
+                            {/* <div style={{
+                              height: '50%',
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
                               paddingTop: '10%',
-                            }}>
-                              <img style={{
+                            }}> */}
+                            <div style={imageContainer}>
+                              {/* <img style={{
                                 width: '70%',
-                                height: '70%',
-                                borderRadius: '10px'
-                              }} src={imageUrl}/>
+                                maxHeight: '20%',
+                                // maxHeight: '200px',
+                                borderRadius: '10px',
+                                // objectFit: 'contain',
+                              }} src={imageUrl}/> */}
+                              <img
+                                ref={imgRef}
+                                style={imgStyle}
+                                src={imageUrl}
+                                alt="Uploaded"
+                                onLoad={adjustImageSize}
+                              />
                             </div>
                             <p style={{textAlign: "center", color: '#888888'}}>Drop file to edit!</p>
                           </div>
