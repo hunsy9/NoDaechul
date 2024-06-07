@@ -5,10 +5,7 @@ import com.cloudcomputing.nodaechul.lecture.exception.AlreadyJoinedException;
 import com.cloudcomputing.nodaechul.lecture.exception.InvalidInvitationCodeException;
 import com.cloudcomputing.nodaechul.lecture.exception.InvalidLectureIdException;
 import com.cloudcomputing.nodaechul.lecture.exception.InvalidLectureNameException;
-import com.cloudcomputing.nodaechul.user.exception.ActivationFailedException;
-import com.cloudcomputing.nodaechul.user.exception.InvalidFaceException;
-import com.cloudcomputing.nodaechul.user.exception.InvalidRegisterException;
-import com.cloudcomputing.nodaechul.user.exception.LoginException;
+import com.cloudcomputing.nodaechul.user.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -93,6 +90,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoDetectionResultExistException.class)
     public ResponseEntity<ExceptionResponse> handleNoDetectionResultExistException(NoDetectionResultExistException ex) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidFormException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidFormException(InvalidFormException ex) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(ex.getMessage());
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
