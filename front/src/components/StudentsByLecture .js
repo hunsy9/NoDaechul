@@ -26,14 +26,14 @@ const StudentsByLecture = (props) => {
         <Grid container direction={"row"}>
           <Grid item xs={2}>
             <Box sx={{width:50, height:50, borderRadius:'50%'}}>
-              <img src={students.avatar_url} alt={alterImage} style={{width: '100%', borderRadius:'50%', height: '100%'}} />
+              <img src={students.avatar_url} onError={alterImage} style={{width: '100%', borderRadius:'50%', height: '100%'}} />
             </Box>
           </Grid>
           <Grid item xs={10} sx={{display:'flex', flexDirection: 'column', alignItems:'flex-start'}}>
             <Typography fontSize={16} fontWeight={'bold'}>
               {students.name}
             </Typography>
-            <Typography fontSize={14} sx={{marginTop:1}} >
+            <Typography fontSize={14} sx={{marginTop:1}}>
               Student Id: {students.student_id}
             </Typography>
           </Grid>
