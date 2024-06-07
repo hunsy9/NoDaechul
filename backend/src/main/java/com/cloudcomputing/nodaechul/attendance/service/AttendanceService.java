@@ -7,6 +7,7 @@ import com.cloudcomputing.nodaechul.attendance.domain.model.entity.AttendanceUse
 import com.cloudcomputing.nodaechul.attendance.domain.model.entity.LectureImageBoundingBox;
 import com.cloudcomputing.nodaechul.attendance.domain.model.enums.AttendanceStatus;
 import com.cloudcomputing.nodaechul.attendance.domain.repository.AttendanceRepository;
+import com.cloudcomputing.nodaechul.attendance.exception.CreateAttendanceException;
 import com.cloudcomputing.nodaechul.attendance.exception.NoDetectionResultExistException;
 import com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttendanceDto;
 import com.cloudcomputing.nodaechul.lecture.service.LectureService;
@@ -58,10 +59,18 @@ public class AttendanceService {
         return AttendanceResponseDto.from(lectureImageBoundingBoxList, attendance);
     }
 
-    public Long createAttendance(CreateAttendanceRequestDto attendanceRequestDto){
+    public Long createAttendance(CreateAttendanceRequestDto attendanceRequestDto, MultipartFile mFile){
         // 출석부 생성
         Long createdAttendanceId = attendanceRepository.createAttendance(attendanceRequestDto);
         log.info("Created attendance with id {}", createdAttendanceId);
+
+        try{
+            createStudentAttendanceRecord(attendanceRequestDto, mFile, createdAttendanceId);
+        }catch (IOException e){
+            deleteAttendance(createdAttendanceId);
+            throw new CreateAttendanceException("Rekognition 수행 중 오류가 발생하였습니다.");
+        }
+
         return createdAttendanceId;
     }
 

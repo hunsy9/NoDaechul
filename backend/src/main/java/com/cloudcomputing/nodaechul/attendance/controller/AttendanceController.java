@@ -5,6 +5,7 @@ import com.cloudcomputing.nodaechul.annotation.LoginRequired;
 import com.cloudcomputing.nodaechul.attendance.domain.model.AttendanceResponseDto;
 import com.cloudcomputing.nodaechul.attendance.domain.model.CreateAttendanceRequestDto;
 import com.cloudcomputing.nodaechul.attendance.domain.model.GetAttendanceRequestDto;
+import com.cloudcomputing.nodaechul.attendance.exception.CreateAttendanceException;
 import com.cloudcomputing.nodaechul.attendance.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +23,9 @@ public class AttendanceController {
 
     @PostMapping
     @AdminRoleRequired
-    public void createAttendance(@RequestPart("createAttendanceDto") CreateAttendanceRequestDto attendanceRequestDto, @RequestPart("lectureImage") MultipartFile mFile) throws IOException {
-        Long id = attendanceService.createAttendance(attendanceRequestDto);
-        try{
-            attendanceService.createStudentAttendanceRecord(attendanceRequestDto, mFile, id);
-        }catch (Exception e){
-            attendanceService.deleteAttendance(id);
-        }
+    public ResponseEntity<Long> createAttendance(@RequestPart("createAttendanceDto") CreateAttendanceRequestDto attendanceRequestDto, @RequestPart("lectureImage") MultipartFile mFile) throws IOException {
+        Long id = attendanceService.createAttendance(attendanceRequestDto, mFile);
+        return ResponseEntity.ok().body(id);
     }
 
     @PostMapping("/get")
