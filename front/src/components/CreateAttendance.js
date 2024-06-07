@@ -47,6 +47,49 @@ const CreateAttendance = ({classObj,
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' // 그림자
   };
 
+  const onhandlePost = () => {
+    console.log(classObj);
+    const postData = {
+      lectureId : classObj.id,
+      attendanceDate : dateFormat,
+    };
+    console.log("p ", postData);
+
+    const formData = new FormData();
+    formData.append("createAttendanceDto", new Blob([JSON.stringify(postData)], {type: "application/json"}))
+    console.log(Images)
+    formData.append("lectureImage", Images[0])
+
+    const requestOptions = {
+      credentials: 'include',
+      method: 'POST',
+      body: formData,
+      redirect: 'follow',
+    };
+
+
+
+    fetch(localhost, requestOptions)
+      .then(response => {
+        if(!response.ok){
+          throw new Error(response.json())
+        }
+        alert('출석부가 생성되었습니다.');
+
+        console.log(response);
+
+      return response.text();
+
+
+      })
+      .then(result => {
+        console.log(result);
+      })
+      .catch((e)=>{
+        alert(e.message)
+      })
+  };
+
   const onhandleGet = () => {
     console.log(classObj);
 
@@ -90,50 +133,7 @@ const CreateAttendance = ({classObj,
     })
     .catch(error => {
       console.log(error);
-    })
-  }
-
-  const onhandlePost = () => {
-    console.log(classObj);
-    const postData = {
-      lectureId : classObj.id,
-      attendanceDate : dateFormat,
-    };
-    console.log("p ", postData);
-
-    const formData = new FormData();
-    formData.append("createAttendanceDto", new Blob([JSON.stringify(postData)], {type: "application/json"}))
-    console.log(Images)
-    formData.append("lectureImage", Images[0])
-
-    const requestOptions = {
-      credentials: 'include',
-      method: 'POST',
-      body: formData,
-      redirect: 'follow',
-    };
-
-
-
-    fetch(localhost, requestOptions)
-      .then(response => {
-        if(!response.ok){
-          throw new Error(response.json())
-        }
-        alert('출석부가 생성되었습니다.');
-
-        console.log(response);
-
-      return response.text();
-
-
-      })
-      .then(result => {
-        console.log(result);
-      })
-      .catch((e)=>{
-        alert(e.message)
-      })
+    });
   };
 
   const handleSubmit = async (e) => {
