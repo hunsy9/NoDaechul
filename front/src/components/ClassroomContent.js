@@ -28,6 +28,8 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
 
   const [attendanceData, setAttendanceData] = useState([]);
 
+  const [attendanceId, setAttendanceId] = useState(-1);
+
   const handleInvite = () => {
     try{
       var text = '';
@@ -114,7 +116,7 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
                 className="Shadow" 
                 onClick={() => {
                   handleShowAttendance();
-                  date = attendance.date;
+                  setAttendanceId(attendance.id);
                 }} 
                 sx={{ 
                 width:200, marginTop:1, marginBottom:1, borderRadius: 3, fontSize:13, backgroundColor: '#FBFCFE', fontFamily:'Inter', color:'#000000', fontWeight:'bold', paddingBottom:2, paddingTop:2 
@@ -134,7 +136,7 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
       {showCreate && !showAttendance &&
         <CreateAttendance 
           classObj={classObj} 
-          attendances={attendances}
+          attendanceId={attendanceId}
           setIsLoading={setIsLoading}
           setIsComplete={setIsComplete}
           setShowCreate={setShowCreate}

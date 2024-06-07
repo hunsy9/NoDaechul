@@ -14,6 +14,7 @@ const CreateAttendance = ({classObj,
   setShowCreate,
   setShowAttendance,
   attendanceData,
+  attendanceId,
   setAttendanceData}) => {
   // const [classObj, setClassObj] = useState({name: '', id: -1});
   // setClassObj={setClassObj};
@@ -43,9 +44,53 @@ const CreateAttendance = ({classObj,
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)' // 그림자
   };
 
-  const onhandlePost = async ({data, classObject}) => {
-    // const localhost = host + "api/attendance";
-    // const { lectureId } = data;
+  const onhandleGet = () => {
+    console.log(classObj);
+
+    const getHost = host + "attendance/get";
+
+    const getData = {
+      lectureId : classObj.id,
+      attendanceId: attendanceId
+    }
+
+    const raw = JSON.stringify(getData);
+
+    const requestOptions = {
+      credentials: 'include',
+      method: 'POST',
+      body: raw,
+      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    fetch(getHost, requestOptions)
+    .then(response => {
+      if(response.ok){
+        return response.text();
+      }
+      else{
+        throw new Error(response.json());
+      }
+    })
+    .then(result => {
+      var newAttendanceData = [...attendanceData];
+      newAttendanceData = result;
+      setAttendanceData(newAttendanceData);
+
+      setIsLoading(false);
+      setIsComplete(true);
+
+      console.log(newAttendanceData);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
+
+  const onhandlePost = () => {
     console.log(classObj);
     const postData = {
       lectureId : classObj.id,
@@ -67,15 +112,12 @@ const CreateAttendance = ({classObj,
 
 
 
-    await fetch(localhost, requestOptions)
+    fetch(localhost, requestOptions)
       .then(response => {
         if(!response.ok){
           throw new Error(response.json())
         }
         alert('출석부가 생성되었습니다.');
-
-        setIsLoading(false);
-        setIsComplete(true);
 
         console.log(response);
 
@@ -94,31 +136,13 @@ const CreateAttendance = ({classObj,
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = new FormData(e.currentTarget);
-    const joinData = {
-      lectureId: data.get('lectureId'),
-    };
-    
-    
-    // const { lectureId} = joinData;
-    // // console.log(lectureId);
-
-    // const datePickerFormat = "YYYY-MM-DD";
-
-    // const datePickerUtils = {
-    //     format: datePickerFormat,
-    //     parse: (value) => dayjs(value, datePickerFormat, true).toDate(),
-        
-
-    // };
-
     console.log(classObj);
     setShowCreate(false);
     setShowAttendance(true);
     setIsLoading(true);
-    
 
-    onhandlePost(joinData, classObj);
+    onhandlePost();
+    onhandleGet();
   };
 
 
