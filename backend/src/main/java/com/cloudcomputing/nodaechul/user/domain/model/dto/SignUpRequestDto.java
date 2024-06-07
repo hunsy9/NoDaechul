@@ -28,6 +28,10 @@ public class SignUpRequestDto {
     private String avatar;
 
     @Setter
+    private String avatar_url;
+
+
+    @Setter
     @Size(min = 8, max = 20, message = "비밀번호는 최소 8자 이상, 최대 20자 이하여야 합니다.")
     private String password;
 

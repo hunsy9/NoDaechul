@@ -50,6 +50,12 @@ public class UserService {
                 throw new InvalidFaceException("형식에 맞는 얼굴 사진을 업로드해주세요.");
             }
 
+            // 얼굴 사진의 public url 생성
+            String publicUrl = s3Service.getS3ObjectPublicUrl(generatedS3Key, BucketNameEnum.AVATAR);
+
+            // public url 저장
+            signUpRequestDto.setAvatar_url(publicUrl);
+
             // 유효한 얼굴사진의 S3 Key를 Avatar에 저장
             signUpRequestDto.setAvatar(generatedS3Key);
         }

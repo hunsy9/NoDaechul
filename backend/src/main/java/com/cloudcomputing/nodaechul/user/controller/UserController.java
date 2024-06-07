@@ -4,6 +4,8 @@ import com.cloudcomputing.nodaechul.annotation.LoginRequired;
 import com.cloudcomputing.nodaechul.user.domain.model.dto.LoginRequestDto;
 import com.cloudcomputing.nodaechul.user.domain.model.dto.SignUpRequestDto;
 import com.cloudcomputing.nodaechul.user.domain.model.User;
+import com.cloudcomputing.nodaechul.user.domain.model.enums.UserRole;
+import com.cloudcomputing.nodaechul.user.exception.InvalidFormException;
 import com.cloudcomputing.nodaechul.user.service.UserService;
 import com.cloudcomputing.nodaechul.utils.SessionUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,6 +34,9 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<Long> signUp(@RequestPart(value = "signUpDto") @Valid SignUpRequestDto signUpRequestDto, @RequestPart(value = "faceImage", required = false) MultipartFile mFile) throws Exception {
+        if(signUpRequestDto.getUser_role() == UserRole.User && mFile == null){
+            throw new InvalidFormException("일반 사용자는 반드시 사진을 등록해야 합니다.");
+        }
         Long id = userService.createUser(signUpRequestDto, mFile);
         return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
