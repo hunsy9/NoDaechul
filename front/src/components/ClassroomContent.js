@@ -184,7 +184,7 @@ const ClassroomContent = ({
             {classObj.name}
           </Box>
         </Grid>
-        <Grid item xs={5}>
+        <Grid container justifyContent="flex-end" item xs={5} >
           {/* 버튼 스타일 변경 */}
           {!showCreate && !showAttendance &&  role == "Admin" ? 
             <>
@@ -194,7 +194,7 @@ const ClassroomContent = ({
               Invite Member
               </Button>
               <Button variant="contained" onClick={handleCreate} sx={{ 
-                 width:150, borderRadius: 3.5, textTransform: 'none', backgroundColor: '#3D3D3D', fontFamily:'Inter', color:'#FFFFFF', fontWeight:'bold', boxShadow: 'none'
+                 width:150, borderRadius: 3.5, textTransform: 'none', backgroundColor: '#3D3D3D', fontFamily:'Inter', color:'#FFFFFF', fontWeight:'bold', boxShadow: 'none', marginRight:'50px'
               }}>
                 New Attendance
               </Button>
