@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography, SvgIcon, Grid, IconButton, Button } from '@mui/material'
 
 const StudentsByLecture = (props) => {
-
+    const alterImage = "https://img.freepik.com/premium-vector/default-image-icon-vector-missing-picture-page-website-design-mobile-app-no-photo-available_87543-11093.jpg?w=1800"
 
     return (
     <>
@@ -26,7 +26,7 @@ const StudentsByLecture = (props) => {
         <Grid container direction={"row"}>
           <Grid item xs={2}>
             <Box sx={{width:50, height:50, borderRadius:'50%'}}>
-              <img src={students.avatar_url} style={{width: '100%', borderRadius:'50%', height: '100%'}} />
+              <img src={students.avatar_url} alt={alterImage} style={{width: '100%', borderRadius:'50%', height: '100%'}} />
             </Box>
           </Grid>
           <Grid item xs={10} sx={{display:'flex', flexDirection: 'column', alignItems:'flex-start'}}>
