@@ -26,6 +26,8 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
   const [isLoading, setIsLoading] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
 
+  const [Images, setImages] = useState([]);
+
   const [attendanceData, setAttendanceData] = useState([]);
 
   const [attendanceId, setAttendanceId] = useState(-1);
@@ -143,24 +145,21 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
           setShowAttendance={setShowAttendance}
           attendanceData={attendanceData}
           setAttendanceData={setAttendanceData}
+          Images={Images}
+          setImages={setImages}
         />
       }
       {!showCreate && showAttendance &&
         <ClassAttendance 
-          classObj={classObj} 
           handleShowAttendance={handleShowAttendance} 
-          attendances={attendances}
-
           isLoading={isLoading}
           setIsLoading={setIsLoading}
           isComplete={isComplete}
           setIsComplete={setIsComplete}
           setShowCreate={setShowCreate}
           setShowAttendance={setShowAttendance}
-
           attendanceData={attendanceData}
-          setAttendanceData={setAttendanceData}
-
+          Images={Images}
         />
       }
     </>

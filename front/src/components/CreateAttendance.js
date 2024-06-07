@@ -15,7 +15,10 @@ const CreateAttendance = ({classObj,
   setShowAttendance,
   attendanceData,
   attendanceId,
-  setAttendanceData}) => {
+  setAttendanceData,
+  Images,
+  setImages,
+}) => {
   // const [classObj, setClassObj] = useState({name: '', id: -1});
   // setClassObj={setClassObj};
   // classObj={classObj};
@@ -23,7 +26,7 @@ const CreateAttendance = ({classObj,
   const { host } = useContext(HostContext);
   console.log(classObj.id);
 
-  const [Images, setImages] = useState([]);
+  
   const onDrop = useCallback(acceptedFiles => {
     console.log(acceptedFiles)
     setImages(acceptedFiles)

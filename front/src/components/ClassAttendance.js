@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useRef } from "react";
 import { CssBaseline, Grid, Box, Typography, IconButton, Button, SvgIcon } from '@mui/material';
 import DataTable from '../components/ClassAttendanceTable';
 import PackageIcon from '../../src/assets/package-01.png';
@@ -7,18 +7,44 @@ import CreateAttendanceLoading from "./CreateAttendanceLoading";
 import CreateAttendanceComplete from "./CreateAttendanceComplete";
 
 const ClassAttendance = ({ 
-    classObj, 
     handleShowAttendance, 
     isLoading,  
     setIsLoading,
     isComplete,
-    attendanceId,
     setIsComplete,
-    setShowCreate,
     setShowAttendance,
     attendanceData,
-    setAttendanceData
+    Images,
   }) => {
+  const boundingBoxes = attendanceData.lectureImageBoundingBoxes;
+  const imgRef = useRef(null);
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const img = new Image();
+    img.src = Images[0];
+    img.onload = () => {
+      const canvas = canvasRef.current
+      const ctv = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+
+      boundingBoxes.forEach(box => {
+        const { width, height, left_pos, top_pos } = box;
+        ctx.beginPath();
+        ctx.strokeStyle = 'red';
+        ctx.lineWidth = 2;
+        ctx.rect(
+          left_pos * img.width,
+          top_pos * img.height,
+          width * img.width,
+          height * img.height
+        );
+        ctx.stroke();
+      });
+    };
+  }, [Images, boundingBoxes]);
 
   return(
     <>
@@ -31,7 +57,7 @@ const ClassAttendance = ({
 
     <Box sx={{marginTop: '10vh'}}></Box>
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-      <img src={classImg} alt="Face ID" style={{maxWidth: '30vw', height: 'auto', marginBottom : 30}} />
+      <canvas ref={canvasRef} />
       {!isLoading && !isComplete &&
         <DataTable 
           attendanceData={attendanceData} 
