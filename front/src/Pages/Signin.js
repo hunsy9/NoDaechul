@@ -40,7 +40,11 @@ export default function SignIn() {
       .then(response => {
         if(response.ok){
           return response.json();
-        } else {
+        } 
+        if (response.status === 401) {
+          navigate('/Login');
+        }
+        else {
           throw new Error('Network response was not ok.');
         }
       })

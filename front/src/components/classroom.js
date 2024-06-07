@@ -3,6 +3,7 @@ import { Typography, ListItemButton, ListItemIcon, SvgIcon } from '@mui/material
 import TabIcon from '@mui/icons-material/Tab';
 import HostContext from '../Context/HostContext';
 import packageIcon from '../assets/package-01.svg'
+import { useNavigate } from "react-router-dom";
 
 const Classroom = ({ 
     classrooms, 
@@ -20,6 +21,7 @@ const Classroom = ({
   // props로 구조 분해 할당으로 받으면 변수처럼 사용할 수 있습니다.
 
   const { host } = useContext(HostContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getLecture();
@@ -49,6 +51,9 @@ const Classroom = ({
         .then(response => {
           if(response.ok){
             return response.json();
+          }
+          if (response.status === 401) {
+            navigate('/Login');
           }
         })
         .then(result => {
@@ -82,6 +87,9 @@ const Classroom = ({
           if(response.ok){
             console.log(response.json);
             return response.json();
+          }
+          if (response.status === 401) {
+            navigate('/Login');
           }
         })
         .then(result => {

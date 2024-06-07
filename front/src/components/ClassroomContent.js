@@ -5,6 +5,7 @@ import CreateAttendance from "./CreateAttendance";
 import StudentsByLecture from "./StudentsByLecture ";
 import ClassAttendance from "./ClassAttendance";
 import PackageIcon from '../../src/assets/package-01.svg';
+import { useNavigate } from "react-router-dom";
 
 const ClassroomContent = ({ 
   classObj, 
@@ -20,7 +21,7 @@ const ClassroomContent = ({
   //TODO: 수업 날짜 목록, 날짜당 출석부를 API호출을 통해 가져와서 리스트로 표시
   // 테스트용 데이터
   const role = localStorage.getItem('role');
-
+  let navigate = useNavigate();
   let date = '';
   const { host } = useContext(HostContext);
 
@@ -53,7 +54,17 @@ const ClassroomContent = ({
       console.log(inviteAPI);
 
       fetch(inviteAPI, requestOptions)
-        .then(response => response.text())
+        .then(response => 
+        {
+          // 확인 
+          if (response.status === 401) {
+            navigate('/Login');
+          }
+          if (response.ok) {
+            response.text()
+          }
+        }
+        )
         .then(result => {
           text = result;
           copyURLToClipboard(text);

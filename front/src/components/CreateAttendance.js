@@ -6,6 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useDropzone } from 'react-dropzone';
 import HostContext from '../Context/HostContext';
 import dayjs, { Dayjs } from 'dayjs';
+import { useNavigate } from "react-router-dom";
 
 const CreateAttendance = ({classObj,
   attendances,
@@ -26,6 +27,7 @@ const CreateAttendance = ({classObj,
   // console.log("class object id ", props.classObj.id);
   const { host } = useContext(HostContext);
   console.log(classObj.id);
+  let navigate = useNavigate();
 
   
   const onDrop = useCallback(acceptedFiles => {
@@ -75,6 +77,9 @@ const CreateAttendance = ({classObj,
       if(response.ok){
         return response.text();
       }
+      if (response.status === 401) {
+        navigate('/Login');
+      }
       else{
         throw new Error(response.json());
       }
@@ -120,7 +125,12 @@ const CreateAttendance = ({classObj,
     fetch(localhost, requestOptions)
       .then(response => {
         if(!response.ok){
-          throw new Error(response.json())
+          if (response.status === 401) {
+            navigate('/Login');
+          }
+          else {
+            throw new Error(response.json())
+          }
         }
         alert('출석부가 생성되었습니다.');
 

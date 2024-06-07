@@ -2,13 +2,16 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import HostContext from '../Context/HostContext';
 import React, { useContext, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
   const [className, setClassName] = useState('');
+  let navigate = useNavigate();
   const {host} = useContext(HostContext);
   const handleSubmit = (e) => {
     e.preventDefault();
     const createAPI = host + "lecture/createlecture";
+    
 
     const Data = {
       name: className,
@@ -44,6 +47,9 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
           
           return response.json();
         }
+        if (response.status === 401) {
+          navigate('/Login');
+        }
         else{
           throw new Error('Network response was not ok.');
         }
@@ -66,6 +72,9 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
         .then(response => {
           if(response.ok){
             return response.json();
+          }
+          if (response.status === 401) {
+            navigate('/Login');
           }
         })
         .then(result => {
