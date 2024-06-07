@@ -167,6 +167,7 @@ const ClassroomContent = ({
           setImages={setImages}
           showSide={showSide}
           setShowSide={setShowSide}
+          setAttendanceId={setAttendanceId}
         />
       }
       {!showCreate && showAttendance &&

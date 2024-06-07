@@ -20,6 +20,7 @@ const CreateAttendance = ({classObj,
   Images,
   setImages,
   setShowSide,
+  setAttendanceId,
 }) => {
   // const [classObj, setClassObj] = useState({name: '', id: -1});
   // setClassObj={setClassObj};
@@ -148,6 +149,7 @@ const CreateAttendance = ({classObj,
       })
       .then(result => {
         console.log(result);
+        setAttendanceId(result.id);
       })
       .catch((e)=>{
         alert(e.message)
