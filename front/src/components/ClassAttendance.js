@@ -17,8 +17,15 @@ const ClassAttendance = ({
     Images,
   }) => {
 
+  let boundingBoxes;
+  if(typeof attendanceData !== 'object'){
+    boundingBoxes = JSON.parse(attendanceData).lectureImageBoundingBoxes;
+  }
+  else{
+    boundingBoxes = attendanceData.lectureImageBoundingBoxes;
+  }
+
   
-  const boundingBoxes = JSON.parse(attendanceData).lectureImageBoundingBoxes;
   const imgRef = useRef(null);
   const canvasRef = useRef(null);
 

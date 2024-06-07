@@ -24,6 +24,10 @@ const Classroom = ({
   const navigate = useNavigate();
 
   useEffect(() => {
+    getLecture();
+  }, [classObj]);
+
+  useEffect(() => {
     if (classObj.id != -1) {  // classObj.id가 유효한 경우에만 getStudents를 호출합니다.
       getStudents(classObj);
       console.log(students);
@@ -114,7 +118,6 @@ const Classroom = ({
           <ListItemButton
             sx={{ pl: 4, margin: 1, padding: 3, height: 20, borderRadius: 3, backgroundColor: 'rgba(248,248,248,0.55)'}}
             onClick={() => {
-              getLecture();
               setClassObj({name: classroom.name, id: classroom.id, created_by: classroom.created_by});
               console.log(classObj);
               setShowClassroom(true);

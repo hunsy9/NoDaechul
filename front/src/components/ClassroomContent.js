@@ -36,9 +36,92 @@ const ClassroomContent = ({
 
   const [Images, setImages] = useState([]);
 
-  const [attendanceData, setAttendanceData] = useState([]);
+  const [attendanceData, setAttendanceData] = useState([
+    {
+      publicImageUrl:'',
+      lectureImageBoundingBoxes:[
+        {
+          width: 0,
+          height: 0,
+          left_pos: 0,
+          top_pos: 0
+        },
+      ],
+      attendance:{
+        attendanceMetaData:{
+          total_students:0,
+          attend_students:0,
+          absent_students:0
+        },
+        attendanceUserRecords:[
+          {
+            user_id:-1,
+            student_id:'',
+            name:'',
+            similarity:0,
+            status:''
+          }
+        ]
+      }
+    }
+  ]);
 
   const [attendanceId, setAttendanceId] = useState(-1);
+
+  const onhandleGet = (id) => {
+
+    const getHost = host + "attendance/get";
+
+    const getData = {
+      lectureId : classObj.id,
+      attendanceId: id
+    }
+
+    console.log(getData);
+
+    setIsLoading(true);
+    setShowSide(false);
+
+    const raw = JSON.stringify(getData);
+
+    const requestOptions = {
+      credentials: 'include',
+      method: 'POST',
+      body: raw,
+      redirect: 'follow',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+
+    fetch(getHost, requestOptions)
+    .then(response => {
+      if(response.ok){
+        return response.text();
+      }
+      if (response.status === 401) {
+        navigate('/Login');
+      }
+      else{
+        throw new Error(response.json());
+      }
+    })
+    .then(result => {
+      var newAttendanceData = [...attendanceData];
+      newAttendanceData = result;
+      setAttendanceData(newAttendanceData);
+
+      newAttendanceData = JSON.parse(newAttendanceData);
+      console.log(newAttendanceData.publicImageUrl);
+      setImages(newAttendanceData.publicImageUrl);
+
+      setIsLoading(false);
+      setShowSide(true);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }
 
   const handleInvite = () => {
     try{
@@ -136,8 +219,10 @@ const ClassroomContent = ({
                 variant="contained" 
                 className="Shadow" 
                 onClick={() => {
-                  handleShowAttendance();
+                  console.log(attendance.id);
                   setAttendanceId(attendance.id);
+                  onhandleGet(attendance.id);
+                  handleShowAttendance();
                 }} 
                 sx={{ 
                 width:200, marginTop:1, marginBottom:1, borderRadius: 3, fontSize:13, backgroundColor: '#FBFCFE', fontFamily:'Inter', color:'#000000', fontWeight:'bold', paddingBottom:2, paddingTop:2 
