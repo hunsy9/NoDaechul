@@ -20,9 +20,11 @@ const DataTable = ({
       width: 200,
     },
   ];
-  const boundingBoxes = attendanceData.lectureImageBoundingBoxes;
-  const attendance = attendanceData.attendance.attendanceMetaData;
-  const attendanceUser = attendanceData.attendance.attendanceUserRecords;
+
+  let data = JSON.parse(attendanceData);
+
+  const attendance = data.attendance.attendanceMetaData;
+  const attendanceUser = data.attendance.attendanceUserRecords;
 
   const attendanceFormat = attendanceUser.map((user) => {
     let row = new Object();
@@ -45,9 +47,9 @@ const DataTable = ({
           marginBottom: '30px',
           marginTop: '30px',
           }}>
-        Total {attendance.total_students} 
-        Attend {attendance.attend_students} 
-        Absent {attendance.absent_students}
+        Total {attendance && attendance.total_students} 
+        Attend {attendance && attendance.attend_students} 
+        Absent {attendance && attendance.absent_students}
       </Typography>      
       <div style={{ height: 300, width: '80%'}}>
         <DataGrid
