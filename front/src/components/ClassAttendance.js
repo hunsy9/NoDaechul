@@ -32,7 +32,9 @@ const ClassAttendance = ({
   useEffect(() => {
     const img = new Image();
     img.src = Images;
+
     img.onload = () => {
+
       const canvas = canvasRef.current
       const ctx = canvas.getContext('2d');
       canvas.width = img.width;
@@ -48,7 +50,7 @@ const ClassAttendance = ({
           left_pos * img.width,
           top_pos * img.height,
           width * img.width,
-          height * img.height
+          height * img.height 
         );
         ctx.stroke();
       });
@@ -66,7 +68,12 @@ const ClassAttendance = ({
 
     <Box sx={{marginTop: '10vh'}}></Box>
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef} style={{
+          maxWidth: '200px',
+          maxHeight: '200px',
+          width: 'auto',
+          height: 'auto'
+        }} />
       {!isLoading && !isComplete &&
         <DataTable 
           attendanceData={attendanceData} 
