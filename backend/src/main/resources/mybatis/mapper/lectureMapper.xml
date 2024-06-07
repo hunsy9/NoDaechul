@@ -18,7 +18,7 @@
   </select>
 
   <select id="getStudentInLectureById" parameterType="Long" resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.StudentAttendanceDto">
-    SELECT u.id, u.student_id, u.name, u.avatar
+    SELECT u.id, u.student_id, u.name, u.avatar, u.avatar_url
     FROM lecture_user l
     JOIN user u ON u.id = l.user_id
     WHERE l.lecture_id = #{lectureId} AND u.user_role != "Admin"
@@ -83,7 +83,7 @@
   <select id="getMembersByLectureID"
     resultType="com.cloudcomputing.nodaechul.lecture.domain.model.dto.GetStudentAttendanceDto"
     parameterType="long">
-    SELECT student_id, name, avatar
+    SELECT student_id, name, avatar, avatar_url
     FROM user
     WHERE user_role = "User"
       AND id IN (SELECT user_id FROM lecture_user WHERE lecture_id = #{lectureId});

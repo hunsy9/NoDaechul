@@ -10,4 +10,5 @@ public class StudentAttendanceDto {
     private String student_id;
     private String name;
     private String avatar;
+    private String avatar_url;
 }
