@@ -40,4 +40,12 @@ public class AttendanceRepository {
     public void deleteAttendanceRecord(Long id){
         attendanceMapper.deleteAttendanceRecord(id);
     }
+
+    public int setPublicUrlToAttendance(String publicUrl, Long attendanceId){
+        return attendanceMapper.setPublicUrlToAttendance(publicUrl, attendanceId);
+    }
+
+    public String getPublicUrlFromAttendance(Long attendanceId){
+        return attendanceMapper.getPublicUrlFromAttendance(attendanceId);
+    }
 }

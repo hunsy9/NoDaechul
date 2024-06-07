@@ -46,6 +46,10 @@ public class AttendanceService {
         return attendanceRepository.getLectureImageBoundingBoxes(id);
     }
 
+    private String getPublicUrlFromAttendance(Long id){
+        return attendanceRepository.getPublicUrlFromAttendance(id);
+    }
+
     private Attendance getAttendance(GetAttendanceRequestDto getAttendanceRequestDto){
         List<AttendanceUserRecord> attendanceUserRecords = attendanceRepository.getAttendanceRecords(getAttendanceRequestDto.getAttendanceId());
         List<StudentAttendanceDto> studentsInLecture = lectureService.getStudentInLectureById(getAttendanceRequestDto.getLectureId());
@@ -53,10 +57,12 @@ public class AttendanceService {
         return Attendance.from(attendanceMetaData, attendanceUserRecords);
     }
 
+    @Transactional
     public AttendanceResponseDto getAttendanceResponse(GetAttendanceRequestDto getAttendanceRequestDto){
+        String publicUrl = getPublicUrlFromAttendance(getAttendanceRequestDto.getAttendanceId());
         List<LectureImageBoundingBox> lectureImageBoundingBoxList = getLectureImageBoundingBox(getAttendanceRequestDto.getAttendanceId());
         Attendance attendance = getAttendance(getAttendanceRequestDto);
-        return AttendanceResponseDto.from(lectureImageBoundingBoxList, attendance);
+        return AttendanceResponseDto.from(publicUrl, lectureImageBoundingBoxList, attendance);
     }
 
     public Long createAttendance(CreateAttendanceRequestDto attendanceRequestDto, MultipartFile mFile){
@@ -66,7 +72,7 @@ public class AttendanceService {
 
         try{
             createStudentAttendanceRecord(attendanceRequestDto, mFile, createdAttendanceId);
-        }catch (IOException e){
+        }catch (Exception e){
             deleteAttendance(createdAttendanceId);
             throw new CreateAttendanceException("Rekognition 수행 중 오류가 발생하였습니다.");
         }
@@ -84,7 +90,7 @@ public class AttendanceService {
         String s3Key = s3Service.UploadToS3(mFile, BucketNameEnum.LECTURE);
         log.info("Uploaded lecture Image to S3 {}", s3Key);
 
-        // 수업 내 모든 학생들의 정보 가져오기
+                // 수업 내 모든 학생들의 정보 가져오기
         List<StudentAttendanceDto> studentsInLecture = lectureService.getStudentInLectureById(attendanceRequestDto.getLectureId());
         log.info("Found {} students in lecture", studentsInLecture.size());
 
@@ -123,6 +129,15 @@ public class AttendanceService {
                 .toList();
         log.info("Found {} entire bounding boxes", boundingBoxes.size());
 
+        // 입력한 수업 전경 사진에 대한 public s3 url
+        String attendanceObjectPublicUrl = s3Service.getS3ObjectPublicUrl(s3Key, BucketNameEnum.LECTURE);
+        log.info("Found attendance object public url {}", attendanceObjectPublicUrl);
+
+        // public url 을 attendance에 저장
+        int result = setPublicUrlToAttendance(attendanceObjectPublicUrl, createdAttendanceId);
+        log.info("Attendance set public url result {}", result);
+
+
         // 각 학생의 출석 레코드 저장
         storeStudentAttendance(detectedStudents);
         log.info("Student Attendance Record Created");
@@ -154,6 +169,10 @@ public class AttendanceService {
 
     private void storeAttendanceBoundingBox(Long id, List<BoundingBox> boundingBoxes){
         attendanceRepository.createAttendanceBoundingBoxes(id, boundingBoxes);
+    }
+
+    private int setPublicUrlToAttendance(String publicUrl, Long attendanceId){
+        return attendanceRepository.setPublicUrlToAttendance(publicUrl, attendanceId);
     }
 
 }

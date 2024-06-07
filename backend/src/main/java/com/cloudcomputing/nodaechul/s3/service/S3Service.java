@@ -11,6 +11,7 @@ import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 @Service
@@ -35,9 +36,11 @@ public class S3Service {
                     .bucket(bucketNameEnum.getBucketName())
                     .key(s3Key)
                     .metadata(metadata)
+                    .acl(ObjectCannedACL.PUBLIC_READ)
                     .build();
 
             PutObjectResponse response = s3Client.putObject(putOb, RequestBody.fromFile(file));
+
             System.out.println("Successfully placed " + s3Key + " into bucket " + bucketNameEnum.getBucketName());
 
         } catch (S3Exception e) {
@@ -45,5 +48,11 @@ public class S3Service {
             System.exit(1);
         }
         return s3Key;
+    }
+
+    public String getS3ObjectPublicUrl(String objectKey, BucketNameEnum bucketNameEnum) {
+        return s3Client.utilities().getUrl(GetUrlRequest.builder()
+                .bucket(bucketNameEnum.getBucketName())
+                .key(objectKey).build()).toString();
     }
 }

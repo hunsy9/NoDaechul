@@ -23,4 +23,8 @@ public interface AttendanceMapper {
     List<AttendanceUserRecord> getAttendanceUserRecords(Long id);
 
     void deleteAttendanceRecord(Long id);
+
+    int setPublicUrlToAttendance(String publicUrl, Long id);
+
+    String getPublicUrlFromAttendance(Long id);
 }

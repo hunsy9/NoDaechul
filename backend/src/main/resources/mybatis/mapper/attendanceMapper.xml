@@ -7,9 +7,17 @@
         INSERT INTO attendance VALUES (0, #{lectureId}, #{attendanceDate}, null,  now(), now())
     </insert>
 
+    <select id="getPublicUrlFromAttendance" parameterType="Long" resultType="String">
+        SELECT public_s3_url FROM attendance WHERE id = #{id}
+    </select>
+
     <delete id="deleteAttendanceRecord" parameterType="Long">
         DELETE FROM attendance WHERE id = #{id}
     </delete>
+
+    <update id="setPublicUrlToAttendance">
+        UPDATE attendance SET public_s3_url = #{publicUrl} WHERE id = #{id}
+    </update>
 
     <insert id="createStudentAttendanceRecord" parameterType="com.cloudcomputing.nodaechul.attendance.domain.model.DetectedStudent">
         INSERT INTO attendance_user

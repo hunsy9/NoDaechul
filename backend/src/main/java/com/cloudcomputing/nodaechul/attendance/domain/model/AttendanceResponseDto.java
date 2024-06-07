@@ -10,10 +10,11 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class AttendanceResponseDto {
+    String publicImageUrl;
     List<LectureImageBoundingBox> lectureImageBoundingBoxes;
     Attendance attendance;
 
-    public static AttendanceResponseDto from(List<LectureImageBoundingBox> lectureImageBoundingBoxes, Attendance attendance){
-        return new AttendanceResponseDto(lectureImageBoundingBoxes, attendance);
+    public static AttendanceResponseDto from(String publicImageUrl, List<LectureImageBoundingBox> lectureImageBoundingBoxes, Attendance attendance){
+        return new AttendanceResponseDto(publicImageUrl, lectureImageBoundingBoxes, attendance);
     }
 }
