@@ -18,6 +18,7 @@ const CreateAttendance = ({classObj,
   setAttendanceData,
   Images,
   setImages,
+  setShowSide,
 }) => {
   // const [classObj, setClassObj] = useState({name: '', id: -1});
   // setClassObj={setClassObj};
@@ -85,6 +86,7 @@ const CreateAttendance = ({classObj,
 
       setIsLoading(false);
       setIsComplete(true);
+      setShowSide(true);
 
       console.log(newAttendanceData);
     })
@@ -143,6 +145,7 @@ const CreateAttendance = ({classObj,
     setShowCreate(false);
     setShowAttendance(true);
     setIsLoading(true);
+    setShowSide(false);
 
     onhandlePost();
     onhandleGet();

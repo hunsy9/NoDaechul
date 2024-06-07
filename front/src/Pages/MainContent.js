@@ -22,6 +22,8 @@ const MainContent = () => {
   const [showCreate, setShowCreate] = useState(false);
   const [showAttendance, setShowAttendance] = useState(false);
 
+  const [showSide, setShowSide] = useState(true);
+
   const addClassroom = (classroom) => {
     if (!classroom.text || /^\s*$/.test(classroom.text)) {
       return;
@@ -49,7 +51,8 @@ const MainContent = () => {
       <CssBaseline />
       <Grid container>
         <Grid item xs={3}>
-          <Side 
+          {showSide &&
+            <Side 
             classrooms={classrooms} 
             setClassrooms={setClassrooms}
             classObj={classObj}
@@ -62,7 +65,10 @@ const MainContent = () => {
             setAttendances={setAttendances}
             handleShows={handleShows}
 
-          /> {/* 사이드바 컴포넌트 */}
+          />
+          }
+          
+           {/* 사이드바 컴포넌트 */}
         </Grid>
         <Grid item xs={9} sx={{ padding: 3 }}>
           <MainHeader 
@@ -84,6 +90,7 @@ const MainContent = () => {
             setShowCreate={setShowCreate}
             showAttendance={showAttendance}
             setShowAttendance={setShowAttendance}
+            setShowSide={setShowSide}
           /> :
           <MainStudent
             classrooms={classrooms}
@@ -99,6 +106,7 @@ const MainContent = () => {
             setShowCreate={setShowCreate}
             showAttendance={showAttendance}
             setShowAttendance={setShowAttendance}
+            setShowSide={setShowSide}
           />
           }
         </Grid>

@@ -6,10 +6,17 @@ import StudentsByLecture from "./StudentsByLecture ";
 import ClassAttendance from "./ClassAttendance";
 import PackageIcon from '../../src/assets/package-01.svg';
 
-const ClassroomContent = ({ classObj, students, attendances, showCreate,
+const ClassroomContent = ({ 
+  classObj, 
+  students, 
+  attendances, 
+  showCreate,
   showAttendance,
   setShowCreate,
-  setShowAttendance }) => {
+  setShowAttendance,
+  showSide,
+  setShowSide,
+}) => {
   //TODO: 수업 날짜 목록, 날짜당 출석부를 API호출을 통해 가져와서 리스트로 표시
   // 테스트용 데이터
   const role = localStorage.getItem('role');
@@ -147,6 +154,8 @@ const ClassroomContent = ({ classObj, students, attendances, showCreate,
           setAttendanceData={setAttendanceData}
           Images={Images}
           setImages={setImages}
+          showSide={showSide}
+          setShowSide={setShowSide}
         />
       }
       {!showCreate && showAttendance &&
