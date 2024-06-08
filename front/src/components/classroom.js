@@ -23,6 +23,7 @@ const Classroom = ({
 
   const { host } = useContext(HostContext);
   const { logout } = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   // useEffect(() => {
@@ -34,6 +35,14 @@ const Classroom = ({
       getLecture();
     }
   }, [classObj]);
+
+  useEffect(() => {
+    if(!isLoading){
+      console.log("getLecture API");
+      getLecture();
+      setIsLoading(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (classObj.id != -1) {  // classObj.id가 유효한 경우에만 getStudents를 호출합니다.
