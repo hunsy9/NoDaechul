@@ -3,6 +3,8 @@ import { Box, Typography, Button, SvgIcon } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ClassroomForm from './ClassroomForm';
 import ClassroomContent from "./ClassroomContent";
+import tearImage from "../assets/tear 2.svg";
+import thinkingImage from "../assets/thinking 1.svg";
 const MainAdmin = (props) => {
 
   return(
@@ -31,14 +33,14 @@ const MainAdmin = (props) => {
       
       {(!props.showForm && !props.showClassroom) &&
         <>
-          <Box
+            <Box
             sx={{
-              fontSize: 64 // Adjust emoji size
+                marginBottom: 3
             }}
-          >
-            {props.classrooms && props.classrooms.length <= 0 ? "😢" : "🙂"}
-          </Box>
-          <Typography variant="h5">
+            >
+                <img style={{width: 90}} src={props.classrooms && props.classrooms.length <= 0 ? tearImage : thinkingImage}/>
+            </Box>
+            <Typography variant="h5" style={{fontWeight: 600}}>
           {props.classrooms && props.classrooms.length <= 0 ? 
           "There is no classroom in your Account" : 
           "Select classroom"}
@@ -48,7 +50,7 @@ const MainAdmin = (props) => {
             Please make your classroom!
             </Typography> : 
             <></>}
-          <Button variant="contained" onClick={props.handleClick} sx={{ width: 300, backgroundColor: '#F6F6F6', color: '#000000', marginTop: 5, padding: 2}}>
+          <Button variant="contained" onClick={props.handleClick} sx={{ width: 230, textTransform : 'none', borderRadius: 3, backgroundColor: '#F6F6F6', color: '#000000', marginTop: 5, padding: 1}}>
             Create Your Classroom
           <SvgIcon component={AddIcon} sx={{marginLeft: 2}}/>
           </Button>

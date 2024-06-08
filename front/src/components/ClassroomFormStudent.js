@@ -98,15 +98,14 @@ const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
         flexDirection: 'column',
         alignItems: 'center',
         '& .MuiTextField-root': { m: 1, width: '40ch' },
-        '& .MuiButton-root': { m: 1 },
-        marginTop: 5
+        '& .MuiButton-root': { m: 1 }
       }}
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit}
     >
       {/*TODO: 과목이름 중복 방지기능이 필요할거 같아요  -> 학생이면 중복 확인 필요 없을 것 같아요*/}
-      <Typography variant="h6" sx={{marginLeft:1, marginRight:1, marginBottom:3}}>
+      <Typography variant="h6" sx={{marginLeft:1, marginRight:1, marginBottom:3, fontWeight : 'bold'}}>
         Join New Classroom
       </Typography>
       <TextField
@@ -118,9 +117,9 @@ const ClassroomFormStudent = ({ onCancel, classrooms, setClassrooms }) => {
         onChange={(e) => setClassCode(e.target.value)}
       />
       
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 2 }}>
-        <Button type="submit" variant="contained" color="primary">Create</Button>
-        <Button onClick={onCancel} variant="contained" color="secondary">Cancel</Button>
+      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
+          <Button onClick={onCancel} variant="contained" sx={{borderRadius: 3, backgroundColor: '#EDEDED', textTransform: 'none', fontWeight: 'bold'}}>Cancel</Button>
+          <Button type="submit" variant="contained" sx={{borderRadius: 3, backgroundColor: '#3D3D3D', textTransform: 'none', color: 'white', fontWeight: 'bold'}}>Join</Button>
       </Box>
       
     </Box>
