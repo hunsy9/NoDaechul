@@ -39,32 +39,32 @@ const DataTable = ({
     row.studentID = user.student_id;
     row.name = user.name;
     row.status = user.status;
-    row.accuracy = user.similarity;
+    row.accuracy = user.similarity + "%";
     return row;
   }) || [];
   console.log(attendanceFormat);
 
   return (
     <Box>
-      <Typography component="h1" variant="h3"
-        sx={{
-          color: "#0a0a0a", 
-          fontFamily: 'Inter',
-          fontWeight: 'bold',
-          fontSize: '23px', 
-          marginBottom: '30px',
-          marginTop: '30px',
-          }}>
-        Total {attendance && attendance.total_students} 
-        Attend {attendance && attendance.attend_students} 
-        Absent {attendance && attendance.absent_students}
-      </Typography>      
-      <div style={{ height: 300, width: '80%'}}>
-        <DataGrid
-          rows={attendanceFormat}
+        <div style={{display: 'flex', justifyContent: 'space-between', marginTop: 35, marginBottom: 10}}>
+            <Typography component="h1" variant="h6">
+                Attendance
+            </Typography>
+            <div style={{paddingLeft: 10, paddingRight: 10, borderRadius: 5, backgroundColor: '#fafafa'}}>
+                <Typography component="h1" variant="h5">
+                    <span style={{fontSize: 'medium'}}>Total {attendance && attendance.total_students}         </span>
+                    <span style={{fontSize: 'medium', color: '#6edc3d'}}>Attend {attendance && attendance.attend_students}        </span>
+                    <span style={{fontSize: 'medium', color: '#f35483'}}>Absent {attendance && attendance.absent_students}       </span>
+                </Typography>
+            </div>
+        </div>
+        <div style={{height: 300, width: '100%'}}>
+            <DataGrid
+                rows={attendanceFormat}
           columns={columns}
           pageSizeOptions={[5, 10]}
           pagination
+                sx={{fontWeight: 'bold'}}
         />
       </div>
     </Box>

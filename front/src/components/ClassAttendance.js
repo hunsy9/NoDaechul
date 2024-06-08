@@ -30,51 +30,46 @@ const ClassAttendance = ({
   const canvasRef = useRef(null);
 
   useEffect(() => {
+
     const img = new Image();
     img.src = Images;
 
-    img.onload = () => {
+    if(!isLoading){
+        img.onload = () => {
 
-      const canvas = canvasRef.current
-      const ctx = canvas.getContext('2d');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      ctx.drawImage(img, 0, 0);
+            const canvas = canvasRef.current
+            const ctx = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
 
-      boundingBoxes.forEach(box => {
-        const { width, height, left_pos, top_pos } = box;
-        ctx.beginPath();
-        ctx.strokeStyle = 'red';
-        ctx.lineWidth = 2;
-        ctx.rect(
-          left_pos * img.width,
-          top_pos * img.height,
-          width * img.width,
-          height * img.height 
-        );
-        ctx.stroke();
-      });
-    };
+            boundingBoxes.forEach(box => {
+                const { width, height, left_pos, top_pos } = box;
+                ctx.beginPath();
+                ctx.strokeStyle = 'red';
+                ctx.lineWidth = 2;
+                ctx.rect(
+                    left_pos * img.width,
+                    top_pos * img.height,
+                    width * img.width,
+                    height * img.height
+                );
+                ctx.stroke();
+            });
+        };
+    }
   }, [Images, boundingBoxes]);
 
   return(
     <>
-      {!isLoading && !isComplete &&
-        <Button variant="contained" onClick={handleShowAttendance}
-        sx={{ width:150, float:'right',borderRadius: 3.5, backgroundColor: '#F4F4F4', fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' }}>
-        Back
-        </Button>
-      }
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center'}}>
+        {!isLoading && <canvas ref={canvasRef} style={{
+        minWidth: '200px',
+        maxHeight: '350px',
+        borderRadius: 10
+    }}/>}
 
-    <Box sx={{marginTop: '10vh'}}></Box>
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%'}}>
-      <canvas ref={canvasRef} style={{
-          maxWidth: '200px',
-          maxHeight: '200px',
-          width: 'auto',
-          height: 'auto'
-        }} />
-      {!isLoading && !isComplete &&
+    {!isLoading && !isComplete &&
         <DataTable 
           attendanceData={attendanceData} 
         />

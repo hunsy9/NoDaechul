@@ -82,7 +82,7 @@ const ClassroomContent = ({
     console.log(getData);
 
     setIsLoading(true);
-    setShowSide(false);
+    // setShowSide(false);
 
     const raw = JSON.stringify(getData);
 
@@ -175,43 +175,48 @@ const ClassroomContent = ({
 
 
   return(
-    <>
-      <Grid container direction={"row"} sx={{marginBottom:1.5}}>
-        <Grid item xs={7}>
-          <Box
+    <>{!isLoading && <Grid container direction={"row"} sx={{marginBottom:1.5}}>
+      <Grid item xs={7} >
+        <Box
             sx={{
-            fontSize: 23, // Adjust emoji size
+              fontSize: 23, // Adjust emoji size
               fontWeight: 'bold'
             }}
-          >
-            <img src={PackageIcon} style={{marginRight: 5, verticalAlign:'middle'}}/>
-            {classObj.name}
-          </Box>
-        </Grid>
-        <Grid container justifyContent="flex-end" item xs={5} >
-          {/* 버튼 스타일 변경 */}
-          {!showCreate && !showAttendance &&  role == "Admin" ? 
+        >
+          <img src={PackageIcon} style={{marginRight: 5, verticalAlign:'middle'}}/>
+          {classObj.name}
+        </Box>
+      </Grid>
+      <Grid container justifyContent="flex-end" item xs={5}>
+        {/* 버튼 스타일 변경 */}
+        {!showCreate && !showAttendance &&  role == "Admin" ?
             <>
-              <Button variant="contained" onClick={handleInvite} sx={{ 
-                 width:130, borderRadius: 3.5, textTransform: 'none', backgroundColor: '#F4F4F4', marginRight: 2, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none'
+              <Button variant="contained" onClick={handleInvite} sx={{
+                width:130, borderRadius: 3.5, textTransform: 'none', backgroundColor: '#F4F4F4', marginRight: 2, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none'
               }}>
-              Invite Member
+                Invite Member
               </Button>
-              <Button variant="contained" onClick={handleCreate} sx={{ 
-                 width:150, borderRadius: 3.5, textTransform: 'none', backgroundColor: '#3D3D3D', fontFamily:'Inter', color:'#FFFFFF', fontWeight:'bold', boxShadow: 'none', marginRight:'50px'
+              <Button variant="contained" onClick={handleCreate} sx={{
+                width:150, borderRadius: 3.5, textTransform: 'none', backgroundColor: '#3D3D3D', fontFamily:'Inter', color:'#FFFFFF', fontWeight:'bold', boxShadow: 'none', marginRight:'50px'
               }}>
                 New Attendance
               </Button>
             </> : role == "Admin" && !showAttendance &&
             <Button variant="contained" onClick={handleCreate}
-            sx={{ width:80, borderRadius: 3.5, backgroundColor: '#F4F4F4',textTransform: 'none', marginRight: 10, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' }}>
-            Back
+                    sx={{ width:80, borderRadius: 3.5, backgroundColor: '#F4F4F4',textTransform: 'none', marginRight: 10, fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none' }}>
+              Back
             </Button>
-            }
-        </Grid>
+        }
+        {/*{!isLoading && !isComplete &&*/}
+        {/*    <Button variant="contained" onClick={handleShowAttendance}*/}
+        {/*            sx={{ width:80, float:'right', borderRadius: 3.5, textTransform: 'none', backgroundColor: '#F4F4F4', fontFamily:'Inter', color:'#000000', fontWeight:'bold', boxShadow: 'none'}}>*/}
+        {/*      Back*/}
+        {/*    </Button>*/}
+        {/*}*/}
       </Grid>
+    </Grid>}
       {!showCreate && !showAttendance && !isLoading && !isComplete &&
-      <Grid container direction={"row"} spacing={3}>
+      <Grid container direction={"row"} spacing={3} sx={{marginTop: 3}}>
         <Grid item xs={3}>
           <Box sx={{borderRadius: 5, height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', overflow:'scroll'}} className="Shadow">
             <Typography variant="h6" fontWeight={'bold'} sx={{marginTop:2, marginBottom:2, marginRight:9}}>

@@ -21,7 +21,7 @@ const CreateAttendanceLoading = () => {
               marginBottom: '30px',
               marginTop: '30px',
               }}>
-            Creating Attendance...
+            Getting Attendance...
             </Typography>
             <CircularProgress color="secondary" />
 

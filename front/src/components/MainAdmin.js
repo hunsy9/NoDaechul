@@ -38,7 +38,7 @@ const MainAdmin = (props) => {
                 marginBottom: 3
             }}
             >
-                <img style={{width: 90}} src={props.classrooms && props.classrooms.length <= 0 ? tearImage : thinkingImage}/>
+                <img style={{width: 90}} src={props.classrooms && props.classrooms.length <= 0 ? thinkingImage : thinkingImage}/>
             </Box>
             <Typography variant="h5" style={{fontWeight: 600}}>
           {props.classrooms && props.classrooms.length <= 0 ? 
