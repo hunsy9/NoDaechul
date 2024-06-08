@@ -14,7 +14,7 @@ const Landing = () => {
         Prevent proxy attendance in your class
       </Typography>
       <ImageSection src={sampleImage} alt="Content Image"/>
-      <Button variant="contained" color="secondary" size="large" component={Link} to="/Signup" style={{ marginTop: '20px', textTransform: 'none', fontWeight:'bold' }}>
+      <Button variant="contained" color="secondary" sx={{borderRadius: 5}} size="large" component={Link} to="/Signup" style={{ marginTop: '20px', textTransform: 'none', fontWeight:'bold' }}>
         Get Started!
       </Button>
     </Container>

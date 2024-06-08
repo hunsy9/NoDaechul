@@ -21,10 +21,10 @@ const HeaderAppBar = () => {
         {/* <Button variant="contained" color="secondary" component={Link} to="/">
           Main
         </Button> */}
-        <Button variant="contained" color="primary" component={Link} to="/Login" style={{marginRight: 10, marginLeft: 10, textTransform: 'none'}}>
+        <Button variant="contained" color="primary" sx={{borderRadius: 5}} component={Link} to="/Login" style={{marginRight: 10, marginLeft: 10, textTransform: 'none'}}>
           Sign in
         </Button>
-        <Button variant="contained" color="secondary" component={Link} to="/Signup" style={{marginRight: 10, marginLeft: 10, textTransform: 'none'}}>
+        <Button variant="contained" color="secondary" sx={{borderRadius: 5}} component={Link} to="/Signup" style={{marginRight: 10, marginLeft: 10, textTransform: 'none'}}>
           Sign up
         </Button>
       </Toolbar>
