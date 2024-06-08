@@ -11,8 +11,8 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
   let navigate = useNavigate();
   const {host} = useContext(HostContext);
   const { logout } = useContext(AuthContext);
-  
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const createAPI = host + "lecture/createlecture";
     
@@ -33,9 +33,10 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
       }
     };
 
-    setLecture();
+    // await setLecture();
+    const lectures = await setLecture();
  
-    fetch(createAPI, requestOptions)
+    await fetch(createAPI, requestOptions)
       .then(response => {
         if(response.ok){
           // addClassroom({
@@ -43,7 +44,7 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
           //   text: className,
           // });
           
-          const lectures = setLecture();
+          // const lectures = await setLecture();
           if (lectures.includes(className)) {
             throw new Error('Class name already exists.');
           }
@@ -63,7 +64,7 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
       .catch(error => console.log('error', error));
   };
 
-  const setLecture = () => {
+  const setLecture = async () => {
     try{
       var requestOptions = {
         credentials: 'include',
@@ -73,7 +74,7 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
       
       const getAPI = host + "lecture/getlecture";
 
-      fetch(getAPI, requestOptions)
+      await fetch(getAPI, requestOptions)
         .then(response => {
           if(response.ok){
             return response.json();
