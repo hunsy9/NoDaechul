@@ -42,7 +42,7 @@ const Classroom = ({
     }
   }, [classObj]);
 
-  const getLecture = () => {
+  const getLecture = async () => {
     try{
       var requestOptions = {
         credentials: 'include',
@@ -55,7 +55,7 @@ const Classroom = ({
 
       const getAPI = host + "lecture/getlecture"
       
-      fetch(getAPI, requestOptions)
+      await fetch(getAPI, requestOptions)
         .then(response => {
           if(response.ok){
             return response.json();
@@ -77,7 +77,7 @@ const Classroom = ({
     }
   }
 
-  const getStudents = (clickedClass) => {
+  const getStudents = async (clickedClass) => {
     try{
       var requestOptions = {
         credentials: 'include',
@@ -91,7 +91,7 @@ const Classroom = ({
       const getAPI = host + "lecture/getattendance" + `?lectureId=${clickedClass.id}`
       console.log(getAPI);
       
-      fetch(getAPI, requestOptions)
+      await fetch(getAPI, requestOptions)
         .then(response => {
           if(response.ok){
             console.log(response.json);
