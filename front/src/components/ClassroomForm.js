@@ -105,16 +105,15 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-        '& .MuiButton-root': { m: 1 },
-        marginTop: 5
+        '& .MuiTextField-root': { m: 3, width: '35ch' },
+        '& .MuiButton-root': { m: 1 }
       }}
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      
-      <Typography variant="h6" sx={{marginLeft:1, marginRight:1}}>
+
+      <Typography variant="h6" sx={{marginLeft:1, marginRight:1, marginBottom:3, fontWeight : 'bold'}}>
         Your New Classroom
       </Typography>
       <TextField
@@ -124,9 +123,9 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
         value={className}
         onChange={(e) => setClassName(e.target.value)}
       />
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 2 }}>
-        <Button type="submit" variant="contained" color="primary">Create</Button>
-        <Button onClick={onCancel} variant="contained" color="primary">Cancel</Button>
+      <Box sx={{ width: '90%', display: 'flex', justifyContent: 'space-between', marginBottom: 10 }}>
+        <Button onClick={onCancel} variant="contained" sx={{borderRadius: 3, backgroundColor: '#EDEDED', textTransform: 'none', fontWeight: 'bold'}}>Cancel</Button>
+        <Button type="submit" variant="contained" sx={{borderRadius: 3, backgroundColor: '#3D3D3D', textTransform: 'none', color: 'white', fontWeight: 'bold'}}>Create</Button>
       </Box>
       
     </Box>

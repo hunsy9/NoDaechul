@@ -45,7 +45,7 @@ const MainStudent = (props) => {
           "There is no classroom in your Account" : 
           "Select classroom"}
           </Typography>
-            {props.classrooms.length <= 0 ? 
+            {props.classrooms.length <= 0 ?
             <Typography variant="subtitle1" sx={{ marginBottom: 2 }}>
             Please join new classroom!
             </Typography> : 
