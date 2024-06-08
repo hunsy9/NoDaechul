@@ -1,0 +1,41 @@
+version: "1"
+
+services:
+  ndc-nginx:
+    image: nginx:1.21.5-alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./deploy/proxy/nginx.conf:/etc/nginx/nginx.conf
+
+  ndc-redis:
+    image: redis:4.0-alpine
+    restart: always
+    volumes:
+      - ./deploy/data/redis:/data
+    ports:
+      - "6379:6379"
+
+  ndc-mariadb:
+    image: mariadb:10
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./deploy/db/conf.d:/etc/mysql/conf.d
+      - ./deploy/db/data:/var/lib/mysql
+      - ./deploy/db/initdb:/docker-entrypoint-initdb.d
+    env_file: ./deploy/db/.env
+    environment:
+      TZ: Asia/Seoul
+    restart: always
+
+  ndc-spring:
+    image: ndc:latest
+    restart: always
+    depends_on:
+      - ndc-redis
+      - ndc-mariadb
+    ports:
+      - "0.0.0.0:5555:5555"
+
