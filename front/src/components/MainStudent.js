@@ -40,7 +40,7 @@ const MainStudent = (props) => {
             >
                 <img style={{width: 90}} src={props.classrooms && props.classrooms.length <= 0 ? tearImage : thinkingImage}/>
             </Box>
-          <Typography variant="h5">
+          <Typography variant="h5" style={{fontWeight: 600}}>
           {props.classrooms.length <= 0 ? 
           "There is no classroom in your Account" : 
           "Select classroom"}
