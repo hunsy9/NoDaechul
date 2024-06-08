@@ -21,6 +21,12 @@ repositories {
 	mavenCentral()
 }
 
+bootJar{
+	archivesBaseName = 'ndc'
+	archiveFileName = 'ndc.jar'
+	archiveVersion = "0.0.1"
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
