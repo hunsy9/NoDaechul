@@ -45,7 +45,7 @@ const ClassroomForm = ({addClassroom, onCancel, setClassrooms, classrooms}) => {
           // });
           
           // const lectures = await setLecture();
-          if (lectures.includes(className)) {
+          if (lectures && lectures.includes(className)) {
             throw new Error('Class name already exists.');
           }
           setClassName('');
