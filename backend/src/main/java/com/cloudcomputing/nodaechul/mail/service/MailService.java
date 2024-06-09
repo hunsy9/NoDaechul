@@ -18,7 +18,7 @@ public class MailService {
     private final JavaMailSender javaMailSender;
     private final TemplateEngine htmlTemplateEngine;
 
-    @Value("http://localhost")
+    @Value("https://nodaechul.site")
     private String hostAddr;
 
     private String generateActivationLink(String verificationCode, Long userId) {
