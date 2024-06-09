@@ -1,8 +1,7 @@
 # NoDaeChul
 ## 프로젝트 요약
-<div style="display: flex; justify-content: space-around">
-<img width="35%" style="vertical-align: center" src="./assets/ndc_main_image.svg">
-<img width="60%" src="./assets/ndc_main_mock.svg">
+<div style="display: flex; justify-content: center">
+<img src="./assets/main.svg">
 </div>
 
 - 해당 프로젝트는 대학 내 빈번하게 발생하는 **대리출석 방지**를 위한 **안면 인식 기반 출석 시스템**입니다.
