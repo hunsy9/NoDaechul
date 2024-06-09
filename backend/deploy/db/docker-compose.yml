@@ -1,0 +1,21 @@
+version: "1"
+
+services:
+  ndc-redis:
+    image: redis:4.0-alpine
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./deploy/data/redis:/data
+
+  ndc-mariadb:
+    image: mariadb:10
+    env_file: .env
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    environment:
+      TZ: Asia/Seoul
+    restart: always
