@@ -153,8 +153,7 @@ const ClassroomContent = ({
         }
         )
         .then(result => {
-          text = result;
-          copyURLToClipboard(text);
+          copyURLToClipboard(result);
         })
         .catch(error => console.log('error', error));
         
