@@ -5,22 +5,28 @@ services:
     image: nginx:1.21.5-alpine
     restart: always
     ports:
-      - "80:80"
+      - "0.0.0.0:80:80"
+    depends_on:
+      - ndc-mariadb
+      - ndc-redis
+      - ndc-spring
     volumes:
       - ./deploy/proxy/nginx.conf:/etc/nginx/nginx.conf
+      - ./deploy/proxy/default.conf:/etc/nginx/conf.d/default.conf
+      - ../front/build:/usr/share/nginx/html
+    networks:
+      - ndc_network
 
   ndc-redis:
     image: redis:4.0-alpine
     restart: always
     volumes:
       - ./deploy/data/redis:/data
-    ports:
-      - "6379:6379"
+    networks:
+      - ndc_network
 
   ndc-mariadb:
     image: mariadb:10
-    ports:
-      - "3306:3306"
     volumes:
       - ./deploy/db/conf.d:/etc/mysql/conf.d
       - ./deploy/db/data:/var/lib/mysql
@@ -29,13 +35,18 @@ services:
     environment:
       TZ: Asia/Seoul
     restart: always
+    networks:
+      - ndc_network
 
   ndc-spring:
-    image: ndc:latest
+    image: ndc-spring:latest
     restart: always
     depends_on:
       - ndc-redis
       - ndc-mariadb
-    ports:
-      - "0.0.0.0:5555:5555"
+    networks:
+      - ndc_network
 
+networks:
+  ndc_network:
+    driver: bridge
