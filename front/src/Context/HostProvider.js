@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import HostContext from "./HostContext";
 
 const HostProvider = ({ children }) => {
-  const [host, setHost] = useState('http://localhost:5555/api/');
+  const [host, setHost] = useState('http://localhost/api/');
 
   return (
     <HostContext.Provider value={{ host }}>
