@@ -1,2 +1,2 @@
-sudo docker build . --tag ndc:latest
-sudo docker compose up -d
+docker build . --tag ndc-spring:latest
+docker compose up
