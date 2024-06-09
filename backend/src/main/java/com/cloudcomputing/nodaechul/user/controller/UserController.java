@@ -48,7 +48,13 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequest, HttpServletRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequest, HttpServletRequest request, HttpSession currentSession) throws Exception {
+
+        //기존 세션 파기
+        if(currentSession != null) {
+            currentSession.invalidate();
+        }
+
         String email = loginRequest.getEmail();
         String password = loginRequest.getPassword();
         User user = userService.authenticateUser(email, password);
