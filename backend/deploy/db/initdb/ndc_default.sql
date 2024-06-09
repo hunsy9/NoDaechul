@@ -7,7 +7,7 @@
 #
 # Host: ndc.koreacentral.cloudapp.azure.com (MySQL 11.3.2-MariaDB-1:11.3.2+maria~ubu2204)
 # Database: nodaechul
-# Generation Time: 2024-06-08 05:26:38 +0000
+# Generation Time: 2024-06-08 17:03:03 +0000
 # ************************************************************
 
 
