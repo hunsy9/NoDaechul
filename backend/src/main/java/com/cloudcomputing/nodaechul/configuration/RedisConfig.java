@@ -50,7 +50,7 @@ public class RedisConfig {
 
         RedisStandaloneConfiguration redisConfiguration = new RedisStandaloneConfiguration();
         redisConfiguration.setHostName(host);
-        redisConfiguration.setPassword(redisPassword);
+//        redisConfiguration.setPassword(redisPassword);
         redisConfiguration.setPort(port);
 
         return redisConfiguration;
