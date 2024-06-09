@@ -18,7 +18,7 @@ public class MailService {
     private final JavaMailSender javaMailSender;
     private final TemplateEngine htmlTemplateEngine;
 
-    @Value("http://localhost:5555")
+    @Value("http://localhost")
     private String hostAddr;
 
     private String generateActivationLink(String verificationCode, Long userId) {
