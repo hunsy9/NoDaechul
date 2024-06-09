@@ -148,13 +148,12 @@ const ClassroomContent = ({
             navigate('/Login');
           }
           if (response.ok) {
-            response.text()
+            return response.text()
           }
         }
         )
         .then(result => {
-          text = result;
-          copyURLToClipboard(text);
+          copyURLToClipboard(result);
         })
         .catch(error => console.log('error', error));
         
@@ -164,9 +163,9 @@ const ClassroomContent = ({
     }
   }
 
-  const copyURLToClipboard = async (text) => {
+  const copyURLToClipboard = (text) => {
     try {
-      await navigator.clipboard.writeText(text);
+      navigator.clipboard.writeText(text);
       alert("클립보드에 초대코드가 복사되었습니다.");
     } catch (e) {
       alert("복사에 실패하였습니다");
