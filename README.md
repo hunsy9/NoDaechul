@@ -1,9 +1,9 @@
 # NoDaeChul
 ## 프로젝트 요약
-<p align="center">
+<div style="display: flex; justify-content: space-around">
 <img width="35%" style="vertical-align: center" src="./assets/ndc_main_image.svg">
 <img width="60%" src="./assets/ndc_main_mock.svg">
-</p>
+</div>
 
 - 해당 프로젝트는 대학 내 빈번하게 발생하는 **대리출석 방지**를 위한 **안면 인식 기반 출석 시스템**입니다.
 - 이 프로젝트를 통해 출석 과정의 **신뢰성**과 **공정한 학습 환경**을 조성하는데 도움을 줄 수 있습니다.
@@ -18,10 +18,7 @@
 
 ## 프로젝트 소개
 - 위 서비스는 **편리하고 신뢰할 수 있는 출석 체크 시스템**을 제공하는 것을 목표로 합니다.
-- 현재 강의실의 사진을 **AWS Rekognition**를 통해 수업에 참여중인 학생들의 얼굴 특징 벡터를 추출한 후 DB에 저장된 학생의 사진과 비교함으로써 학생이 출석했는지 확인할 수 있음.
-- 서비스의 대략적인 동작 과정은 다음과 같습니다.
-  1. 사전 설정 단계 : 각 수업의 생성 단계에서 교수는 해당 수업에 참가할 학생들의 정보를 등록하여 수업에 추가.
-  2. 출석 체크 : 각 수업시간 마다, 교수는 강의실 사진을 촬영. AWS Rekognition의 얼굴 인식 기술을 활용해 서비스는 사전에 설정한 학생과 비교하여 출석한 학생을 확인.
+- 현재 강의실의 사진을 **AWS Rekognition**를 통해 수업에 참여중인 학생들의 얼굴 특징 벡터를 추출한 후 DB에 저장된 학생의 사진과 비교함으로써 학생이 출석했는지 확인할 수 있습니다.
 
 ## 프로젝트의 필요성
 - 부산대학교에서 이용 중인 LMS 서비스인 [PLATO](https://plato.pusan.ac.kr/)의 스마트 출석부 시스템은, 교수가 수업 시작 시 출석 코드를 학생들에게 알려주고, 학생이 제한 시간 내에 출석코드를 입력을 함으로써 출석이 되는 방식입니다.
@@ -55,12 +52,11 @@
 </p><br>
 
 1. 초기에 AWS IAM을 통해서 얻은 자격 증명 객체를 스프링 부트 Bean으로 주입됩니다.
-1. 회원가입 시 학생들의 정보(이름, 학번) 및 학생 S3 정보(S3 Image Key, public url) 은 플랫폼 데이터베이스에, 셀프카메라 사진은 AWS S3에 저장됩니다.
-2. AWS Rekognition의 IndexFaces API를 호출
-   - 얼굴 사진을 분석하고, 얼굴 특징 벡터를 추출하여 컬렉션에 저장
-3. 매 수업 시작 시, 출석 체크를 위한 강의실 전경 사진을 촬영 후 S3로 업로드 
-4. S3에 업로드된 출석 체크 사진에 대해 AWS Rekognition의 SearchFacesByImage API 호출 
-5. 매칭된 얼굴의 정보(등록된 학생 이름, 학번 등)를 반환, 교수자는 웹 인터페이스를 통해 매 수업 별 출석 결과를 확인
+2. 회원가입 시 학생들의 정보(이름, 학번) 및 학생 S3 정보(S3 Image Key, public url) 은 플랫폼 데이터베이스에, 셀프카메라 사진은 AWS S3에 저장됩니다.
+3. 회원가입 시 AWS Rekognition의 IndexFaces API를 호출하여 얼굴 사진을 분석하고, 얼굴 특징 벡터를 추출하여 Rekognition 컬렉션 및 S3에 저장합니다.
+4. 매 수업 시작 시, 출석 체크를 위한 강의실 전경 사진을 촬영 후 S3로 업로드합니다. 
+5. S3에 업로드된 출석 체크 사진에 대해 AWS Rekognition의 SearchFacesByImage API를 호출하여 컬렉션 내부에 있는 학생들의 얼굴을 검색합니다.
+6. 매칭된 얼굴의 정보(등록된 학생 이름, 학번 등)를 반환, 교수자는 웹 인터페이스를 통해 매 수업 별 출석 결과를 확인합니다.
 
 ### ERD
 <div style="display: flex; justify-content: center">
@@ -78,7 +74,9 @@
 - **attendance 테이블**
   - 교수자가 출석부 생성 시, 레코드 생성
 - **attendance_bounding_box 테이블**
+  - SearchFacesByImage API를 통해서 검색된 얼굴들의 Bounding Box 정보를 저장
 - **attendance_user 테이블**
+  - 출석부 생성 시, 수업 전경 사진에서 검색된 학생들의 출석 정보를 저장
 
 ### 프론트엔드 컴포넌트 트리
 <div style="display: flex; justify-content: center">
