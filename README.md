@@ -1,5 +1,5 @@
 # NoDaeChul
-## 프로젝트 요약
+
 <div style="display: flex; justify-content: center">
 <img src="./assets/main.svg">
 </div>
@@ -119,7 +119,3 @@
 <div style="display: flex; justify-content: center">
 <img width="60%" src="./assets/날짜클릭시 출석부 확인가능.png">
 </div>
-
-## 개발 결과물의 활용 방안
- - 앞서 언급한 기존 플라토 시스템의 단점을 보안하기 위해, AWS Rekognition을 활용한 얼굴 인식 출석 체크 시스템인 DaechulNoh를 제안함으로써 **대리출석을 방지**하고 **출석체크에 소요되는 시간 또한 단축**될 것으로 기대됩니다.
- - 또한 이 프로젝트를 통해 출석 과정의 **신뢰성**과 **공정한 학습 환경**을 조성하는데 도움을 줄 수 있습니다.
